@@ -231,21 +231,20 @@ section{padding:72px 0}
 .pd-price span{color:var(--muted-2);font-size:13px}
 .pd-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 
-/* flavor coverflow slajder (Swiper.js) */
+/* flavor slajder (scroll-snap, 3 vidljive, srednja istaknuta) */
 .flavors-sec{padding:60px 0}
-.fcar-wrap{position:relative;max-width:900px;margin-inline:auto;padding:20px 76px}
-.flavor-swiper{overflow:visible}
-.flavor-swiper .swiper-slide{width:clamp(240px,28vw,300px);opacity:.5;transition:opacity .5s var(--ease);cursor:pointer}
-.flavor-swiper .swiper-slide-active{opacity:1}
-.fslide{display:flex;flex-direction:column;text-align:center;border:1px solid var(--hair);background:var(--surface);border-radius:22px;padding:22px;transition:border-color .5s var(--ease),box-shadow .5s var(--ease)}
-.swiper-slide-active .fslide{border-color:var(--acc,var(--c2));box-shadow:0 0 0 1px var(--acc,var(--c2)),0 12px 30px -14px color-mix(in srgb,var(--acc,var(--c2)) 45%,transparent)}
+.fcar-wrap{position:relative;max-width:980px;margin-inline:auto;padding:0 76px}
+.fcar{--card:clamp(220px,26vw,280px);display:flex;gap:clamp(18px,2.6vw,34px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:38px calc(50% - var(--card)/2);scrollbar-width:none}
+.fcar::-webkit-scrollbar{display:none}
+.fslide{flex:0 0 var(--card);scroll-snap-align:center;display:flex;flex-direction:column;text-align:center;border:1px solid var(--hair);background:var(--surface);border-radius:22px;padding:22px;color:inherit;text-decoration:none;transform:scale(.86);opacity:.5;transition:transform .35s var(--ease),opacity .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
+.fslide.active{transform:scale(1.04);opacity:1;border-color:var(--acc,var(--c2));box-shadow:0 0 0 1px var(--acc,var(--c2)),0 8px 22px -12px color-mix(in srgb,var(--acc,var(--c2)) 42%,transparent)}
 .fslide .fimg{position:relative;aspect-ratio:3/4;border-radius:16px;margin-bottom:16px;display:grid;place-items:center;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2)}
-.swiper-slide-active .fslide .fimg{border-color:color-mix(in srgb,var(--acc,var(--c2)) 40%,var(--hair-2))}
+.fslide.active .fimg{border-color:color-mix(in srgb,var(--acc,var(--c2)) 40%,var(--hair-2))}
 .fslide .femo{font-size:52px;line-height:1}
 .fslide .fr{position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
 .fslide .fn{font-weight:800;font-size:18px;line-height:1.2}
 .fslide .ftag{font-family:var(--mono);font-size:11.5px;color:var(--muted-2);margin-top:6px}
-@media(max-width:620px){.fcar-wrap{padding:12px 54px}.flavor-swiper .swiper-slide{width:min(74vw,300px)}}
+@media(max-width:620px){.fcar-wrap{padding:0 54px}.fcar{--card:min(74vw,300px)}}
 
 /* specs + tech + body text */
 .spec-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}

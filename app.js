@@ -143,10 +143,10 @@ const FLAVORS = [
   showStep();
 })();
 
-/* ---------- Product page: coverflow slajder ukusa — Swiper.js (proizvod.html) ---------- */
+/* ---------- Product page: slajder ukusa — scroll-snap (proizvod.html) ---------- */
 (function () {
-  const wrapper = document.getElementById('fcar'); // .swiper-wrapper
-  if (!wrapper || typeof Swiper === 'undefined') return;
+  const fcar = document.getElementById('fcar');
+  if (!fcar) return;
   const EB6 = [
     { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', tag: 'slatki · nežniji', acc: '#ff4d9d' },
     { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', tag: 'tropski · nežniji', acc: '#ffcf5c' },
@@ -158,31 +158,42 @@ const FLAVORS = [
   const title = document.getElementById('pdTitle');
   const upd = (f) => { if (title && f) title.innerHTML = `EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">${f.fn}</span>`; };
 
-  wrapper.innerHTML = EB6.map(f => `
-    <div class="swiper-slide" data-slug="${f.slug}" style="--acc:${f.acc}">
-      <div class="fslide">
-        <div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
-        <div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div>
-      </div>
-    </div>`).join('');
+  fcar.innerHTML = EB6.map((f, i) => `
+    <a class="fslide" data-i="${i}" data-slug="${f.slug}" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="Otvori ${f.fn}">
+      <div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
+      <div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div>
+    </a>`).join('');
+  const slides = [...fcar.children];
+
+  function setActive(el) {
+    slides.forEach(s => s.classList.toggle('active', s === el));
+    upd(EB6[+el.dataset.i]);
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target); });
+  }, { root: fcar, rootMargin: '0px -50% 0px -50%', threshold: 0 });
+  slides.forEach(s => io.observe(s));
+
+  // klik na neaktivnu -> centriraj je; klik na aktivnu -> otvori stranicu (default link)
+  fcar.addEventListener('click', (e) => {
+    const s = e.target.closest('.fslide');
+    if (s && !s.classList.contains('active')) { e.preventDefault(); s.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  });
+  const go = (d) => {
+    let cur = slides.findIndex(s => s.classList.contains('active'));
+    if (cur < 0) cur = 0;
+    const t = Math.max(0, Math.min(slides.length - 1, cur + d));
+    slides[t].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  };
+  document.getElementById('fPrev').onclick = () => go(-1);
+  document.getElementById('fNext').onclick = () => go(1);
 
   let start = 0;
   const uk = new URLSearchParams(location.search).get('ukus');
   if (uk) { const i = EB6.findIndex(f => f.slug === uk); if (i >= 0) start = i; }
-  upd(EB6[start]);
-
-  const sw = new Swiper('.flavor-swiper', {
-    effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto',
-    loop: true, initialSlide: start, slideToClickedSlide: true, speed: 500,
-    coverflowEffect: { rotate: 0, stretch: 0, depth: 130, modifier: 1.4, slideShadows: false },
-    navigation: { prevEl: '#fPrev', nextEl: '#fNext' },
-  });
-  sw.on('slideChange', () => upd(EB6[sw.realIndex]));
-  sw.on('click', () => {
-    const s = sw.clickedSlide;
-    if (s && s.classList.contains('swiper-slide-active') && s.dataset.slug) {
-      location.href = `proizvod.html?ukus=${s.dataset.slug}`;
-    }
+  requestAnimationFrame(() => {
+    slides[start].scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+    setActive(slides[start]);
   });
 })();
 
