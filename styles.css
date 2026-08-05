@@ -88,9 +88,9 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rg
 .socials a:hover{color:var(--ink);border-color:var(--c3);background:var(--surface-2)}
 .socials svg{width:17px;height:17px}
 .nav-menu{display:contents}
-.nav-toggle{display:none;position:relative;width:44px;height:44px;border:1px solid var(--hair);border-radius:11px;background:transparent;color:var(--ink);cursor:pointer;flex-shrink:0}
-.nav-toggle .bars,.nav-toggle .bars::before,.nav-toggle .bars::after{content:"";position:absolute;left:11px;width:22px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),top .3s var(--ease),background .2s}
-.nav-toggle .bars{top:21px}
+.nav-toggle{display:none;position:relative;width:44px;height:44px;padding:0;border:1px solid var(--hair);border-radius:11px;background:transparent;color:var(--ink);cursor:pointer;flex-shrink:0}
+.nav-toggle .bars{position:absolute;top:50%;left:50%;translate:-50% -50%;width:22px;height:2px;background:currentColor;border-radius:2px;transition:background .2s}
+.nav-toggle .bars::before,.nav-toggle .bars::after{content:"";position:absolute;left:0;width:22px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),top .3s var(--ease)}
 .nav-toggle .bars::before{top:-7px}
 .nav-toggle .bars::after{top:7px}
 body.nav-open .nav-toggle .bars{background:transparent}
@@ -98,10 +98,13 @@ body.nav-open .nav-toggle .bars::before{top:0;transform:rotate(45deg)}
 body.nav-open .nav-toggle .bars::after{top:0;transform:rotate(-45deg)}
 @media(max-width:720px){
   .nav{gap:12px}
-  .nav-toggle{display:block}
+  .nav-toggle{display:block;margin-left:auto}
+  body.nav-open{overflow:hidden}
+  /* header ima backdrop-filter => on je containing block; zato absolute (fixed bi se vezao za header) */
   .nav-menu{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:26px;
-    position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;background:var(--bg-2);border-top:1px solid var(--hair);
-    padding:40px clamp(20px,3.4vw,44px) 52px;opacity:0;visibility:hidden;transform:translateY(-8px);
+    position:absolute;top:100%;left:0;right:0;height:calc(100dvh - 72px);z-index:39;background:var(--bg-2);
+    border-top:1px solid var(--hair);padding:40px clamp(20px,3.4vw,44px) 52px;overflow-y:auto;
+    opacity:0;visibility:hidden;transform:translateY(-8px);
     transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s}
   body.nav-open .nav-menu{opacity:1;visibility:visible;transform:none}
   .nav-menu .center{flex-direction:column;align-items:flex-start;gap:4px;margin:0}
@@ -132,10 +135,14 @@ section{padding:72px 0}
 .slide .btn{margin-top:34px}
 .ghost-prod{flex:0 0 clamp(150px,20vw,230px);aspect-ratio:3/5;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03));border:1px dashed rgba(255,255,255,.26);display:grid;place-items:center;color:rgba(255,255,255,.5);font-family:var(--mono);font-size:11px;text-align:center;letter-spacing:.06em}
 @media(max-width:720px){
-  .slide{flex-direction:column;align-items:center;text-align:center;gap:18px}
-  .slide-txt{align-items:center;max-width:100%}
-  .ghost-prod{display:grid;order:-1;flex:0 0 auto;width:min(58%,230px);aspect-ratio:3/4;margin:0}
-  .slide .btn{margin-top:26px}
+  /* display:contents -> deca .slide-txt postaju flex stavke .slide, pa slika moze izmedju teksta i dugmeta */
+  .slide{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0;padding:44px 24px 56px}
+  .slide-txt{display:contents}
+  .slide .pill{order:1;margin-bottom:10px}
+  .slide h2{order:2}
+  .slide .sub{order:3;margin-top:10px}
+  .ghost-prod{order:4;display:grid;flex:0 0 auto;width:min(56%,200px);aspect-ratio:3/4;margin:24px 0 0}
+  .slide .btn{order:5;margin-top:28px}
 }
 .dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
 .dots button{width:9px;height:9px;border-radius:999px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:.25s var(--ease)}
