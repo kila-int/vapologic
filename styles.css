@@ -44,7 +44,8 @@ img{max-width:100%;display:block}
 .orb-1{width:520px;height:520px;top:-160px;right:-120px;background:radial-gradient(circle,rgba(56,214,255,.5),transparent 70%)}
 .orb-2{width:560px;height:560px;top:240px;left:-200px;background:radial-gradient(circle,rgba(255,77,157,.4),transparent 70%)}
 
-.pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);background:var(--surface-2)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;line-height:1;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);background:var(--surface-2)}
+.pbody .pill{align-self:flex-start}
 .note{font-size:13px;color:var(--muted-2);border-left:2px solid var(--c2);padding:4px 0 4px 12px;margin-top:12px}
 
 /* placeholder image frame */
@@ -121,21 +122,14 @@ section{padding:72px 0}
 .stat-num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.01em;background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .stat-lbl{margin-top:10px;color:var(--muted);font-size:14px}
 
-/* ---------- CARD TRAVELING RING (products, posts, video) ---------- */
-@property --brd{syntax:"<angle>";inherits:false;initial-value:0deg}
-@keyframes brdspin{to{--brd:360deg}}
+/* ---------- CARD HOVER: statičan neon glow (bez pokretnih linija) ---------- */
 .ring{position:relative}
-.ring::after{content:"";position:absolute;inset:-2px;border-radius:calc(var(--r-card) + 2px);padding:2px;
-  background:conic-gradient(from var(--brd),transparent 0deg,transparent 250deg,#ff4d9d 296deg,#b14bff 326deg,#38d6ff 352deg,transparent 360deg);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
-  filter:drop-shadow(0 0 5px rgba(177,75,255,.65));opacity:0;transition:opacity .45s var(--ease);animation:brdspin 5s linear infinite;animation-play-state:paused;pointer-events:none}
-.ring:hover::after,.ring:focus-visible::after{opacity:1;animation-play-state:running}
 
 /* ---------- PRODUCTS GRID ---------- */
 .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:860px){.prods{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);transition:transform .4s var(--ease),border-color .4s var(--ease);display:flex;flex-direction:column;color:inherit}
-.card:hover{transform:translateY(-6px);border-color:var(--hair-2)}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);display:flex;flex-direction:column;color:inherit}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
 .card .shot{aspect-ratio:1/1;position:relative;border-radius:var(--r-card) var(--r-card) 0 0;overflow:hidden;border-bottom:1px solid var(--hair)}
 .card.eb .shot,.card.eb6 .shot{background:radial-gradient(circle at 50% 30%,rgba(56,214,255,.36),transparent 62%),#141020}
 .card.bm .shot{background:radial-gradient(circle at 50% 30%,rgba(255,77,157,.36),transparent 62%),#141020}
@@ -205,8 +199,8 @@ section{padding:72px 0}
 /* ---------- BLOG cards ---------- */
 .blog{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:760px){.blog{grid-template-columns:1fr}}
-.post{border:1px solid var(--hair);border-radius:var(--r-card);background:var(--surface);transition:transform .3s var(--ease),border-color .3s var(--ease);display:flex;flex-direction:column;color:inherit}
-.post:hover{transform:translateY(-6px);border-color:var(--hair-2)}
+.post{border:1px solid var(--hair);border-radius:var(--r-card);background:var(--surface);transition:transform .3s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);display:flex;flex-direction:column;color:inherit}
+.post:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
 .post .thumb{aspect-ratio:3/2;border-radius:var(--r-card) var(--r-card) 0 0;border-bottom:1px solid var(--hair)}
 .post .pbody{padding:22px;display:flex;flex-direction:column;gap:9px}
 .post h3{font-size:19px;line-height:1.22}
