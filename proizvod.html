@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/proizvod.html">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"Elfbar EB6000","brand":{"@type":"Brand","name":"Elfbar"},"description":"Premium jednokratni uređaj do 6000 puffova, Type-C punjenje, 6 ukusa i 4 boje."}
 </script>
@@ -57,18 +57,15 @@
     </div>
   </div>
 
-  <!-- Flavor icons (zamenjuju slajder) -->
+  <!-- Coverflow slajder ukusa -->
   <section class="flavors-sec">
     <div class="wrap">
-      <div class="sec-head"><span class="eyebrow">Ukusi</span><h2 class="sec-title">6 ukusa EB6000</h2>
-        <p class="lead">Klikni na ukus da otvoriš njegovu stranicu.</p></div>
-      <div class="flavor-grid" id="flavorGrid">
-        <a class="flavor" data-ukus="watermelon-ice" href="proizvod.html?ukus=watermelon-ice"><span class="fdot" aria-hidden="true">🍉</span><span class="fname">Watermelon Ice</span><span class="ftag">slatki · nežniji</span></a>
-        <a class="flavor" data-ukus="triple-mango" href="proizvod.html?ukus=triple-mango"><span class="fdot" aria-hidden="true">🥭</span><span class="fname">Triple Mango</span><span class="ftag">tropski · nežniji</span></a>
-        <a class="flavor" data-ukus="strawberry-ice" href="proizvod.html?ukus=strawberry-ice"><span class="fdot" aria-hidden="true">🍓</span><span class="fname">Strawberry Ice</span><span class="ftag">slatki · snažniji</span></a>
-        <a class="flavor" data-ukus="menthol" href="proizvod.html?ukus=menthol"><span class="fdot" aria-hidden="true">❄️</span><span class="fname">Menthol</span><span class="ftag">osvežavajući · snažniji</span></a>
-        <a class="flavor" data-ukus="grape" href="proizvod.html?ukus=grape"><span class="fdot" aria-hidden="true">🍇</span><span class="fname">Grape</span><span class="ftag">osvežavajući · nežniji</span></a>
-        <a class="flavor" data-ukus="blueberry-sour-raspberry" href="proizvod.html?ukus=blueberry-sour-raspberry"><span class="fdot" aria-hidden="true">🫐</span><span class="fname">Blueberry Sour Raspberry</span><span class="ftag">kiseli · snažniji</span></a>
+      <div class="sec-head center"><span class="eyebrow">Ukusi</span><h2 class="sec-title">6 ukusa EB6000</h2>
+        <p class="lead" style="text-align:center">Prelistaj ukuse strelicama i klikni na istaknutu karticu da otvoriš njenu stranicu.</p></div>
+      <div class="fcar-wrap">
+        <button class="fcar-arrow" onclick="fgo(-1)" aria-label="Prethodni ukus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="fcar" id="fcar"></div>
+        <button class="fcar-arrow" onclick="fgo(1)" aria-label="Sledeći ukus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
   </section>
@@ -111,6 +108,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

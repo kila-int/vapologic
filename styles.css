@@ -231,17 +231,23 @@ section{padding:72px 0}
 .pd-price span{color:var(--muted-2);font-size:13px}
 .pd-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 
-/* flavor icon links (replaces slider) */
+/* flavor coverflow slajder (3 vidljive, srednja istaknuta) */
 .flavors-sec{padding:60px 0}
-.flavor-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-@media(max-width:900px){.flavor-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:520px){.flavor-grid{grid-template-columns:repeat(2,1fr)}}
-.flavor{border:1px solid var(--hair);background:var(--surface);border-radius:18px;padding:20px 12px;text-align:center;transition:.22s var(--ease);color:inherit;display:flex;flex-direction:column;align-items:center;gap:10px}
-.flavor:hover{transform:translateY(-4px);border-color:var(--c2);background:var(--surface-2)}
-.flavor.active{border-color:var(--c1);box-shadow:0 0 0 1px var(--c1) inset}
-.flavor .fdot{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--candy-soft);border:1px solid var(--hair)}
-.flavor .fname{font-weight:700;font-size:14px;line-height:1.2}
-.flavor .ftag{font-family:var(--mono);font-size:10.5px;color:var(--muted-2);letter-spacing:.02em}
+.fcar-wrap{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,22px)}
+.fcar-arrow{flex-shrink:0;width:52px;height:52px;border-radius:999px;border:1px solid var(--hair-2);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:.2s var(--ease)}
+.fcar-arrow:hover{border-color:var(--c2);background:var(--surface-2)}
+.fcar-arrow svg{width:20px;height:20px}
+.fcar{flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,20px);min-height:420px;overflow:hidden}
+.fslide{flex:0 0 clamp(190px,20vw,232px);display:flex;flex-direction:column;text-align:center;border:1px solid var(--hair);background:var(--surface);border-radius:20px;padding:18px;color:inherit;text-decoration:none;cursor:pointer;font-family:inherit;opacity:.4;transform:scale(.82);transition:transform .4s var(--ease),opacity .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.fslide:not(.active){filter:saturate(.6)}
+.fslide.active{opacity:1;transform:scale(1.06);filter:none;border-color:var(--acc,var(--c2));box-shadow:0 0 0 1px var(--acc,var(--c2)),0 22px 60px -16px color-mix(in srgb,var(--acc,var(--c2)) 55%,transparent),0 0 34px -6px color-mix(in srgb,var(--acc,var(--c2)) 40%,transparent)}
+.fslide .fimg{position:relative;aspect-ratio:3/4;border-radius:14px;margin-bottom:14px;display:grid;place-items:center;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2)}
+.fslide.active .fimg{border-color:color-mix(in srgb,var(--acc,var(--c2)) 45%,var(--hair-2))}
+.fslide .femo{font-size:44px;line-height:1}
+.fslide .fr{position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
+.fslide .fn{font-weight:800;font-size:16px;line-height:1.2}
+.fslide .ftag{font-family:var(--mono);font-size:11px;color:var(--muted-2);margin-top:5px}
+@media(max-width:620px){.fcar{min-height:360px}.fslide{flex-basis:min(74vw,260px)}.fslide:not(.active){display:none}}
 
 /* specs + tech + body text */
 .spec-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}

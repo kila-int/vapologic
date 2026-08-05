@@ -143,19 +143,42 @@ const FLAVORS = [
   showStep();
 })();
 
-/* ---------- Product page: ?ukus= highlight (proizvod.html) ---------- */
+/* ---------- Product page: coverflow slajder ukusa (proizvod.html) ---------- */
 (function () {
-  const grid = document.getElementById('flavorGrid');
-  if (!grid) return;
+  const box = document.getElementById('fcar');
+  if (!box) return;
+  const EB6 = [
+    { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', tag: 'slatki · nežniji', acc: '#ff4d9d' },
+    { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', tag: 'tropski · nežniji', acc: '#ffcf5c' },
+    { fn: 'Strawberry Ice', slug: 'strawberry-ice', emo: '🍓', tag: 'slatki · snažniji', acc: '#ff4d9d' },
+    { fn: 'Menthol', slug: 'menthol', emo: '❄️', tag: 'osvežavajući · snažniji', acc: '#38d6ff' },
+    { fn: 'Grape', slug: 'grape', emo: '🍇', tag: 'osvežavajući · nežniji', acc: '#b14bff' },
+    { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', emo: '🫐', tag: 'kiseli · snažniji', acc: '#38d6ff' },
+  ];
+  const N = EB6.length;
+  const title = document.getElementById('pdTitle');
+  let center = 0;
   const uk = new URLSearchParams(location.search).get('ukus');
-  if (!uk) return;
-  const active = grid.querySelector(`.flavor[data-ukus="${uk}"]`);
-  if (active) {
-    active.classList.add('active');
-    const name = active.querySelector('.fname').textContent;
-    const title = document.getElementById('pdTitle');
-    if (title) title.innerHTML = `EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">${name}</span>`;
+  if (uk) { const i = EB6.findIndex(f => f.slug === uk); if (i >= 0) center = i; }
+
+  function render() {
+    box.innerHTML = '';
+    for (let o = -1; o <= 1; o++) {
+      const f = EB6[((center + o) % N + N) % N];
+      const el = document.createElement(o === 0 ? 'a' : 'button');
+      el.className = 'fslide' + (o === 0 ? ' active' : '');
+      el.style.setProperty('--acc', f.acc);
+      if (o === 0) { el.href = `proizvod.html?ukus=${f.slug}`; el.setAttribute('aria-label', `Otvori ${f.fn}`); }
+      else { el.type = 'button'; el.setAttribute('aria-label', o < 0 ? 'Prethodni ukus' : 'Sledeći ukus'); el.onclick = () => step(o); }
+      el.innerHTML = `<div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
+        <div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div>`;
+      box.appendChild(el);
+    }
+    if (title) { const f = EB6[center]; title.innerHTML = `EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">${f.fn}</span>`; }
   }
+  function step(d) { center = ((center + d) % N + N) % N; render(); }
+  window.fgo = step;
+  render();
 })();
 
 /* ---------- Locations page + clustering (lokacije.html) ---------- */
