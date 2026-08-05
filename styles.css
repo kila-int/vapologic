@@ -87,6 +87,11 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rg
 .socials a{width:38px;height:38px;border:1px solid var(--hair);border-radius:11px;display:grid;place-items:center;color:var(--muted);transition:.2s}
 .socials a:hover{color:var(--ink);border-color:var(--c3);background:var(--surface-2)}
 .socials svg{width:17px;height:17px}
+@media(max-width:720px){
+  .nav{flex-direction:column;height:auto;gap:12px;padding-block:14px}
+  .nav .center{flex-wrap:wrap;justify-content:center;gap:6px;margin:0}
+  .socials{justify-content:center}
+}
 
 main{padding-bottom:20px}
 section{padding:72px 0}
@@ -94,7 +99,7 @@ section{padding:72px 0}
 .sec-head.center{text-align:center;align-items:center}
 
 /* ---------- HERO SLIDER ---------- */
-.hero{padding:28px 0 8px}
+.hero{padding-top:28px;padding-bottom:8px}
 .slider{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
 .slides{display:flex;transition:transform .6s var(--ease)}
 .slide{min-width:100%;display:flex;align-items:center;gap:clamp(20px,4vw,56px);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
@@ -213,7 +218,7 @@ section{padding:72px 0}
 .playbtn div{width:0;height:0;border-left:21px solid #111;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
 
 /* ============ PRODUCT PAGE ============ */
-.crumbs{font-family:var(--mono);font-size:12.5px;color:var(--muted-2);padding:24px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.crumbs{font-family:var(--mono);font-size:12.5px;color:var(--muted-2);padding-top:24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .crumbs a{cursor:pointer;color:var(--muted)}.crumbs a:hover{color:var(--ink)}
 .pd-top{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:28px 0 12px}
 @media(max-width:860px){.pd-top{grid-template-columns:1fr}}
@@ -271,7 +276,7 @@ section{padding:72px 0}
 .art-more{border-top:1px solid var(--hair);margin-top:34px}
 
 /* ============ LOCATIONS PAGE ============ */
-.locpage-hero{padding:36px 0 8px}
+.locpage-hero{padding-top:36px;padding-bottom:8px}
 .locpanel{display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:stretch}
 @media(max-width:900px){.locpanel{grid-template-columns:1fr}}
 .locside{background:var(--bg-2);border:1px solid var(--hair);border-radius:var(--r-card);padding:26px;display:flex;flex-direction:column}
