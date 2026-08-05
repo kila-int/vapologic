@@ -238,8 +238,16 @@ const FLAVORS = [
   let mapReady = false, refMarker = null, pending = null;
 
   map.on('load', () => {
-    // Kosovo u sastavu Srbije: sakrij sporni granični sloj (i sve varijante)
-    map.getStyle().layers.forEach(l => { if (/disput/i.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
+    // Kosovo u sastavu Srbije: (1) sakrij spornu granicu, (2) ukloni tekstualni natpis "Kosovo"
+    const KOS = ['Kosovo', 'Kosovë', 'Kosova', 'Kosovo*', 'Косово', 'Republika Kosovo', 'Republika e Kosovës'];
+    map.getStyle().layers.forEach(l => {
+      if (/disput/i.test(l.id)) { map.setLayoutProperty(l.id, 'visibility', 'none'); return; }
+      if (l.type === 'symbol' && l['source-layer'] === 'place') {
+        const excl = ['all', ['!in', 'name'].concat(KOS), ['!in', 'name:en'].concat(KOS)];
+        const cur = map.getFilter(l.id);
+        map.setFilter(l.id, cur ? ['all', cur, excl] : excl);
+      }
+    });
 
     map.addSource('radius', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'radius-fill', type: 'fill', source: 'radius', paint: { 'fill-color': '#b14bff', 'fill-opacity': 0.1 } });
