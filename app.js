@@ -197,9 +197,10 @@ const FLAVORS = [
     }
   });
 
-  const map = L.map('locmap', { scrollWheelZoom: false, zoomControl: true }).setView([44.05, 20.8], 7);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19,
+  const map = L.map('locmap', { scrollWheelZoom: false, zoomControl: false }).setView([44.05, 20.8], 7);
+  // Esri World Imagery (satelit) — nema iscrtanih političkih granica, pa Kosovo NIJE odvojeno od Srbije.
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri', maxZoom: 19,
   }).addTo(map);
 
   const cluster = (typeof L.markerClusterGroup === 'function')
