@@ -5,6 +5,33 @@ const slug = (s) => s.toLowerCase()
   .replace(/č|ć/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'dj')
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+/* ---------- Nav hamburger + FAQ accordion (sve stranice) ---------- */
+window.toggleNav = () => {
+  const open = document.body.classList.toggle('nav-open');
+  const btn = document.querySelector('.nav-toggle');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+};
+window.toggleFaq = (btn) => {
+  const item = btn.closest('.faq');
+  if (!item) return;
+  const open = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+};
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.nav-menu a') && document.body.classList.contains('nav-open')) {
+    document.body.classList.remove('nav-open');
+    const btn = document.querySelector('.nav-toggle');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
+    document.body.classList.remove('nav-open');
+    const btn = document.querySelector('.nav-toggle');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+});
+
 /* ---------- AGE GATE (sve stranice) ---------- */
 (function () {
   if (localStorage.getItem('vpl_age18') === '1') return;
