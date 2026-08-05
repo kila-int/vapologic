@@ -266,11 +266,15 @@ section{padding:72px 0}
 
 /* flavor slajder (scroll-snap, 3 vidljive, srednja istaknuta) */
 .flavors-sec{padding:60px 0}
-.fcar-wrap{--card:clamp(200px,23vw,264px);--gap:clamp(16px,2vw,26px);--peek:74px;--arrow:66px;position:relative;width:min(100%,calc(var(--card) + 2*var(--gap) + 2*var(--peek) + 2*var(--arrow)));margin-inline:auto;padding-inline:var(--arrow)}
-.fcar{display:flex;gap:var(--gap);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:38px calc(var(--gap) + var(--peek));scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+/* zaglavlje sekcije: naslov levo, strelice gore desno */
+.fhead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+.fhead .sec-head{margin-bottom:0}
+.fnav{display:flex;gap:10px;flex-shrink:0}
+.fnav .arrow{position:static;transform:none;top:auto;left:auto;right:auto}
+/* full-bleed traka: .fcar-wrap je van .wrap-a, pa je siroka koliko i sekcija (bez 100vw => bez H-scrolla) */
+.fcar-wrap{--card:clamp(230px,22vw,310px);--gap:clamp(14px,1.6vw,24px);position:relative;width:100%}
+.fcar{display:flex;gap:var(--gap);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:34px calc(50% - var(--card)/2);scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
 .fcar::-webkit-scrollbar{display:none}
-.fcar-wrap .arrow.prev{left:8px}
-.fcar-wrap .arrow.next{right:8px}
 .fslide{flex:0 0 var(--card);scroll-snap-align:center;display:flex;flex-direction:column;text-align:center;border:1px solid var(--hair);background:var(--surface);border-radius:22px;padding:22px;color:inherit;text-decoration:none;transform:scale(.92);opacity:.66;transition:transform .35s var(--ease),opacity .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
 .fslide.active{transform:scale(1.04);opacity:1;border-color:var(--acc,var(--c2));box-shadow:0 0 0 1px var(--acc,var(--c2)),0 8px 22px -12px color-mix(in srgb,var(--acc,var(--c2)) 42%,transparent)}
 .fslide .fimg{position:relative;aspect-ratio:3/4;border-radius:16px;margin-bottom:16px;display:grid;place-items:center;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2)}
@@ -279,7 +283,7 @@ section{padding:72px 0}
 .fslide .fr{position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
 .fslide .fn{font-weight:800;font-size:18px;line-height:1.2}
 .fslide .ftag{font-family:var(--mono);font-size:11.5px;color:var(--muted-2);margin-top:6px}
-@media(max-width:620px){.fcar-wrap{--card:46vw;--gap:10px;--peek:calc(0.3 * var(--card));--arrow:40px}.fcar-wrap .arrow{width:36px;height:36px}.fcar-wrap .arrow.prev{left:2px}.fcar-wrap .arrow.next{right:2px}.fcar-wrap .arrow svg{width:16px;height:16px}}
+@media(max-width:620px){.fcar-wrap{--card:min(62vw,280px);--gap:12px}.fnav .arrow{width:42px;height:42px}}
 
 /* specs + tech + body text */
 .spec-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}
