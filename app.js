@@ -249,6 +249,14 @@ const FLAVORS = [
       }
     });
 
+    // Srpski nazivi svuda (Latinica -> Ćirilica -> latinizovano -> lokalno)
+    const SR = ['coalesce', ['get', 'name:sr-Latn'], ['get', 'name:sr'], ['get', 'name:latin'], ['get', 'name']];
+    map.getStyle().layers.forEach(l => {
+      if (l.type === 'symbol' && map.getLayoutProperty(l.id, 'text-field')) {
+        map.setLayoutProperty(l.id, 'text-field', SR);
+      }
+    });
+
     map.addSource('radius', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'radius-fill', type: 'fill', source: 'radius', paint: { 'fill-color': '#b14bff', 'fill-opacity': 0.1 } });
     map.addLayer({ id: 'radius-line', type: 'line', source: 'radius', paint: { 'line-color': '#b14bff', 'line-width': 1 } });
