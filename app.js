@@ -161,7 +161,8 @@ const FLAVORS = [
 /* ---------- Locations page + clustering (lokacije.html) ---------- */
 (function () {
   const mapEl = document.getElementById('locmap');
-  if (!mapEl || typeof L === 'undefined') return;
+  if (!mapEl || typeof maplibregl === 'undefined') return;
+  const MAPTILER_KEY = 'xCboGTDaRsqFuVgneleh'; // javni client ključ — ograničiti na domen u MapTiler dashboardu
 
   const CITIES = {
     'beograd': [44.8125, 20.4612], 'novi sad': [45.2671, 19.8335], 'nis': [43.3209, 21.8958],
@@ -197,69 +198,127 @@ const FLAVORS = [
     }
   });
 
-  const map = L.map('locmap', { scrollWheelZoom: false, zoomControl: false }).setView([44.05, 20.8], 7);
-  // Esri World Imagery (satelit) — nema iscrtanih političkih granica, pa Kosovo NIJE odvojeno od Srbije.
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri', maxZoom: 19,
-  }).addTo(map);
-
-  const cluster = (typeof L.markerClusterGroup === 'function')
-    ? L.markerClusterGroup({ maxClusterRadius: 55, chunkedLoading: true, showCoverageOnHover: false })
-    : L.layerGroup();
-  LOCATIONS.forEach((loc, i) => {
-    const m = L.circleMarker([loc.lat, loc.lng], {
-      radius: 7, color: '#fff', weight: 1.4, fillColor: i % 2 ? '#38d6ff' : '#ff4d9d', fillOpacity: .9,
-    }).bindPopup(`<b>${loc.name}</b><br>${loc.addr}`);
-    loc._m = m;
-    cluster.addLayer(m);
+  const map = new maplibregl.Map({
+    container: 'locmap',
+    style: `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_KEY}`,
+    center: [20.8, 44.05], zoom: 6, attributionControl: false,
   });
-  cluster.addTo(map);
+  map.addControl(new maplibregl.AttributionControl({ compact: true }));
 
-  let refMarker = null, refCircle = null;
+  const fc = {
+    type: 'FeatureCollection',
+    features: LOCATIONS.map((l, i) => ({
+      type: 'Feature', geometry: { type: 'Point', coordinates: [l.lng, l.lat] },
+      properties: { id: i, name: l.name, addr: l.addr },
+    })),
+  };
+
   const R = 6371, rad = (d) => d * Math.PI / 180;
   const haversine = (a, b, c, d) => {
     const dLat = rad(c - a), dLng = rad(d - b);
     const x = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a)) * Math.cos(rad(c)) * Math.sin(dLng / 2) ** 2;
     return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
   };
+  function circlePolygon(lat, lng, km, n = 72) {
+    const coords = [], latR = rad(lat), lngR = rad(lng), dR = km / R;
+    for (let i = 0; i <= n; i++) {
+      const brng = 2 * Math.PI * i / n;
+      const lat2 = Math.asin(Math.sin(latR) * Math.cos(dR) + Math.cos(latR) * Math.sin(dR) * Math.cos(brng));
+      const lng2 = lngR + Math.atan2(Math.sin(brng) * Math.sin(dR) * Math.cos(latR), Math.cos(dR) - Math.sin(latR) * Math.sin(lat2));
+      coords.push([lng2 * 180 / Math.PI, lat2 * 180 / Math.PI]);
+    }
+    return { type: 'Feature', geometry: { type: 'Polygon', coordinates: [coords] } };
+  }
 
   const radiusInput = document.getElementById('locRadius');
   const radiusVal = document.getElementById('locRadiusVal');
   radiusInput.addEventListener('input', () => radiusVal.textContent = radiusInput.value + ' km');
   const resultsEl = document.getElementById('locResults');
 
+  let mapReady = false, refMarker = null, pending = null;
+
+  map.on('load', () => {
+    // Kosovo u sastavu Srbije: sakrij sporni granični sloj (i sve varijante)
+    map.getStyle().layers.forEach(l => { if (/disput/i.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
+
+    map.addSource('radius', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({ id: 'radius-fill', type: 'fill', source: 'radius', paint: { 'fill-color': '#b14bff', 'fill-opacity': 0.1 } });
+    map.addLayer({ id: 'radius-line', type: 'line', source: 'radius', paint: { 'line-color': '#b14bff', 'line-width': 1 } });
+
+    map.addSource('locs', { type: 'geojson', data: fc, cluster: true, clusterRadius: 50, clusterMaxZoom: 12 });
+    map.addLayer({
+      id: 'clusters', type: 'circle', source: 'locs', filter: ['has', 'point_count'],
+      paint: {
+        'circle-color': '#b14bff', 'circle-opacity': 0.85,
+        'circle-radius': ['step', ['get', 'point_count'], 15, 10, 20, 30, 27],
+        'circle-stroke-width': 2, 'circle-stroke-color': 'rgba(255,255,255,.4)',
+      },
+    });
+    map.addLayer({
+      id: 'cluster-count', type: 'symbol', source: 'locs', filter: ['has', 'point_count'],
+      layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 13 },
+      paint: { 'text-color': '#fff' },
+    });
+    map.addLayer({
+      id: 'points', type: 'circle', source: 'locs', filter: ['!', ['has', 'point_count']],
+      paint: { 'circle-color': '#ff4d9d', 'circle-radius': 7, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#fff' },
+    });
+
+    map.on('click', 'clusters', (e) => {
+      const f = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      map.getSource('locs').getClusterExpansionZoom(f[0].properties.cluster_id)
+        .then(z => map.easeTo({ center: f[0].geometry.coordinates, zoom: z }));
+    });
+    map.on('click', 'points', (e) => {
+      const p = e.features[0].properties;
+      new maplibregl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML(`<b>${p.name}</b><br>${p.addr}`).addTo(map);
+    });
+    ['clusters', 'points'].forEach(id => {
+      map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
+      map.on('mouseleave', id, () => map.getCanvas().style.cursor = '');
+    });
+
+    mapReady = true;
+    if (pending) { const p = pending; pending = null; search(p[0], p[1], p[2]); }
+  });
+
   function search(refLat, refLng, label) {
+    if (!mapReady) { pending = [refLat, refLng, label]; return; }
     const km = +radiusInput.value;
     const near = LOCATIONS.map(l => ({ ...l, d: haversine(refLat, refLng, l.lat, l.lng) }))
       .filter(l => l.d <= km).sort((a, b) => a.d - b.d);
 
-    if (refMarker) map.removeLayer(refMarker);
-    if (refCircle) map.removeLayer(refCircle);
-    refMarker = L.circleMarker([refLat, refLng], { radius: 9, color: '#fff', weight: 2, fillColor: '#b14bff', fillOpacity: 1 })
-      .addTo(map).bindPopup(`<b>${label}</b>`);
-    refCircle = L.circle([refLat, refLng], { radius: km * 1000, color: '#b14bff', weight: 1, fillColor: '#b14bff', fillOpacity: .08 }).addTo(map);
+    map.getSource('radius').setData(circlePolygon(refLat, refLng, km));
+    if (refMarker) refMarker.remove();
+    refMarker = new maplibregl.Marker({ color: '#b14bff' }).setLngLat([refLng, refLat])
+      .setPopup(new maplibregl.Popup().setHTML(`<b>${label}</b>`)).addTo(map);
 
     resultsEl.innerHTML = '';
     if (near.length === 0) {
       resultsEl.innerHTML = `<div class="locempty">Nema lokacija u krugu od ${km} km. Povećaj radijus.</div>`;
-    } else {
-      const head = document.createElement('div');
-      head.className = 'locempty';
-      head.textContent = `${near.length} lokacija u krugu od ${km} km — najbliža ${near[0].d.toFixed(1)} km:`;
-      resultsEl.appendChild(head);
-      near.slice(0, 30).forEach(l => {
-        const item = document.createElement('div');
-        item.className = 'locitem'; item.tabIndex = 0;
-        item.innerHTML = `<div class="ln">${l.name}</div><div class="la">${l.addr}</div><div class="ld">${l.d.toFixed(1)} km od tebe</div>`;
-        const focus = () => { map.setView([l.lat, l.lng], 13); l._m.openPopup(); };
-        item.onclick = focus;
-        item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
-        resultsEl.appendChild(item);
-      });
+      map.easeTo({ center: [refLng, refLat], zoom: 8 });
+      return;
     }
-    const pts = [[refLat, refLng], ...near.map(l => [l.lat, l.lng])];
-    if (near.length) map.fitBounds(pts, { padding: [40, 40], maxZoom: 12 });
-    else map.setView([refLat, refLng], 9);
+    const head = document.createElement('div');
+    head.className = 'locempty';
+    head.textContent = `${near.length} lokacija u krugu od ${km} km — najbliža ${near[0].d.toFixed(1)} km:`;
+    resultsEl.appendChild(head);
+    near.slice(0, 30).forEach(l => {
+      const item = document.createElement('div');
+      item.className = 'locitem'; item.tabIndex = 0;
+      item.innerHTML = `<div class="ln">${l.name}</div><div class="la">${l.addr}</div><div class="ld">${l.d.toFixed(1)} km od tebe</div>`;
+      const focus = () => {
+        map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
+        new maplibregl.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${l.name}</b><br>${l.addr}`).addTo(map);
+      };
+      item.onclick = focus;
+      item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
+      resultsEl.appendChild(item);
+    });
+
+    const b = new maplibregl.LngLatBounds([refLng, refLat], [refLng, refLat]);
+    near.forEach(l => b.extend([l.lng, l.lat]));
+    map.fitBounds(b, { padding: 50, maxZoom: 12 });
   }
 
   document.getElementById('locForm').addEventListener('submit', (e) => {
