@@ -249,8 +249,8 @@ const FLAVORS = [
       }
     });
 
-    // Srpski nazivi svuda (Latinica -> Ćirilica -> latinizovano -> lokalno)
-    const SR = ['coalesce', ['get', 'name:sr-Latn'], ['get', 'name:sr'], ['get', 'name:latin'], ['get', 'name']];
+    // Nazivi SAMO latinica: srpska latinica -> latinizovano -> lokalno (bez ćirilice)
+    const SR = ['coalesce', ['get', 'name:sr-Latn'], ['get', 'name:latin'], ['get', 'name']];
     map.getStyle().layers.forEach(l => {
       if (l.type === 'symbol' && map.getLayoutProperty(l.id, 'text-field')) {
         map.setLayoutProperty(l.id, 'text-field', SR);
