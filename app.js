@@ -251,13 +251,18 @@ const FLAVORS = [
     ['Vranje', 42.5514, 21.8983, 7], ['Šabac', 44.7489, 19.6906, 8],
   ];
   const types = ['Kiosk Duvan', 'Benzinska stanica', 'Vape Shop', 'Mini market', 'Trafika'];
+  const STREETS = ['Kralja Petra', 'Cara Dušana', 'Njegoševa', 'Vojvode Mišića', 'Bulevar oslobođenja',
+    'Svetog Save', 'Karađorđeva', 'Nemanjina', 'Knez Mihailova', 'Maksima Gorkog', 'Stevana Sremca',
+    'Dositejeva', 'Gundulićeva', 'Jevrejska', 'Zmaj Jovina', 'Bulevar kralja Aleksandra', 'Takovska'];
   const LOCATIONS = [];
   centers.forEach(c => {
     for (let i = 0; i < c[3]; i++) {
       const spread = 0.09;
+      const street = STREETS[(LOCATIONS.length * 7 + i) % STREETS.length];
+      const num = 1 + ((LOCATIONS.length * 13 + i * 5) % 148);
       LOCATIONS.push({
         name: `${types[LOCATIONS.length % types.length]} — ${c[0]}`,
-        addr: `${c[0]}, Srbija`,
+        addr: `${street} ${num}, ${c[0]}`,
         lat: c[1] + (Math.random() - 0.5) * spread,
         lng: c[2] + (Math.random() - 0.5) * spread * 1.4,
       });
@@ -266,7 +271,7 @@ const FLAVORS = [
 
   const map = new maplibregl.Map({
     container: 'locmap',
-    style: `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_KEY}`,
+    style: `https://api.maptiler.com/maps/streets-v2-dark/style.json?key=${MAPTILER_KEY}`,
     center: [20.8, 44.05], zoom: 6, attributionControl: false,
   });
   map.addControl(new maplibregl.AttributionControl({ compact: true }));
@@ -318,9 +323,11 @@ const FLAVORS = [
     // Nazivi SAMO latinica: srpska latinica -> latinizovano -> lokalno (bez ćirilice)
     const SR = ['coalesce', ['get', 'name:sr-Latn'], ['get', 'name:latin'], ['get', 'name']];
     map.getStyle().layers.forEach(l => {
-      if (l.type === 'symbol' && map.getLayoutProperty(l.id, 'text-field')) {
-        map.setLayoutProperty(l.id, 'text-field', SR);
-      }
+      if (l.type !== 'symbol') return;
+      const tf = map.getLayoutProperty(l.id, 'text-field');
+      // preskoci oznake puteva/kucnih brojeva (ref, housenumber) — menjamo samo natpise sa imenom
+      if (!tf || !JSON.stringify(tf).includes('name')) return;
+      map.setLayoutProperty(l.id, 'text-field', SR);
     });
 
     map.addSource('radius', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
@@ -364,6 +371,13 @@ const FLAVORS = [
     if (pending) { const p = pending; pending = null; search(p[0], p[1], p[2]); }
   });
 
+  // na mobilnom je mapa ispod forme -> posle pretrage vodi korisnika dole do mape
+  const scrollToMapOnMobile = () => {
+    if (window.matchMedia('(max-width:900px)').matches) {
+      setTimeout(() => mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    }
+  };
+
   function search(refLat, refLng, label) {
     if (!mapReady) { pending = [refLat, refLng, label]; return; }
     const km = +radiusInput.value;
@@ -379,6 +393,7 @@ const FLAVORS = [
     if (near.length === 0) {
       resultsEl.innerHTML = `<div class="locempty">Nema lokacija u krugu od ${km} km. Povećaj radijus.</div>`;
       map.easeTo({ center: [refLng, refLat], zoom: 8 });
+      scrollToMapOnMobile();
       return;
     }
     const head = document.createElement('div');
@@ -401,6 +416,7 @@ const FLAVORS = [
     const b = new maplibregl.LngLatBounds([refLng, refLat], [refLng, refLat]);
     near.forEach(l => b.extend([l.lng, l.lat]));
     map.fitBounds(b, { padding: 50, maxZoom: 12 });
+    scrollToMapOnMobile();
   }
 
   document.getElementById('locForm').addEventListener('submit', (e) => {
