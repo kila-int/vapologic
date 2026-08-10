@@ -113,30 +113,29 @@ const FLAVORS = [
 ];
 
 (function () {
-  const nextBtn = document.getElementById('nextBtn');
-  if (!nextBtn) return;
+  const backBtn = document.getElementById('backBtn');
+  if (!backBtn) return;
   let step = 0;
   const answers = { taste: null, intensity: null, puffs: null };
   const stepKeys = ['taste', 'intensity', 'puffs'];
 
+  // klik na opciju odmah otvara sledeci korak (nema dugmeta "Dalje")
   window.pick = (key, val, el) => {
     answers[key] = val;
     el.parentElement.querySelectorAll('.opt').forEach(o => o.setAttribute('aria-pressed', 'false'));
     el.setAttribute('aria-pressed', 'true');
-    nextBtn.disabled = false;
+    setTimeout(() => { if (step < 2) { step++; showStep(); } else { finish(); } }, 200);
   };
   function showStep() {
     document.querySelectorAll('.qstep').forEach(s => s.classList.toggle('on', +s.dataset.step === step));
     document.querySelectorAll('.qbar .seg').forEach((s, k) => s.classList.toggle('on', k <= step));
-    document.getElementById('backBtn').style.visibility = step === 0 ? 'hidden' : 'visible';
-    nextBtn.innerHTML = step === 2 ? 'Prikaži rezultat 🎉' : ('Dalje <span class="ico" aria-hidden="true">' + ARROW + '</span>');
-    nextBtn.disabled = !answers[stepKeys[step]];
+    backBtn.style.visibility = step === 0 ? 'hidden' : 'visible';
   }
   window.next = () => { if (step < 2) { step++; showStep(); } else { finish(); } };
   window.back = () => { if (step > 0) { step--; showStep(); } };
   function finish() {
     document.querySelectorAll('.qstep').forEach(s => s.classList.remove('on'));
-    document.getElementById('backBtn').parentElement.style.display = 'none';
+    backBtn.parentElement.style.display = 'none';
     document.querySelectorAll('.qbar .seg').forEach(s => s.classList.add('on'));
     let m = FLAVORS.filter(f => f.taste.includes(answers.taste) && f.intensity === answers.intensity && f.puffs === answers.puffs);
     const empty = document.getElementById('empty');
@@ -163,7 +162,7 @@ const FLAVORS = [
   window.restart = () => {
     step = 0; answers.taste = answers.intensity = answers.puffs = null;
     document.getElementById('result').classList.remove('on');
-    document.getElementById('backBtn').parentElement.style.display = 'flex';
+    backBtn.parentElement.style.display = 'flex';
     document.querySelectorAll('.opt').forEach(o => o.setAttribute('aria-pressed', 'false'));
     showStep();
   };
@@ -412,6 +411,18 @@ const FLAVORS = [
       item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
       resultsEl.appendChild(item);
     });
+
+    // na mobilnom: prvo 3 najblize, ostalo iza dugmeta (da se ne skroluje beskonacno do mape)
+    if (window.matchMedia('(max-width:900px)').matches && near.length > 3) {
+      const items = [...resultsEl.querySelectorAll('.locitem')];
+      items.slice(3).forEach(el => el.style.display = 'none');
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'btn btn-ghost locmore';
+      more.textContent = `Prikaži sve (${near.length})`;
+      more.onclick = () => { items.forEach(el => el.style.display = ''); more.remove(); };
+      resultsEl.appendChild(more);
+    }
 
     const b = new maplibregl.LngLatBounds([refLng, refLat], [refLng, refLat]);
     near.forEach(l => b.extend([l.lng, l.lat]));

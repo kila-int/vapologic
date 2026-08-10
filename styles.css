@@ -63,6 +63,7 @@ img{max-width:100%;display:block}
 .btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--hair-2);transition:background .3s var(--ease),border-color .3s var(--ease),transform .2s var(--ease)}
 .btn-ghost:hover{background:var(--surface-2);border-color:var(--hair)}
 .btn-ghost:active{transform:scale(.985)}
+.btn-ghost .ico{background:rgba(255,255,255,.08)}
 .go{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--c3);transition:gap .2s var(--ease)}
 .go svg{width:15px;height:15px}
 .go:hover{gap:9px}
@@ -195,7 +196,8 @@ section{padding:72px 0}
 .opts{display:grid;gap:12px}
 .opts.c5{grid-template-columns:repeat(auto-fit,minmax(148px,1fr))}
 .opts.c2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px}
-@media(max-width:520px){.opts.c2{grid-template-columns:1fr}}
+/* na mobilnom uvek 2 kolone — manje skrola do kraja koraka */
+@media(max-width:560px){.opts.c5,.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.opt{padding:18px 10px;font-size:14px}}
 .opt{cursor:pointer;border:1px solid var(--hair);background:var(--surface);border-radius:16px;padding:22px 12px;text-align:center;transition:.18s var(--ease);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:inherit;font-family:inherit;font-size:15px;min-width:0;overflow-wrap:anywhere;line-height:1.25}
 .opt:hover{border-color:var(--c2);transform:translateY(-3px);background:var(--surface-2)}
 .opt[aria-pressed="true"]{border-color:var(--c1);background:var(--surface-2);box-shadow:0 0 0 1px var(--c1) inset}
@@ -346,6 +348,9 @@ section{padding:72px 0}
 .locitem .la{color:var(--muted);font-size:13px;margin-top:2px}
 .locitem .ld{font-family:var(--mono);font-size:12px;color:var(--c3);margin-top:6px}
 .locempty{color:var(--muted-2);font-size:14px;padding:16px 0}
+.locmore{margin-top:2px;width:100%}
+/* na mobilnom bez ugnjezdenog skrola u listi rezultata */
+@media(max-width:900px){.locresults{max-height:none;overflow:visible}}
 #locmap{position:relative;isolation:isolate;width:100%;min-height:520px;height:100%;border-radius:var(--r-card);border:1px solid var(--hair);overflow:hidden;background:var(--bg-3)}
 @media(max-width:900px){#locmap{min-height:420px}}
 .maplibregl-popup-content{background:var(--bg-3);color:var(--ink);border:1px solid var(--hair);border-radius:12px;font-family:var(--sans);font-size:13.5px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
