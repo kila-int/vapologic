@@ -118,6 +118,9 @@ const FLAVORS = [
   let step = 0;
   const answers = { taste: null, intensity: null, puffs: null };
   const stepKeys = ['taste', 'intensity', 'puffs'];
+  // slatki i slatko-kiseli se tretiraju kao ista grupa ukusa
+  const TASTE_GROUPS = { 'slatki': ['slatki', 'slatko-kiseli'], 'slatko-kiseli': ['slatki', 'slatko-kiseli'] };
+  const tasteGroup = (t) => TASTE_GROUPS[t] || [t];
 
   // klik na opciju odmah otvara sledeci korak (nema dugmeta "Dalje")
   window.pick = (key, val, el) => {
@@ -137,15 +140,19 @@ const FLAVORS = [
     document.querySelectorAll('.qstep').forEach(s => s.classList.remove('on'));
     backBtn.parentElement.style.display = 'none';
     document.querySelectorAll('.qbar .seg').forEach(s => s.classList.add('on'));
-    let m = FLAVORS.filter(f => f.taste.includes(answers.taste) && f.intensity === answers.intensity && f.puffs === answers.puffs);
-    const empty = document.getElementById('empty');
-    if (m.length === 0) {
-      empty.style.display = 'block';
-      m = FLAVORS.filter(f => f.taste.includes(answers.taste) && f.puffs === answers.puffs);
-      if (m.length === 0) m = FLAVORS.filter(f => f.taste.includes(answers.taste));
-    } else { empty.style.display = 'none'; }
+    const group = tasteGroup(answers.taste);
+    const matchTaste = (f) => f.taste.some(t => group.includes(t));
+    let m = FLAVORS.filter(f => matchTaste(f) && f.intensity === answers.intensity && f.puffs === answers.puffs);
+    // ako za tu jacinu nema nista (npr. kiseli/nezniji/6000), sirimo izbor bez izvinjavanja
+    let bezJacine = false;
+    if (m.length === 0) { bezJacine = true; m = FLAVORS.filter(f => matchTaste(f) && f.puffs === answers.puffs); }
+    if (m.length === 0) { m = FLAVORS.filter(f => matchTaste(f)); }
+    document.getElementById('empty').style.display = 'none';
+    const izbor = bezJacine
+      ? `${answers.taste} · ${answers.puffs} puffova`
+      : `${answers.taste} · ${answers.intensity} · ${answers.puffs} puffova`;
     document.getElementById('resSummary').textContent =
-      `${answers.taste} · ${answers.intensity} · ${answers.puffs} puffova — pronašli smo ${m.length} ${m.length === 1 ? 'ukus' : 'ukusa'}:`;
+      `${izbor} — pronašli smo ${m.length} ${m.length === 1 ? 'ukus' : 'ukusa'}:`;
     const g = document.getElementById('rgrid'); g.innerHTML = '';
     m.forEach(f => {
       const a = document.createElement('a');
