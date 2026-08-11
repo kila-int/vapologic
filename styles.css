@@ -157,12 +157,34 @@ section{padding:72px 0}
 .arrow:hover{background:rgba(0,0,0,.62)}
 .arrow.prev{left:16px}.arrow.next{right:16px}.arrow svg{width:18px;height:18px}
 
-/* stats strip */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
-@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat-tile{padding:26px;border-radius:var(--r-card);background:linear-gradient(180deg,var(--surface),transparent);border:1px solid var(--hair);text-align:center}
-.stat-num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.01em;background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
-.stat-lbl{margin-top:10px;color:var(--muted);font-size:14px}
+/* ---------- traka sa mesovitim sadrzajem (recenzije / brojevi / partneri) ---------- */
+.mq{position:relative;overflow:hidden;margin-top:34px;padding:6px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+/* track = [grupa][gap][ista grupa] -> pomeraj za tacno (grupa + gap) = calc(-50% - gap/2) */
+.mq-track{display:flex;gap:16px;width:max-content;animation:mq 46s linear infinite}
+.mq-group{display:flex;gap:16px;flex:0 0 auto}
+.mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
+.mq-item{flex:0 0 auto;border:1px solid var(--hair);background:var(--surface);border-radius:var(--r-card);padding:20px 22px;display:flex}
+.mq-review{width:clamp(290px,30vw,360px);flex-direction:column;gap:10px}
+.mq-stars{color:#ffcf5c;letter-spacing:.12em;font-size:14px}
+.mq-review p{color:#d6d2e2;font-size:14.5px;line-height:1.55}
+.mq-who{font-family:var(--mono);font-size:11.5px;color:var(--muted-2);letter-spacing:.04em}
+.mq-stat{width:clamp(180px,17vw,210px);flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;
+  background:linear-gradient(180deg,var(--surface),transparent)}
+.mq-stat b{font-family:var(--mono);font-weight:700;font-size:30px;line-height:1;
+  background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mq-stat span{color:var(--muted);font-size:13px}
+.mq-logo{width:clamp(170px,16vw,200px);align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);
+  border-style:dashed;border-color:var(--hair-2);color:var(--muted-2);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-align:center}
+@media (prefers-reduced-motion: reduce){
+  .mq-track{animation:none}
+  .mq{overflow-x:auto;scrollbar-width:none}
+  .mq::-webkit-scrollbar{display:none}
+}
 
 /* ---------- CARD HOVER: statičan neon glow (bez pokretnih linija) ---------- */
 .ring{position:relative}
