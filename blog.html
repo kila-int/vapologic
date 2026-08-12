@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/blog.html">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=19">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting","headline":"Kako je nastao Elfbar: inovacije i raznovrsni ukusi kao obeležje savremenih elektronskih cigareta","datePublished":"2026-07-28","author":{"@type":"Organization","name":"Vapologic"},"publisher":{"@type":"Organization","name":"Vapologic"}}
 </script>
@@ -24,7 +24,7 @@
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html" aria-label="Vapologic — početna"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a>
-    <button class="nav-toggle" aria-label="Otvori meni" aria-expanded="false" aria-controls="navMenu" onclick="toggleNav()"><span class="bars"></span></button>
+    <button class="nav-toggle" data-i18n-attr="aria-label:nav.menu_open" aria-label="Otvori meni" aria-expanded="false" aria-controls="navMenu" onclick="toggleNav()"><span class="bars"></span></button>
     <div class="nav-menu" id="navMenu">
     <nav class="center" aria-label="Glavni meni">
       <div class="drop">
@@ -32,9 +32,18 @@
         <div class="menu"><a href="proizvod.html?ukus=watermelon-ice">EB1000</a><a href="proizvod.html">EB6000</a></div>
       </div>
       <a href="proizvod.html">Lost Mary</a>
-      <a href="lokacije.html">Lokacije</a>
-      <a href="blog.html">Blog</a>
+      <a href="lokacije.html" data-i18n="nav.locations">Lokacije</a>
+      <a href="blog.html" data-i18n="nav.blog">Blog</a>
+      <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
     </nav>
+    <div class="langpick drop">
+      <button type="button" class="lang-btn" aria-haspopup="true" data-i18n-attr="aria-label:nav.lang"><span id="langCurrent">SR</span><i class="caret" aria-hidden="true"></i></button>
+      <div class="menu">
+        <a href="#" data-lang-code="sr" onclick="setLang('sr');return false">SR &middot; Srpski</a>
+        <a href="#" data-lang-code="en" onclick="setLang('en');return false">EN &middot; English</a>
+        <a href="#" data-lang-code="ru" onclick="setLang('ru');return false">RU &middot; Русский</a>
+      </div>
+    </div>
     <div class="socials">
       <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
       <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.6 3.6 3.9v2.5c-1.4 0-2.7-.4-3.6-1.1v5.7c0 3.1-2.3 5.6-5.3 5.6S5.4 17 5.4 13.9c0-2.9 2.1-5.3 4.9-5.5v2.6c-1.3.2-2.3 1.3-2.3 2.9 0 1.6 1.2 2.9 2.7 2.9 1.5 0 2.7-1.3 2.7-2.9V3H16z"/></svg></a>
@@ -45,43 +54,46 @@
 </header>
 
 <main>
-  <nav class="crumbs wrap" aria-label="Putanja"><a href="index.html">Početna</a> › <a href="blog.html">Blog</a> › <span style="color:var(--muted)">Elfbar</span></nav>
+  <nav class="crumbs wrap" aria-label="Putanja"><a href="index.html" data-i18n="art.crumb_home">Početna</a> › <a href="blog.html" data-i18n="nav.blog">Blog</a> › <span style="color:var(--muted)">Elfbar</span></nav>
   <div class="art-head">
     <span class="pill">Elfbar</span>
-    <h1>Kako je nastao Elfbar: inovacije i raznovrsni ukusi kao obeležje savremenih elektronskih cigareta</h1>
-    <div class="art-meta"><span>28. jul 2026.</span><span>·</span><span>4 min čitanja</span><span>·</span><span>Vapologic</span></div>
+    <h1 data-i18n="art.title">Kako je nastao Elfbar: inovacije i raznovrsni ukusi kao obeležje savremenih elektronskih cigareta</h1>
+    <div class="art-meta"><span data-i18n="art.date">28. jul 2026.</span><span>·</span><span data-i18n="art.read">4 min čitanja</span><span>·</span><span>Vapologic</span></div>
   </div>
-  <div class="art-cover"><div class="ph"><span class="ratio">2:1</span>vaša naslovna slika</div></div>
+  <div class="art-cover"><div class="ph"><span class="ratio">2:1</span><span data-i18n="blog.cover">vaša naslovna slika</span></div></div>
   <article class="art-body">
-    <p>Tržište elektronskih cigareta poslednjih godina beleži ubrzan razvoj, a među brendovima koji su privukli značajnu pažnju nalazi se Elfbar. Prepoznatljiv po modernom dizajnu, širokoj paleti aroma i kontinuiranom razvoju tehnologije, ovaj brend izgradio je prisustvo na brojnim svetskim tržištima.</p>
-    <p>Jedan od aspekata po kojem se Elfbar izdvaja jeste raznovrsnost ukusa. U ponudi se nalaze voćne kombinacije, osvežavajuće mentol varijante, kao i tropski ukusi koji kombinuju slatkoću i kiselost. Takva raznovrsnost omogućava punoletnim korisnicima da pronađu opciju koja odgovara njihovim ličnim preferencijama.</p>
-    <div class="figure"><div class="ph"><span class="ratio">3:2</span>vaša slika u tekstu (opciono)</div><div class="cap">Slike u tekstu · 3:2</div></div>
-    <h2>Tehnologija uređaja</h2>
-    <p>Pored razvoja aroma, kompanija posebnu pažnju posvećuje tehnologiji uređaja. Savremeni modeli opremljeni su unapređenim grejnim elementima i sistemima za ravnomernije isparavanje tečnosti, sa ciljem da obezbede ujednačen ukus tokom upotrebe. Kod novijih generacija razvijaju se baterije većeg kapaciteta, sistemi za punjenje i indikatori statusa uređaja.</p>
-    <p>Napredak je vidljiv i u konstrukciji samih uređaja. Ergonomski dizajn, kompaktne dimenzije i jednostavno korišćenje doprineli su prepoznatljivosti brenda među punoletnim korisnicima, dok je razvoj materijala usmeren ka većoj pouzdanosti i doslednijem kvalitetu.</p>
-    <h2>Personalizacija iskustva</h2>
-    <p>Elfbar prati trend personalizacije korisničkog iskustva. Pored jednokratnih uređaja, u ponudi su i punjivi sistemi sa zamenjivim podovima, čime korisnici biraju između različitih ukusa i konfiguracija. Ovakav pristup odražava širi trend u industriji, gde se akcenat stavlja na fleksibilnost i tehnološke inovacije.</p>
-    <p>Kako se tržište menja, proizvođači sve više ulažu u efikasnije baterije, unapređene grejne sisteme i nove pristupe kreiranju aroma. U tom kontekstu, Elfbar nastavlja da razvija proizvode koji prate tehnološke trendove i odgovaraju na različite preferencije punoletnih korisnika nikotinskih proizvoda.</p>
+    <p data-i18n="art.p1">Tržište elektronskih cigareta poslednjih godina beleži ubrzan razvoj, a među brendovima koji su privukli značajnu pažnju nalazi se Elfbar. Prepoznatljiv po modernom dizajnu, širokoj paleti aroma i kontinuiranom razvoju tehnologije, ovaj brend izgradio je prisustvo na brojnim svetskim tržištima.</p>
+    <p data-i18n="art.p2">Jedan od aspekata po kojem se Elfbar izdvaja jeste raznovrsnost ukusa. U ponudi se nalaze voćne kombinacije, osvežavajuće mentol varijante, kao i tropski ukusi koji kombinuju slatkoću i kiselost. Takva raznovrsnost omogućava punoletnim korisnicima da pronađu opciju koja odgovara njihovim ličnim preferencijama.</p>
+    <div class="figure"><div class="ph"><span class="ratio">3:2</span><span data-i18n="art.fig">vaša slika u tekstu (opciono)</span></div><div class="cap" data-i18n="art.figcap">Slike u tekstu · 3:2</div></div>
+    <h2 data-i18n="art.h2_1">Tehnologija uređaja</h2>
+    <p data-i18n="art.p3">Pored razvoja aroma, kompanija posebnu pažnju posvećuje tehnologiji uređaja. Savremeni modeli opremljeni su unapređenim grejnim elementima i sistemima za ravnomernije isparavanje tečnosti, sa ciljem da obezbede ujednačen ukus tokom upotrebe. Kod novijih generacija razvijaju se baterije većeg kapaciteta, sistemi za punjenje i indikatori statusa uređaja.</p>
+    <p data-i18n="art.p4">Napredak je vidljiv i u konstrukciji samih uređaja. Ergonomski dizajn, kompaktne dimenzije i jednostavno korišćenje doprineli su prepoznatljivosti brenda među punoletnim korisnicima, dok je razvoj materijala usmeren ka većoj pouzdanosti i doslednijem kvalitetu.</p>
+    <h2 data-i18n="art.h2_2">Personalizacija iskustva</h2>
+    <p data-i18n="art.p5">Elfbar prati trend personalizacije korisničkog iskustva. Pored jednokratnih uređaja, u ponudi su i punjivi sistemi sa zamenjivim podovima, čime korisnici biraju između različitih ukusa i konfiguracija. Ovakav pristup odražava širi trend u industriji, gde se akcenat stavlja na fleksibilnost i tehnološke inovacije.</p>
+    <p data-i18n="art.p6">Kako se tržište menja, proizvođači sve više ulažu u efikasnije baterije, unapređene grejne sisteme i nove pristupe kreiranju aroma. U tom kontekstu, Elfbar nastavlja da razvija proizvode koji prate tehnološke trendove i odgovaraju na različite preferencije punoletnih korisnika nikotinskih proizvoda.</p>
   </article>
-  <div class="art-share"><span>Podeli:</span><span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">Facebook</span></div>
-  <section class="art-more"><div class="wrap"><div class="sec-head"><span class="eyebrow">Još sa bloga</span><h2 class="sec-title">Nastavi da čitaš</h2></div>
-    <div class="blog"><a class="post ring" href="blog.html"><div class="thumb ph"><span class="ratio">3:2</span>vaša slika</div><div class="pbody"><span class="pill">Lost Mary</span><h3>Dizajn kao deo identiteta: kako je estetika oblikovala Lost Mary</h3><span class="go">Pročitaj <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-    <a class="post ring" href="proizvod.html"><div class="thumb ph"><span class="ratio">3:2</span>vaša slika</div><div class="pbody"><span class="pill">Proizvodi</span><h3>Upoznaj EB6000 — do 6000 puffova</h3><span class="go">Pogledaj <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
+  <div class="art-share"><span data-i18n="art.share">Podeli:</span><span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">Facebook</span></div>
+  <section class="art-more"><div class="wrap"><div class="sec-head"><span class="eyebrow" data-i18n="art.more_eyebrow">Još sa bloga</span><h2 class="sec-title" data-i18n="art.more_title">Nastavi da čitaš</h2></div>
+    <div class="blog"><a class="post ring" href="blog.html"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="art.img">vaša slika</span></div><div class="pbody"><span class="pill">Lost Mary</span><h3 data-i18n="art.more_p1">Dizajn kao deo identiteta: kako je estetika oblikovala Lost Mary</h3><span class="go"><span data-i18n="common.read">Pročitaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post ring" href="proizvod.html"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="art.img">vaša slika</span></div><div class="pbody"><span class="pill">Proizvodi</span><h3 data-i18n="art.more_p2">Upoznaj EB6000 — do 6000 puffova</h3><span class="go"><span data-i18n="common.view">Pogledaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
   </div></section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="fgrid">
-      <div class="foot-brand"><a class="logo" href="index.html" aria-label="Vapologic"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a><p style="color:var(--muted);font-size:14px;max-width:34ch">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p></div>
-      <div><h4>Proizvodi</h4><a href="proizvod.html?ukus=watermelon-ice">EB1000</a><a href="proizvod.html">BM1000</a><a href="proizvod.html">EB6000</a></div>
-      <div><h4>Info</h4><a href="index.html">O nama</a><a href="lokacije.html">Lokacije</a><a href="blog.html">Blog</a><a href="index.html">Kontakt</a></div>
-      <div><h4>Pravno</h4><a href="#">Politika privatnosti</a><a href="#">Uslovi korišćenja</a></div>
+      <div class="foot-brand"><a class="logo" href="index.html" aria-label="Vapologic"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a><p style="color:var(--muted);font-size:14px;max-width:34ch" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p>
+        <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
+        <p class="foot-legal" data-i18n="footer.legal">Vapologic d.o.o. &middot; PIB 000000000 &middot; Matični broj 00000000 &middot; Bulevar oslobođenja 1, 21000 Novi Sad, Srbija</p></div>
+      <div><h4 data-i18n="footer.products">Proizvodi</h4><a href="proizvod.html?ukus=watermelon-ice">EB1000</a><a href="proizvod.html">BM1000</a><a href="proizvod.html">EB6000</a></div>
+      <div><h4 data-i18n="footer.info">Info</h4><a href="index.html" data-i18n="footer.about">O nama</a><a href="lokacije.html" data-i18n="nav.locations">Lokacije</a><a href="blog.html" data-i18n="nav.blog">Blog</a><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></div>
+      <div><h4 data-i18n="footer.legal_col">Pravno</h4><a href="#" data-i18n="footer.privacy">Politika privatnosti</a><a href="#" data-i18n="footer.terms">Uslovi korišćenja</a></div>
     </div>
-    <div class="age"><span class="warn">18+</span> Proizvodi sadrže nikotin koji izaziva zavisnost. Nisu namenjeni maloletnim osobama. © 2026 Vapologic.</div>
+    <div class="age"><span class="warn">18+</span> <span data-i18n="footer.age_note">Proizvodi sadrže nikotin koji izaziva zavisnost. Nisu namenjeni maloletnim osobama. © 2026 Vapologic.</span></div>
   </div>
 </footer>
 
-<script src="app.js?v=15"></script>
+<script src="i18n.js?v=1"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

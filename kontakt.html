@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex"><!-- PRIVREMENO: skloniti na pravom domenu vapologic.rs -->
-<title>Lokacije — Vapologic</title>
-<meta name="description" content="Pronađi najbliža Elfbar i Lost Mary prodajna mesta u Srbiji — preko 1200 lokacija. Unesi grad, izaberi radijus i vidi najbliže kioske, benzinske i vape shopove.">
-<link rel="canonical" href="https://vapologic.rs/lokacije.html">
+<title>Kontakt — Vapologic</title>
+<meta name="description" content="Pošaljite nam pitanje o Elfbar i Lost Mary proizvodima — odgovorićemo u najkraćem roku.">
+<link rel="canonical" href="https://vapologic.rs/kontakt.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Lokacije — Vapologic">
-<meta property="og:description" content="Preko 1200 prodajnih mesta širom Srbije. Pronađi najbliže.">
-<meta property="og:url" content="https://vapologic.rs/lokacije.html">
+<meta property="og:title" content="Kontakt — Vapologic">
+<meta property="og:description" content="Tu smo za sva vaša pitanja.">
+<meta property="og:url" content="https://vapologic.rs/kontakt.html">
+<meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
@@ -51,37 +51,40 @@
 </header>
 
 <main>
-  <div class="wrap locpage-hero">
-    <div class="locpanel">
-      <div class="locside">
-        <span class="eyebrow" data-i18n="loc.page_eyebrow">Pronađi najbliže</span>
-        <h1 style="margin-top:10px" data-i18n="loc.page_title">1200+ lokacija širom Srbije</h1>
-        <p class="lead" data-i18n="loc.page_lead">Unesi grad ili ulicu, izaberi radijus i pronađi najbliža prodajna mesta — kioske, benzinske stanice i vape shopove.</p>
-
-        <form class="locform" id="locForm" autocomplete="off">
-          <div class="field">
-            <label for="locQuery" data-i18n="loc.city_label">Grad ili adresa</label>
-            <input type="text" id="locQuery" data-i18n-attr="placeholder:loc.city_ph" placeholder="npr. Novi Sad, Beograd, Niš…">
-          </div>
-          <div class="field">
-            <label for="locRadius" data-i18n="loc.radius_label">Radijus pretrage</label>
-            <div class="rangewrap">
-              <input type="range" id="locRadius" min="1" max="150" step="1" value="30" aria-describedby="locRadiusVal">
-              <span class="rangeval" id="locRadiusVal">30 km</span>
-            </div>
-          </div>
-          <button class="btn btn-primary" type="submit"><span data-i18n="loc.submit">Pronađi najbliže</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span></button>
-          <button class="btn btn-ghost" type="button" id="geoBtn" data-i18n="loc.geo">Koristi moju lokaciju</button>
-        </form>
-
-        <div class="locresults" id="locResults" aria-live="polite">
-          <div class="locempty" data-i18n="loc.results_empty">Rezultati pretrage će se prikazati ovde.</div>
-        </div>
+  <div class="wrap contact-wrap">
+    <div class="contact-panel">
+      <div class="contact-head">
+        <span class="eyebrow" data-i18n="contact.eyebrow">Kontakt</span>
+        <h1 data-i18n="contact.title">Tu smo za sva vaša pitanja</h1>
+        <p class="lead" data-i18n="contact.lead">Pošaljite nam pitanje i odgovorićemo u najkraćem roku.</p>
       </div>
 
-      <div id="locmap" role="application" data-i18n-attr="aria-label:loc.map_app_aria" aria-label="Interaktivna mapa lokacija"></div>
+      <!-- Forma je za sada PRIKAZNA (bez slanja).
+           Kad biramo integraciju, poruke idu na: petrovic.lazar2409@gmail.com -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field">
+          <label for="cName"><span data-i18n="contact.name">Ime i prezime</span> <b class="req" aria-hidden="true">*</b></label>
+          <input type="text" id="cName" name="ime" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="cPhone"><span data-i18n="contact.phone">Broj telefona</span> <b class="req" aria-hidden="true">*</b></label>
+          <input type="tel" id="cPhone" name="telefon" required autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="cEmail"><span data-i18n="contact.email">E-mail</span> <b class="req" aria-hidden="true">*</b></label>
+          <input type="email" id="cEmail" name="email" required autocomplete="email">
+        </div>
+        <div class="field field-wide">
+          <label for="cMsg"><span data-i18n="contact.question">Pitanje</span> <b class="req" aria-hidden="true">*</b></label>
+          <textarea id="cMsg" name="pitanje" rows="6" required></textarea>
+          <span class="field-help" data-i18n="contact.question_help">Ovde možete uneti vaše pitanje za nas</span>
+        </div>
+        <div class="field-wide contact-actions">
+          <button class="btn btn-primary" type="submit"><span data-i18n="contact.send">Pošalji</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <p class="form-note" id="contactNote" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
-    <div class="note" data-i18n="loc.note">Ovde su sada nasumične lokacije, samo radi prikaza — vi nam kasnije pošaljete pravu bazu (Excel/CSV) i mi je ubacimo.</div>
   </div>
 </main>
 
@@ -99,7 +102,6 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="i18n.js?v=1"></script>
 <script src="app.js?v=16"></script>
 </body>

@@ -19,6 +19,49 @@ const slug = (s) => s.toLowerCase()
   .replace(/č|ć/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'dj')
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+/* ============================================================
+   i18n — tekstovi se menjaju u i18n.js, ne ovde.
+   t('kljuc', {n: 5})  ·  setLang('en')  ·  event 'langchange'
+   ============================================================ */
+const LANGS = ['sr', 'en', 'ru'];
+let LANG = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q && LANGS.includes(q)) return q;
+  const s = localStorage.getItem('vpl_lang');
+  if (s && LANGS.includes(s)) return s;
+  return 'sr';
+})();
+function t(key, vars) {
+  const D = (window.I18N && window.I18N[LANG]) || {};
+  const F = (window.I18N && window.I18N.sr) || {};   // fallback: srpski
+  let s = D[key] != null ? D[key] : (F[key] != null ? F[key] : key);
+  if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]);
+  return s;
+}
+window.t = t;
+function applyLang(lang) {
+  if (LANGS.includes(lang)) LANG = lang;
+  try { localStorage.setItem('vpl_lang', LANG); } catch (e) {}
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.dataset.i18nAttr.split(';').forEach(pair => {
+      const i = pair.indexOf(':');
+      if (i < 0) return;
+      const attr = pair.slice(0, i).trim(), key = pair.slice(i + 1).trim();
+      if (attr && key) el.setAttribute(attr, t(key));
+    });
+  });
+  const cur = document.getElementById('langCurrent');
+  if (cur) cur.textContent = ((window.I18N && window.I18N.langs) || {})[LANG] || LANG.toUpperCase();
+  document.querySelectorAll('[data-lang-code]').forEach(a =>
+    a.setAttribute('aria-current', a.dataset.langCode === LANG ? 'true' : 'false'));
+  // dinamički delovi (kviz, slajder ukusa, lista lokacija) se sami preslože
+  document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: LANG } }));
+}
+window.setLang = (lang) => applyLang(lang);
+applyLang(LANG);
+
 /* ---------- Nav hamburger + FAQ accordion (sve stranice) ---------- */
 window.toggleNav = () => {
   const open = document.body.classList.toggle('nav-open');
@@ -53,13 +96,13 @@ document.addEventListener('keydown', (e) => {
   el.className = 'agegate';
   el.innerHTML = `<div class="agecard" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
       <img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic">
-      <h2 id="ageTitle">Imaš li 18 godina?</h2>
-      <p>Ovaj sajt sadrži informacije o nikotinskim proizvodima namenjenim isključivo punoletnim osobama.</p>
+      <h2 id="ageTitle">${t('age.title')}</h2>
+      <p>${t('age.text')}</p>
       <div class="age-actions">
-        <button class="btn btn-primary" id="ageYes" type="button">Imam 18+</button>
-        <button class="btn btn-ghost" id="ageNo" type="button">Nemam 18</button>
+        <button class="btn btn-primary" id="ageYes" type="button">${t('age.yes')}</button>
+        <button class="btn btn-ghost" id="ageNo" type="button">${t('age.no')}</button>
       </div>
-      <div class="agewarn">Proizvodi sadrže nikotin koji izaziva zavisnost.</div>
+      <div class="agewarn">${t('age.warn')}</div>
     </div>`;
   const mount = () => {
     document.body.appendChild(el);
@@ -69,7 +112,7 @@ document.addEventListener('keydown', (e) => {
       localStorage.setItem('vpl_age18', '1'); el.remove(); document.documentElement.style.overflow = '';
     };
     el.querySelector('#ageNo').onclick = () => {
-      document.body.innerHTML = '<div class="age-blocked">Žao nam je — sajt je dostupan samo punoletnim osobama.</div>';
+      document.body.innerHTML = `<div class="age-blocked">${t('age.blocked')}</div>`;
       document.documentElement.style.overflow = '';
     };
   };
@@ -83,12 +126,15 @@ document.addEventListener('keydown', (e) => {
   if (!slides || !dotsWrap) return;
   const N = slides.children.length;
   let idx = 0, timer;
+  const dots = [];
   for (let i = 0; i < N; i++) {
     const b = document.createElement('button');
-    b.setAttribute('aria-label', 'Slajd ' + (i + 1));
+    b.setAttribute('aria-label', t('hero.slide_n', { n: i + 1 }));
     b.onclick = () => { set(i); restartAuto(); };
-    dotsWrap.appendChild(b);
+    dotsWrap.appendChild(b); dots.push(b);
   }
+  document.addEventListener('langchange', () =>
+    dots.forEach((b, i) => b.setAttribute('aria-label', t('hero.slide_n', { n: i + 1 }))));
   function set(i) {
     idx = (i + N) % N;
     slides.style.transform = `translateX(-${idx * 100}%)`;
@@ -163,27 +209,33 @@ const FLAVORS = [
     if (m.length === 0) { m = FLAVORS.filter(f => matchTaste(f)); }
     document.getElementById('empty').style.display = 'none';
     const izbor = bezJacine
-      ? `${answers.taste} · ${answers.puffs} puffova`
-      : `${answers.taste} · ${answers.intensity} · ${answers.puffs} puffova`;
-    document.getElementById('resSummary').textContent =
-      `${izbor} — pronašli smo ${m.length} ${m.length === 1 ? 'ukus' : 'ukusa'}:`;
+      ? `${t('taste.' + answers.taste)} · ${answers.puffs} ${t('quiz.puffs_label')}`
+      : `${t('taste.' + answers.taste)} · ${t('intensity.' + answers.intensity)} · ${answers.puffs} ${t('quiz.puffs_label')}`;
+    const nadjeno = m.length === 1 ? t('quiz.found_one') : t('quiz.found_many', { n: m.length });
+    document.getElementById('resSummary').textContent = `${izbor} — ${nadjeno}`;
     const g = document.getElementById('rgrid'); g.innerHTML = '';
     m.forEach(f => {
       const a = document.createElement('a');
       a.className = 'rcard';
       a.href = `proizvod.html?ukus=${slug(f.fl)}&dev=${f.dev}`;
-      a.setAttribute('aria-label', `Otvori ${f.fl} (${f.dev})`);
+      a.setAttribute('aria-label', t('quiz.open_aria', { fl: f.fl, dev: f.dev }));
       a.style.setProperty('--acc', accFor(f.fl));
+      const tags = f.taste.map(x => `<span class="t">${t('taste.' + x)}</span>`).join('')
+        + `<span class="t">${t('intensity.' + f.intensity)}</span><span class="t">${f.puffs}</span>`;
       a.innerHTML = `<div class="rimg"><span class="remo" aria-hidden="true">${emoFor(f.fl)}</span><span class="fr">3:4</span></div>
         <div class="rbody">
           <div class="fl">${f.fl}</div><div class="dev">${f.dev}</div>
-          <div class="tags">${f.taste.map(t => `<span class="t">${t}</span>`).join('')}<span class="t">${f.intensity}</span><span class="t">${f.puffs}</span></div>
-          <span class="rmore">Otvori uređaj ${ARROW}</span>
+          <div class="tags">${tags}</div>
+          <span class="rmore">${t('quiz.open_device')} ${ARROW}</span>
         </div>`;
       g.appendChild(a);
     });
     document.getElementById('result').classList.add('on');
   }
+  // promena jezika dok je rezultat na ekranu -> preslozi ga
+  document.addEventListener('langchange', () => {
+    if (document.getElementById('result').classList.contains('on')) finish();
+  });
   window.restart = () => {
     step = 0; answers.taste = answers.intensity = answers.puffs = null;
     document.getElementById('result').classList.remove('on');
@@ -199,24 +251,31 @@ const FLAVORS = [
   const fcar = document.getElementById('fcar');
   if (!fcar) return;
   const EB6 = [
-    { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', tag: 'slatki · nežniji', acc: '#ff4d9d' },
-    { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', tag: 'tropski · nežniji', acc: '#ffcf5c' },
-    { fn: 'Strawberry Ice', slug: 'strawberry-ice', emo: '🍓', tag: 'slatki · snažniji', acc: '#ff4d9d' },
-    { fn: 'Menthol', slug: 'menthol', emo: '❄️', tag: 'osvežavajući · snažniji', acc: '#38d6ff' },
-    { fn: 'Grape', slug: 'grape', emo: '🍇', tag: 'osvežavajući · nežniji', acc: '#b14bff' },
-    { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', emo: '🫐', tag: 'kiseli · snažniji', acc: '#38d6ff' },
+    { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', taste: 'slatki', intensity: 'nežniji', acc: '#ff4d9d' },
+    { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', taste: 'tropski', intensity: 'nežniji', acc: '#ffcf5c' },
+    { fn: 'Strawberry Ice', slug: 'strawberry-ice', emo: '🍓', taste: 'slatki', intensity: 'snažniji', acc: '#ff4d9d' },
+    { fn: 'Menthol', slug: 'menthol', emo: '❄️', taste: 'osvežavajući', intensity: 'snažniji', acc: '#38d6ff' },
+    { fn: 'Grape', slug: 'grape', emo: '🍇', taste: 'osvežavajući', intensity: 'nežniji', acc: '#b14bff' },
+    { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', emo: '🫐', taste: 'kiseli', intensity: 'snažniji', acc: '#38d6ff' },
   ];
+  const BAND = EB6.length;               // jedan „pojas" = kompletan set ukusa
   const title = document.getElementById('pdTitle');
   const upd = (f) => { if (title && f) title.innerHTML = `EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">${f.fn}</span>`; };
 
-  fcar.innerHTML = EB6.map((f, i) => `
-    <a class="fslide" data-i="${i}" data-slug="${f.slug}" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="Otvori ${f.fn}">
+  // Za beskonačnu petlju renderujemo set 3× (klon pre + original + klon posle).
+  // Kad centar izađe iz srednjeg pojasa, tiho pomerimo scrollLeft za tačno jedan
+  // pojas — sadržaj pod prozorom je identičan, pa se skok ne vidi.
+  const card = (f, i) => `
+    <a class="fslide" data-i="${i % BAND}" data-slug="${f.slug}" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
       <div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
-      <div class="fbody"><div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div></div>
-    </a>`).join('');
-  const slides = [...fcar.children];
+      <div class="fbody"><div class="fn">${f.fn}</div><div class="ftag">${t('taste.' + f.taste)} · ${t('intensity.' + f.intensity)}</div></div>
+    </a>`;
+  const renderAll = () => {
+    fcar.innerHTML = [...EB6, ...EB6, ...EB6].map(card).join('');
+    return [...fcar.children];
+  };
+  let slides = renderAll();
 
-  // kartica najbliza centru = aktivna (jedan izvor istine, radi i na oba kraja trake)
   const nearestIdx = () => {
     const c = fcar.getBoundingClientRect().left + fcar.clientWidth / 2;
     let best = 0, bd = Infinity;
@@ -227,12 +286,20 @@ const FLAVORS = [
     });
     return best;
   };
+  const bandWidth = () =>
+    slides[BAND].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+
   function syncActive() {
     const i = nearestIdx();
     slides.forEach((s, k) => s.classList.toggle('active', k === i));
-    upd(EB6[i]);
+    upd(EB6[i % BAND]);
   }
-  // centriranje racunamo sami (scrollIntoView zna da povuce i celu stranicu)
+  // vrati centar u srednji pojas (bez animacije — skok je nevidljiv)
+  function normalize() {
+    const i = nearestIdx();
+    if (i < BAND) fcar.scrollTo({ left: fcar.scrollLeft + bandWidth(), behavior: 'instant' });
+    else if (i >= 2 * BAND) fcar.scrollTo({ left: fcar.scrollLeft - bandWidth(), behavior: 'instant' });
+  }
   const centerOn = (i, behavior = 'smooth') => {
     const s = slides[Math.max(0, Math.min(slides.length - 1, i))];
     const cr = fcar.getBoundingClientRect(), sr = s.getBoundingClientRect();
@@ -246,22 +313,44 @@ const FLAVORS = [
     if (s && !s.classList.contains('active')) { e.preventDefault(); centerOn(slides.indexOf(s)); }
   });
   let tick;
-  fcar.addEventListener('scroll', () => { clearTimeout(tick); tick = setTimeout(syncActive, 60); }, { passive: true });
+  const settle = () => { normalize(); syncActive(); };
+  fcar.addEventListener('scroll', () => { clearTimeout(tick); tick = setTimeout(settle, 90); }, { passive: true });
   window.addEventListener('resize', () => { clearTimeout(tick); tick = setTimeout(syncActive, 120); });
 
   document.getElementById('fPrev').onclick = () => centerOn(nearestIdx() - 1);
   document.getElementById('fNext').onclick = () => centerOn(nearestIdx() + 1);
 
-  // podrazumevano krecemo od srednje kartice, da traka ne pocinje prazninom sa leve strane
-  let start = Math.min(2, EB6.length - 1);
+  // krećemo od srednjeg pojasa (i od srednje kartice, da traka ne počinje prazninom levo)
+  let start = Math.min(2, BAND - 1);
   const uk = new URLSearchParams(location.search).get('ukus');
   if (uk) { const i = EB6.findIndex(f => f.slug === uk); if (i >= 0) start = i; }
   // 'instant' je bitno: 'auto' bi pokupio CSS scroll-behavior:smooth i animirao na ucitavanju
-  const initPos = () => { centerOn(start, 'instant'); syncActive(); };
+  const initPos = () => { centerOn(BAND + start, 'instant'); syncActive(); };
   initPos();
+  document.addEventListener('langchange', () => {
+    const keep = nearestIdx();
+    slides = renderAll();
+    centerOn(keep, 'instant'); syncActive();
+  });
   // jos jednom kad se ucitaju fontovi/slike (sirine kartica se tada mogu promeniti)
   window.addEventListener('load', initPos);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(initPos);
+})();
+
+/* ---------- Kontakt forma (kontakt.html) ----------
+   Za sada je PRIKAZNA: ne šalje nigde. Kad izaberemo integraciju
+   (FormSubmit / Formspree / Webflow forms), poruke idu na
+   petrovic.lazar2409@gmail.com.                                     */
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const note = document.getElementById('contactNote');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    note.textContent = t('contact.demo');
+  });
+  document.addEventListener('langchange', () => { if (note.textContent) note.textContent = t('contact.demo'); });
 })();
 
 /* ---------- Locations page + clustering (lokacije.html) ---------- */
@@ -290,7 +379,7 @@ const FLAVORS = [
     ['Užice', 43.8556, 19.8425, 8], ['Sombor', 45.7742, 19.1122, 7], ['Smederevo', 44.6633, 20.9289, 8],
     ['Vranje', 42.5514, 21.8983, 7], ['Šabac', 44.7489, 19.6906, 8],
   ];
-  const types = ['Kiosk Duvan', 'Benzinska stanica', 'Vape Shop', 'Mini market', 'Trafika'];
+  const TYPE_KEYS = ['loctype.kiosk', 'loctype.gas', 'loctype.vape', 'loctype.mini', 'loctype.trafika'];
   const STREETS = ['Kralja Petra', 'Cara Dušana', 'Njegoševa', 'Vojvode Mišića', 'Bulevar oslobođenja',
     'Svetog Save', 'Karađorđeva', 'Nemanjina', 'Knez Mihailova', 'Maksima Gorkog', 'Stevana Sremca',
     'Dositejeva', 'Gundulićeva', 'Jevrejska', 'Zmaj Jovina', 'Bulevar kralja Aleksandra', 'Takovska'];
@@ -301,7 +390,8 @@ const FLAVORS = [
       const street = STREETS[(LOCATIONS.length * 7 + i) % STREETS.length];
       const num = 1 + ((LOCATIONS.length * 13 + i * 5) % 148);
       LOCATIONS.push({
-        name: `${types[LOCATIONS.length % types.length]} — ${c[0]}`,
+        typeKey: TYPE_KEYS[LOCATIONS.length % TYPE_KEYS.length],
+        city: c[0],
         addr: `${street} ${num}, ${c[0]}`,
         lat: c[1] + (Math.random() - 0.5) * spread,
         lng: c[2] + (Math.random() - 0.5) * spread * 1.4,
@@ -316,11 +406,12 @@ const FLAVORS = [
   });
   map.addControl(new maplibregl.AttributionControl({ compact: true }));
 
+  const locName = (l) => `${t(l.typeKey)} — ${l.city}`;
   const fc = {
     type: 'FeatureCollection',
     features: LOCATIONS.map((l, i) => ({
       type: 'Feature', geometry: { type: 'Point', coordinates: [l.lng, l.lat] },
-      properties: { id: i, name: l.name, addr: l.addr },
+      properties: { id: i, typeKey: l.typeKey, city: l.city, addr: l.addr },
     })),
   };
 
@@ -400,7 +491,7 @@ const FLAVORS = [
     });
     map.on('click', 'points', (e) => {
       const p = e.features[0].properties;
-      new maplibregl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML(`<b>${p.name}</b><br>${p.addr}`).addTo(map);
+      new maplibregl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML(`<b>${t(p.typeKey)} — ${p.city}</b><br>${p.addr}`).addTo(map);
     });
     ['clusters', 'points'].forEach(id => {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
@@ -431,22 +522,22 @@ const FLAVORS = [
 
     resultsEl.innerHTML = '';
     if (near.length === 0) {
-      resultsEl.innerHTML = `<div class="locempty">Nema lokacija u krugu od ${km} km. Povećaj radijus.</div>`;
+      resultsEl.innerHTML = `<div class="locempty">${t('loc.none', { km })}</div>`;
       map.easeTo({ center: [refLng, refLat], zoom: 8 });
       scrollToMapOnMobile();
       return;
     }
     const head = document.createElement('div');
     head.className = 'locempty';
-    head.textContent = `${near.length} lokacija u krugu od ${km} km — najbliža ${near[0].d.toFixed(1)} km:`;
+    head.textContent = t('loc.found', { n: near.length, km, d: near[0].d.toFixed(1) });
     resultsEl.appendChild(head);
     near.slice(0, 30).forEach(l => {
       const item = document.createElement('div');
       item.className = 'locitem'; item.tabIndex = 0;
-      item.innerHTML = `<div class="ln">${l.name}</div><div class="la">${l.addr}</div><div class="ld">${l.d.toFixed(1)} km od tebe</div>`;
+      item.innerHTML = `<div class="ln">${locName(l)}</div><div class="la">${l.addr}</div><div class="ld">${t('loc.km_from_you', { d: l.d.toFixed(1) })}</div>`;
       const focus = () => {
         map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
-        new maplibregl.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${l.name}</b><br>${l.addr}`).addTo(map);
+        new maplibregl.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${locName(l)}</b><br>${l.addr}`).addTo(map);
       };
       item.onclick = focus;
       item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
@@ -460,7 +551,7 @@ const FLAVORS = [
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'btn btn-ghost locmore';
-      more.textContent = `Prikaži sve (${near.length})`;
+      more.textContent = t('loc.show_all', { n: near.length });
       more.onclick = () => { items.forEach(el => el.style.display = ''); more.remove(); };
       resultsEl.appendChild(more);
     }
@@ -477,15 +568,15 @@ const FLAVORS = [
     if (q && CITIES[q]) { search(CITIES[q][0], CITIES[q][1], q.charAt(0).toUpperCase() + q.slice(1)); return; }
     const key = Object.keys(CITIES).find(c => q.length > 1 && c.includes(q));
     if (key) { search(CITIES[key][0], CITIES[key][1], key.charAt(0).toUpperCase() + key.slice(1)); return; }
-    if (q) { resultsEl.innerHTML = `<div class="locempty">Grad „${q}" nije u test bazi. Probaj: Beograd, Novi Sad, Niš, Kragujevac…</div>`; return; }
+    if (q) { resultsEl.innerHTML = `<div class="locempty">${t('loc.not_in_base', { q })}</div>`; return; }
     document.getElementById('geoBtn').click();
   });
 
   document.getElementById('geoBtn').addEventListener('click', () => {
     if (!navigator.geolocation) { search(44.8125, 20.4612, 'Beograd'); return; }
     navigator.geolocation.getCurrentPosition(
-      (pos) => search(pos.coords.latitude, pos.coords.longitude, 'Moja lokacija'),
-      () => search(44.8125, 20.4612, 'Beograd (podrazumevano)')
+      (pos) => search(pos.coords.latitude, pos.coords.longitude, t('loc.my_location')),
+      () => search(44.8125, 20.4612, t('loc.default_bg'))
     );
   });
 })();
