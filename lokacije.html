@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/lokacije.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="styles.css?v=19">
+<link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
 <div class="atmos" aria-hidden="true"><span class="orb orb-1"></span><span class="orb orb-2"></span></div>
@@ -63,15 +63,9 @@
             <label for="locQuery" data-i18n="loc.city_label">Grad ili adresa</label>
             <input type="text" id="locQuery" data-i18n-attr="placeholder:loc.city_ph" placeholder="npr. Novi Sad, Beograd, Niš…">
           </div>
-          <div class="field">
-            <label for="locRadius" data-i18n="loc.radius_label">Radijus pretrage</label>
-            <div class="rangewrap">
-              <input type="range" id="locRadius" min="1" max="150" step="1" value="30" aria-describedby="locRadiusVal">
-              <span class="rangeval" id="locRadiusVal">30 km</span>
-            </div>
-          </div>
-          <button class="btn btn-primary" type="submit"><span data-i18n="loc.submit">Pronađi najbliže</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span></button>
-          <button class="btn btn-ghost" type="button" id="geoBtn" data-i18n="loc.geo">Koristi moju lokaciju</button>
+          <button class="btn btn-primary" type="submit"><span data-i18n="loc.submit">Pretraži</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span></button>
+          <div class="loc-or"><span data-i18n="loc.or">ili</span></div>
+          <button class="btn btn-ghost" type="button" id="geoBtn"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span> <span data-i18n="loc.geo">Koristi moju lokaciju</span></button>
         </form>
 
         <div class="locresults" id="locResults" aria-live="polite">
@@ -100,7 +94,7 @@
 </footer>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="i18n.js?v=1"></script>
-<script src="app.js?v=16"></script>
+<script src="i18n.js?v=2"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

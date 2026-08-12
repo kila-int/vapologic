@@ -432,9 +432,8 @@ const FLAVORS = [
     return { type: 'Feature', geometry: { type: 'Polygon', coordinates: [coords] } };
   }
 
-  const radiusInput = document.getElementById('locRadius');
-  const radiusVal = document.getElementById('locRadiusVal');
-  radiusInput.addEventListener('input', () => radiusVal.textContent = radiusInput.value + ' km');
+  // nema više slajdera: krećemo od 25 km i širimo dok ne nađemo bar jedno mesto
+  const RADII = [25, 50, 100, 200];
   const resultsEl = document.getElementById('locResults');
 
   let mapReady = false, refMarker = null, pending = null;
@@ -511,7 +510,9 @@ const FLAVORS = [
 
   function search(refLat, refLng, label) {
     if (!mapReady) { pending = [refLat, refLng, label]; return; }
-    const km = +radiusInput.value;
+    // uzmi prvi radijus u kome ima rezultata (ako nigde nema, ostaje najveći)
+    const dists = LOCATIONS.map(l => haversine(refLat, refLng, l.lat, l.lng));
+    const km = RADII.find(r => dists.some(d => d <= r)) || RADII[RADII.length - 1];
     const near = LOCATIONS.map(l => ({ ...l, d: haversine(refLat, refLng, l.lat, l.lng) }))
       .filter(l => l.d <= km).sort((a, b) => a.d - b.d);
 
@@ -569,7 +570,9 @@ const FLAVORS = [
     const key = Object.keys(CITIES).find(c => q.length > 1 && c.includes(q));
     if (key) { search(CITIES[key][0], CITIES[key][1], key.charAt(0).toUpperCase() + key.slice(1)); return; }
     if (q) { resultsEl.innerHTML = `<div class="locempty">${t('loc.not_in_base', { q })}</div>`; return; }
-    document.getElementById('geoBtn').click();
+    // prazno polje -> ne diramo geolokaciju, samo tražimo unos
+    resultsEl.innerHTML = `<div class="locempty">${t('loc.enter_city')}</div>`;
+    document.getElementById('locQuery').focus();
   });
 
   document.getElementById('geoBtn').addEventListener('click', () => {

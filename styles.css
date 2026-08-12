@@ -86,7 +86,8 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rg
 .drop .menu{position:absolute;top:100%;left:0;min-width:150px;background:var(--bg-3);border:1px solid var(--hair);border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:.18s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.5)}
 .drop:hover .menu,.drop:focus-within .menu{opacity:1;visibility:visible;transform:none}
 .drop .menu a{display:block;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--muted)}
-.drop .menu a:hover{background:var(--candy);color:#160a1c;font-weight:600}
+/* bez promene font-weighta na hover — tekst bi „poskočio" */
+.drop .menu a:hover{background:var(--candy);color:#160a1c}
 .caret{width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-left:7px;opacity:.7}
 /* language picker (koristi isti .drop obrazac kao nav dropdown) */
 .langpick{flex-shrink:0}
@@ -236,10 +237,12 @@ section{padding:72px 0}
 .qstep h3{font-size:clamp(22px,3vw,32px);margin-bottom:6px}
 .qstep .qsub{color:var(--muted);margin-bottom:24px}
 .opts{display:grid;gap:12px}
-.opts.c5{grid-template-columns:repeat(auto-fit,minmax(148px,1fr))}
-.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px}
+/* flex umesto grida: poslednji red se centrira kad ne popuni ceo red */
+.opts.c5{display:flex;flex-wrap:wrap;justify-content:center}
+.opts.c5 .opt{flex:0 1 168px}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px;margin-inline:auto}
 /* na mobilnom uvek 2 kolone — manje skrola do kraja koraka */
-@media(max-width:560px){.opts.c5,.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.opt{padding:18px 10px;font-size:14px}}
+@media(max-width:560px){.opts.c5 .opt{flex:0 1 calc(50% - 6px)}.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.opt{padding:18px 10px;font-size:14px}}
 .opt{cursor:pointer;border:1px solid var(--hair);background:var(--surface);border-radius:16px;padding:22px 12px;text-align:center;transition:.18s var(--ease);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:inherit;font-family:inherit;font-size:15px;min-width:0;overflow-wrap:anywhere;line-height:1.25}
 .opt:hover{border-color:var(--c2);transform:translateY(-3px);background:var(--surface-2)}
 .opt[aria-pressed="true"]{border-color:var(--c1);background:var(--surface-2);box-shadow:0 0 0 1px var(--c1) inset}
@@ -381,9 +384,10 @@ section{padding:72px 0}
 .field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
 .field input,.field select{background:var(--surface-2);border:1px solid var(--hair);color:var(--ink);border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit}
 .field input::placeholder{color:var(--muted-2)}
-.rangewrap{display:flex;align-items:center;gap:12px}
-.rangewrap input[type=range]{flex:1;accent-color:var(--c1)}
-.rangeval{font-family:var(--mono);font-size:14px;min-width:64px;text-align:right;color:var(--c3)}
+/* razdvajač između pretrage po polju i pretrage po lokaciji uređaja */
+.loc-or{display:flex;align-items:center;gap:12px;color:var(--muted-2);font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.1em;text-transform:uppercase;margin:2px 0}
+.loc-or::before,.loc-or::after{content:"";flex:1;height:1px;background:var(--hair)}
 .locresults{margin-top:22px;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:340px;
   padding-right:12px;scrollbar-width:thin;scrollbar-color:var(--hair-2) transparent}
 .locresults::-webkit-scrollbar{width:8px}
