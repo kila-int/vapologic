@@ -1,6 +1,20 @@
 /* ===== Vapologic — zajednički JS (index / proizvod / blog / lokacije) ===== */
 
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+// emoji + akcenat po ukusu (koristi se na karticama rezultata kviza)
+const FLAVOR_EMO = { watermelon: '🍉', strawberry: '🍓', blueberry: '🫐', grape: '🍇', mango: '🥭',
+  melon: '🍈', pineapple: '🍍', cherry: '🍒', kiwi: '🥝', menthol: '❄️', lemonade: '🍋' };
+const FLAVOR_ACC = { watermelon: '#ff4d9d', strawberry: '#ff4d9d', cherry: '#ff4d9d', lemonade: '#ffcf5c',
+  mango: '#ffcf5c', pineapple: '#ffcf5c', grape: '#b14bff', blueberry: '#38d6ff', menthol: '#38d6ff',
+  melon: '#ff4d9d', kiwi: '#38d6ff' };
+const pickBy = (map, name, fallback) => {
+  const n = name.toLowerCase();
+  for (const k in map) if (n.includes(k)) return map[k];
+  return fallback;
+};
+const emoFor = (name) => pickBy(FLAVOR_EMO, name, '💨');
+const accFor = (name) => pickBy(FLAVOR_ACC, name, '#b14bff');
+
 const slug = (s) => s.toLowerCase()
   .replace(/č|ć/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'dj')
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -159,9 +173,13 @@ const FLAVORS = [
       a.className = 'rcard';
       a.href = `proizvod.html?ukus=${slug(f.fl)}&dev=${f.dev}`;
       a.setAttribute('aria-label', `Otvori ${f.fl} (${f.dev})`);
-      a.innerHTML = `<div class="fl">${f.fl}</div><div class="dev">${f.dev}</div>
-        <div class="tags">${f.taste.map(t => `<span class="t">${t}</span>`).join('')}<span class="t">${f.intensity}</span><span class="t">${f.puffs}</span></div>
-        <span class="rmore">Otvori uređaj ${ARROW}</span>`;
+      a.style.setProperty('--acc', accFor(f.fl));
+      a.innerHTML = `<div class="rimg"><span class="remo" aria-hidden="true">${emoFor(f.fl)}</span><span class="fr">3:4</span></div>
+        <div class="rbody">
+          <div class="fl">${f.fl}</div><div class="dev">${f.dev}</div>
+          <div class="tags">${f.taste.map(t => `<span class="t">${t}</span>`).join('')}<span class="t">${f.intensity}</span><span class="t">${f.puffs}</span></div>
+          <span class="rmore">Otvori uređaj ${ARROW}</span>
+        </div>`;
       g.appendChild(a);
     });
     document.getElementById('result').classList.add('on');
@@ -194,40 +212,56 @@ const FLAVORS = [
   fcar.innerHTML = EB6.map((f, i) => `
     <a class="fslide" data-i="${i}" data-slug="${f.slug}" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="Otvori ${f.fn}">
       <div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
-      <div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div>
+      <div class="fbody"><div class="fn">${f.fn}</div><div class="ftag">${f.tag}</div></div>
     </a>`).join('');
   const slides = [...fcar.children];
 
-  function setActive(el) {
-    slides.forEach(s => s.classList.toggle('active', s === el));
-    upd(EB6[+el.dataset.i]);
+  // kartica najbliza centru = aktivna (jedan izvor istine, radi i na oba kraja trake)
+  const nearestIdx = () => {
+    const c = fcar.getBoundingClientRect().left + fcar.clientWidth / 2;
+    let best = 0, bd = Infinity;
+    slides.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const d = Math.abs((r.left + r.right) / 2 - c);
+      if (d < bd) { bd = d; best = i; }
+    });
+    return best;
+  };
+  function syncActive() {
+    const i = nearestIdx();
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    upd(EB6[i]);
   }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) setActive(e.target); });
-  }, { root: fcar, rootMargin: '0px -50% 0px -50%', threshold: 0 });
-  slides.forEach(s => io.observe(s));
+  // centriranje racunamo sami (scrollIntoView zna da povuce i celu stranicu)
+  const centerOn = (i, behavior = 'smooth') => {
+    const s = slides[Math.max(0, Math.min(slides.length - 1, i))];
+    const cr = fcar.getBoundingClientRect(), sr = s.getBoundingClientRect();
+    const delta = (sr.left + sr.width / 2) - (cr.left + cr.width / 2);
+    fcar.scrollTo({ left: fcar.scrollLeft + delta, behavior });
+  };
 
   // klik na neaktivnu -> centriraj je; klik na aktivnu -> otvori stranicu (default link)
   fcar.addEventListener('click', (e) => {
     const s = e.target.closest('.fslide');
-    if (s && !s.classList.contains('active')) { e.preventDefault(); s.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+    if (s && !s.classList.contains('active')) { e.preventDefault(); centerOn(slides.indexOf(s)); }
   });
-  const go = (d) => {
-    let cur = slides.findIndex(s => s.classList.contains('active'));
-    if (cur < 0) cur = 0;
-    const t = Math.max(0, Math.min(slides.length - 1, cur + d));
-    slides[t].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  };
-  document.getElementById('fPrev').onclick = () => go(-1);
-  document.getElementById('fNext').onclick = () => go(1);
+  let tick;
+  fcar.addEventListener('scroll', () => { clearTimeout(tick); tick = setTimeout(syncActive, 60); }, { passive: true });
+  window.addEventListener('resize', () => { clearTimeout(tick); tick = setTimeout(syncActive, 120); });
 
-  let start = 0;
+  document.getElementById('fPrev').onclick = () => centerOn(nearestIdx() - 1);
+  document.getElementById('fNext').onclick = () => centerOn(nearestIdx() + 1);
+
+  // podrazumevano krecemo od srednje kartice, da traka ne pocinje prazninom sa leve strane
+  let start = Math.min(2, EB6.length - 1);
   const uk = new URLSearchParams(location.search).get('ukus');
   if (uk) { const i = EB6.findIndex(f => f.slug === uk); if (i >= 0) start = i; }
-  requestAnimationFrame(() => {
-    slides[start].scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-    setActive(slides[start]);
-  });
+  // 'instant' je bitno: 'auto' bi pokupio CSS scroll-behavior:smooth i animirao na ucitavanju
+  const initPos = () => { centerOn(start, 'instant'); syncActive(); };
+  initPos();
+  // jos jednom kad se ucitaju fontovi/slike (sirine kartica se tada mogu promeniti)
+  window.addEventListener('load', initPos);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(initPos);
 })();
 
 /* ---------- Locations page + clustering (lokacije.html) ---------- */

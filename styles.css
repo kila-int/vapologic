@@ -192,13 +192,24 @@ section{padding:72px 0}
 /* ---------- PRODUCTS GRID ---------- */
 .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:860px){.prods{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);display:flex;flex-direction:column;color:inherit}
-.card:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
-.card .shot{aspect-ratio:1/1;position:relative;border-radius:var(--r-card) var(--r-card) 0 0;overflow:hidden;border-bottom:1px solid var(--hair)}
-.card.eb .shot,.card.eb6 .shot{background:radial-gradient(circle at 50% 30%,rgba(56,214,255,.36),transparent 62%),#141020}
-.card.bm .shot{background:radial-gradient(circle at 50% 30%,rgba(255,77,157,.36),transparent 62%),#141020}
+/* ===== zajednicki skelet kartice: proizvod (home) · ukus (slajder) · rezultat kviza ===== */
+.card,.fslide,.rcard{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden;
+  display:flex;flex-direction:column;color:inherit;text-decoration:none}
+/* slika ide od ivice do ivice, bez sopstvenog okvira */
+.card .shot,.fslide .fimg,.rcard .rimg{position:relative;border:0;border-bottom:1px solid var(--hair);border-radius:0;margin:0;
+  display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,color-mix(in srgb,var(--acc,var(--c2)) 34%,transparent),transparent 62%),#141020}
+.card .body,.fslide .fbody,.rcard .rbody{padding:20px;display:flex;flex-direction:column;gap:9px;flex:1}
+/* oznaka odnosa slike (placeholder) — isto na sve tri */
+.card .ratio,.fslide .fr,.rcard .fr{position:absolute;top:10px;right:10px;font-family:var(--mono);font-size:10px;color:var(--muted-2);
+  background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
+
+.card{transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+.card:hover,.rcard:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
+.card .shot{aspect-ratio:1/1}
+.card.eb,.card.eb6{--acc:var(--c3)}
+.card.bm{--acc:var(--c1)}
+.card .shot-lbl{font-size:12.5px;color:var(--muted-2);text-align:center;padding:0 16px}
 .card .brand{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);z-index:2}
-.card .body{padding:22px;display:flex;flex-direction:column;gap:11px;flex:1}
 .card h3{font-size:24px}
 .card p{color:var(--muted);font-size:14.5px}
 .specs{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
@@ -231,8 +242,9 @@ section{padding:72px 0}
 .result{display:none}.result.on{display:block;animation:fade .4s var(--ease)}
 .result h3{font-size:clamp(22px,3vw,30px);margin-bottom:6px}
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:22px}
-.rcard{border:1px solid var(--hair);background:var(--surface);border-radius:16px;padding:18px;transition:.25s var(--ease);color:inherit;display:block}
-.rcard:hover{border-color:var(--c3);transform:translateY(-4px)}
+.rcard{transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+.rcard .rimg{aspect-ratio:3/4}
+.rcard .remo{font-size:46px;line-height:1}
 .rcard .fl{font-weight:900;font-size:17px}
 .rcard .dev{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-top:3px}
 .rcard .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
@@ -304,19 +316,18 @@ section{padding:72px 0}
 .fnav .arrow{position:static;transform:none;top:auto;left:auto;right:auto}
 /* full-bleed traka: .fcar-wrap je van .wrap-a, pa je siroka koliko i sekcija (bez 100vw => bez H-scrolla) */
 .fcar-wrap{--card:clamp(230px,22vw,310px);--gap:clamp(14px,1.6vw,24px);position:relative;width:100%}
-.fcar{display:flex;gap:var(--gap);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-behavior:smooth;padding:34px var(--gutter);scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+/* padding = pola kontejnera - pola kartice: svaka kartica (i prva i poslednja) moze da se centrira,
+   pa strelice rade do kraja. Start pozicija je srednja kartica (JS), da nema praznine levo. */
+.fcar{display:flex;gap:var(--gap);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:34px calc(50% - var(--card)/2);scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
 .fcar::-webkit-scrollbar{display:none}
-.fslide{flex:0 0 var(--card);scroll-snap-align:center;display:flex;flex-direction:column;text-align:center;border:1px solid var(--hair);background:var(--surface);border-radius:22px;padding:22px;color:inherit;text-decoration:none;transform:scale(.92);opacity:.66;transition:transform .35s var(--ease),opacity .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
+.fslide{flex:0 0 var(--card);scroll-snap-align:center;text-align:center;transform:scale(.92);opacity:.66;
+  transition:transform .35s var(--ease),opacity .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
 .fslide.active{transform:scale(1.04);opacity:1;border-color:var(--acc,var(--c2));box-shadow:0 0 0 1px var(--acc,var(--c2)),0 8px 22px -12px color-mix(in srgb,var(--acc,var(--c2)) 42%,transparent)}
-.fslide .fimg{position:relative;aspect-ratio:3/4;border-radius:16px;margin-bottom:16px;display:grid;place-items:center;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2)}
-.fslide.active .fimg{border-color:color-mix(in srgb,var(--acc,var(--c2)) 40%,var(--hair-2))}
+.fslide .fimg{aspect-ratio:3/4}
 .fslide .femo{font-size:52px;line-height:1}
-.fslide .fr{position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
 .fslide .fn{font-weight:800;font-size:18px;line-height:1.2}
-.fslide .ftag{font-family:var(--mono);font-size:11.5px;color:var(--muted-2);margin-top:6px}
-@media(max-width:620px){.fcar-wrap{--card:min(62vw,280px);--gap:12px}.fnav .arrow{width:42px;height:42px}
-  /* na dodir: uvek sleti tacno na karticu (1 po 1); na desktopu je slobodnije (proximity) */
-  .fcar{scroll-snap-type:x mandatory}}
+.fslide .ftag{font-family:var(--mono);font-size:11.5px;color:var(--muted-2)}
+@media(max-width:620px){.fcar-wrap{--card:min(62vw,280px);--gap:12px}.fnav .arrow{width:42px;height:42px}}
 
 /* specs + tech + body text */
 .spec-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}
@@ -365,7 +376,12 @@ section{padding:72px 0}
 .rangewrap{display:flex;align-items:center;gap:12px}
 .rangewrap input[type=range]{flex:1;accent-color:var(--c1)}
 .rangeval{font-family:var(--mono);font-size:14px;min-width:64px;text-align:right;color:var(--c3)}
-.locresults{margin-top:22px;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:340px}
+.locresults{margin-top:22px;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:340px;
+  padding-right:12px;scrollbar-width:thin;scrollbar-color:var(--hair-2) transparent}
+.locresults::-webkit-scrollbar{width:8px}
+.locresults::-webkit-scrollbar-track{background:transparent;border-radius:999px}
+.locresults::-webkit-scrollbar-thumb{background:var(--hair-2);border-radius:999px}
+.locresults::-webkit-scrollbar-thumb:hover{background:var(--c2)}
 .locitem{border:1px solid var(--hair);background:var(--surface);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.2s var(--ease)}
 .locitem:hover{border-color:var(--c3);background:var(--surface-2)}
 .locitem .ln{font-weight:700;font-size:15px}
@@ -374,7 +390,7 @@ section{padding:72px 0}
 .locempty{color:var(--muted-2);font-size:14px;padding:16px 0}
 .locmore{margin-top:2px;width:100%}
 /* na mobilnom bez ugnjezdenog skrola u listi rezultata */
-@media(max-width:900px){.locresults{max-height:none;overflow:visible}}
+@media(max-width:900px){.locresults{max-height:none;overflow:visible;padding-right:0}}
 #locmap{position:relative;isolation:isolate;width:100%;min-height:520px;height:100%;border-radius:var(--r-card);border:1px solid var(--hair);overflow:hidden;background:var(--bg-3)}
 @media(max-width:900px){#locmap{min-height:420px}}
 .maplibregl-popup-content{background:var(--bg-3);color:var(--ink);border:1px solid var(--hair);border-radius:12px;font-family:var(--sans);font-size:13.5px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
