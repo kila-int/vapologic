@@ -575,11 +575,40 @@ const FLAVORS = [
     document.getElementById('locQuery').focus();
   });
 
-  document.getElementById('geoBtn').addEventListener('click', () => {
+  // jedno mesto za geolokaciju — koristi ga i dugme i meka najava
+  function locateMe() {
     if (!navigator.geolocation) { search(44.8125, 20.4612, 'Beograd'); return; }
     navigator.geolocation.getCurrentPosition(
       (pos) => search(pos.coords.latitude, pos.coords.longitude, t('loc.my_location')),
       () => search(44.8125, 20.4612, t('loc.default_bg'))
     );
+  }
+
+  /* Meka najava: na učitavanju NE tražimo dozvolu odmah.
+     - ako je korisnik ranije dozvolio  -> odmah ga lociramo, bez prompta
+     - ako nije odlučio                 -> pokažemo karticu, prompt ide tek na klik
+     - ako je odbio ili rekao „ne sada" -> ne prikazujemo ništa            */
+  (function geoPreprompt() {
+    const card = document.getElementById('geoPrompt');
+    if (!card || !navigator.geolocation) return;
+    const hide = () => { card.hidden = true; };
+    document.getElementById('geoAllow').onclick = () => { hide(); locateMe(); };
+    document.getElementById('geoLater').onclick = () => { hide(); try { sessionStorage.setItem('vpl_geo_later', '1'); } catch (e) {} };
+
+    let odbijeno = false;
+    try { odbijeno = sessionStorage.getItem('vpl_geo_later') === '1'; } catch (e) {}
+    if (odbijeno) return;
+
+    const show = () => { card.hidden = false; };
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'geolocation' })
+        .then(p => { if (p.state === 'granted') locateMe(); else if (p.state === 'prompt') show(); })
+        .catch(show);
+    } else { show(); }
+  })();
+
+  document.getElementById('geoBtn').addEventListener('click', () => {
+    document.getElementById('geoPrompt').hidden = true;
+    locateMe();
   });
 })();
