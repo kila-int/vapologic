@@ -137,17 +137,18 @@ section{padding:72px 0}
 .hero{padding-top:28px;padding-bottom:8px}
 .slider{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
 .slides{display:flex;transition:transform .6s var(--ease)}
-.slide{min-width:100%;display:flex;align-items:center;gap:clamp(20px,4vw,56px);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
+.slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
 .s1{background:radial-gradient(700px 480px at 82% 50%,rgba(56,214,255,.42),transparent 60%),linear-gradient(120deg,#0c2230,#0b0a14)}
 .s2{background:radial-gradient(700px 480px at 82% 50%,rgba(255,77,157,.42),transparent 60%),linear-gradient(120deg,#2a0f1f,#0e0a16)}
 .s3{background:radial-gradient(700px 480px at 82% 50%,rgba(56,214,255,.42),transparent 60%),linear-gradient(120deg,#101a30,#0b0a14)}
 .s4{background:radial-gradient(760px 520px at 24% 42%,rgba(177,75,255,.34),transparent 60%),linear-gradient(120deg,#1a1230,#0c0b14)}
-.slide-txt{flex:1 1 auto;max-width:60ch;z-index:2;display:flex;flex-direction:column;align-items:flex-start}
+.slide-txt{flex:1 1 auto;min-width:0;max-width:60ch;z-index:2;display:flex;flex-direction:column;align-items:flex-start}
 .slide .pill{margin-bottom:8px}
 .slide h2{font-size:clamp(30px,5.6vw,58px);letter-spacing:-.015em}
 .slide .sub{margin-top:14px;color:#e6e2f2;font-weight:500;font-size:clamp(15px,2.1vw,21px)}
 .slide .btn{margin-top:34px}
-.ghost-prod{flex:0 0 clamp(190px,26vw,300px);aspect-ratio:3/5;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--mono);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
+/* slika zauzima pola slajda; visina prati slajd (bez fiksnog odnosa da se slajd ne razvuče) */
+.ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:stretch;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--mono);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
 @media(max-width:720px){
   /* display:contents -> deca .slide-txt postaju flex stavke .slide, pa slika moze izmedju teksta i dugmeta */
   .slide{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0;padding:44px 24px 56px}
@@ -155,7 +156,8 @@ section{padding:72px 0}
   .slide .pill{order:1;margin-bottom:10px}
   .slide h2{order:2}
   .slide .sub{order:3;margin-top:10px}
-  .ghost-prod{order:4;display:grid;flex:0 0 auto;width:min(70%,260px);aspect-ratio:3/4;margin:24px 0 0}
+  /* na mobilnom slika ide u sredinu kolone, sa svojim odnosom */
+  .ghost-prod{order:4;display:grid;flex:0 0 auto;align-self:center;width:min(70%,260px);aspect-ratio:3/4;min-height:0;margin:24px 0 0}
   .slide .btn{order:5;margin-top:28px}
 }
 .dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
@@ -458,6 +460,7 @@ footer a:hover{color:var(--ink)}
 .age .warn{font-family:var(--mono);border:1px solid var(--c1);color:var(--c1);border-radius:8px;padding:4px 9px;font-weight:700}
 
 /* ---------- ACCESSIBILITY / MOTION ---------- */
+/* Poštuje sistemsko „reduce motion" — gasi animacije i tranzicije u celini. */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
   .ring::after{display:none}
