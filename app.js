@@ -63,11 +63,33 @@ window.setLang = (lang) => applyLang(lang);
 applyLang(LANG);
 
 /* ---------- Nav hamburger + FAQ accordion (sve stranice) ---------- */
+const MOBILE_NAV = '(max-width:720px)';
+const closeAllDrops = () =>
+  document.querySelectorAll('.nav-menu .drop.open').forEach(d => {
+    d.classList.remove('open');
+    const b = d.querySelector('.drop-label,.lang-btn');
+    if (b) b.setAttribute('aria-expanded', 'false');
+  });
+
 window.toggleNav = () => {
   const open = document.body.classList.toggle('nav-open');
   const btn = document.querySelector('.nav-toggle');
   if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (!open) closeAllDrops();          // sledece otvaranje pocinje sklopljeno
 };
+
+/* Na mobilnom su dropdownovi akordeon — ranije su bili zakucani na otvoreno,
+   pa je meni bio duzi od ekrana. Na desktopu i dalje radi hover, ovo se ne mesa. */
+document.addEventListener('click', (e) => {
+  const label = e.target.closest('.nav-menu .drop-label, .nav-menu .lang-btn');
+  if (!label || !window.matchMedia(MOBILE_NAV).matches) return;
+  e.preventDefault();
+  const drop = label.closest('.drop');
+  const open = !drop.classList.contains('open');
+  closeAllDrops();                      // samo jedan otvoren odjednom
+  drop.classList.toggle('open', open);
+  label.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 window.toggleFaq = (btn) => {
   const item = btn.closest('.faq');
   if (!item) return;
@@ -246,10 +268,18 @@ const FLAVORS = [
   showStep();
 })();
 
-/* ---------- Product page: slajder ukusa — scroll-snap (proizvod.html) ---------- */
+/* ---------- Slajder ukusa, straničenje (proizvod.html) ----------
+   3 kartice po strani na desktopu, 2 na tabletu, 1 na telefonu — broj dolazi iz
+   CSS promenljive --per, pa raspored živi u CSS-u, a JS samo pomera traku. */
 (function () {
-  const fcar = document.getElementById('fcar');
-  if (!fcar) return;
+  const track = document.getElementById('fcar');
+  const slider = document.getElementById('fslider');
+  if (!track || !slider) return;
+  const view = slider.querySelector('.pview');
+  const dotsEl = document.getElementById('fdots');
+  const prevBtn = document.getElementById('fPrev');
+  const nextBtn = document.getElementById('fNext');
+
   const EB6 = [
     { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', taste: 'slatki', intensity: 'nežniji', acc: '#ff4d9d' },
     { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', taste: 'tropski', intensity: 'nežniji', acc: '#ffcf5c' },
@@ -258,83 +288,99 @@ const FLAVORS = [
     { fn: 'Grape', slug: 'grape', emo: '🍇', taste: 'osvežavajući', intensity: 'nežniji', acc: '#b14bff' },
     { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', emo: '🫐', taste: 'kiseli', intensity: 'snažniji', acc: '#38d6ff' },
   ];
-  const BAND = EB6.length;               // jedan „pojas" = kompletan set ukusa
+
   const title = document.getElementById('pdTitle');
-  const upd = (f) => { if (title && f) title.innerHTML = `EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">${f.fn}</span>`; };
+  const setTitle = (f) => {
+    if (title && f) title.innerHTML = 'EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">' + f.fn + '</span>';
+  };
 
-  // Za beskonačnu petlju renderujemo set 3× (klon pre + original + klon posle).
-  // Kad centar izađe iz srednjeg pojasa, tiho pomerimo scrollLeft za tačno jedan
-  // pojas — sadržaj pod prozorom je identičan, pa se skok ne vidi.
-  const card = (f, i) => `
-    <a class="fslide" data-i="${i % BAND}" data-slug="${f.slug}" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
-      <div class="fimg"><span class="femo" aria-hidden="true">${f.emo}</span><span class="fr">3:4</span></div>
-      <div class="fbody"><div class="fn">${f.fn}</div><div class="ftag">${t('taste.' + f.taste)} · ${t('intensity.' + f.intensity)}</div></div>
+  /* Ista struktura kao kartice proizvoda na početnoj (.card.ring > .shot + .body),
+     da se dizajn ne razilazi između stranica. */
+  const card = (f) => `
+    <a class="card ring" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
+      <div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span>
+        <span class="femo" aria-hidden="true">${f.emo}</span></div>
+      <div class="body"><h3>${f.fn}</h3>
+        <div class="specs"><span class="spec">${t('taste.' + f.taste)}</span><span class="spec">${t('intensity.' + f.intensity)}</span></div>
+        <span class="go"><span>${t('common.more')}</span> ${ARROW}</span></div>
     </a>`;
-  const renderAll = () => {
-    fcar.innerHTML = [...EB6, ...EB6, ...EB6].map(card).join('');
-    return [...fcar.children];
-  };
-  let slides = renderAll();
 
-  const nearestIdx = () => {
-    const c = fcar.getBoundingClientRect().left + fcar.clientWidth / 2;
-    let best = 0, bd = Infinity;
-    slides.forEach((s, i) => {
-      const r = s.getBoundingClientRect();
-      const d = Math.abs((r.left + r.right) / 2 - c);
-      if (d < bd) { bd = d; best = i; }
-    });
-    return best;
-  };
-  const bandWidth = () =>
-    slides[BAND].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+  let page = 0;
+  const per = () => Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--per'), 10) || 1);
+  const pages = () => Math.max(1, Math.ceil(EB6.length / per()));
+  const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
 
-  function syncActive() {
-    const i = nearestIdx();
-    slides.forEach((s, k) => s.classList.toggle('active', k === i));
-    upd(EB6[i % BAND]);
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < pages(); i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', t('flav.page', { n: i + 1 }));
+      b.onclick = () => go(i);
+      dotsEl.appendChild(b);
+    }
   }
-  // vrati centar u srednji pojas (bez animacije — skok je nevidljiv)
-  function normalize() {
-    const i = nearestIdx();
-    if (i < BAND) fcar.scrollTo({ left: fcar.scrollLeft + bandWidth(), behavior: 'instant' });
-    else if (i >= 2 * BAND) fcar.scrollTo({ left: fcar.scrollLeft - bandWidth(), behavior: 'instant' });
-  }
-  const centerOn = (i, behavior = 'smooth') => {
-    const s = slides[Math.max(0, Math.min(slides.length - 1, i))];
-    const cr = fcar.getBoundingClientRect(), sr = s.getBoundingClientRect();
-    const delta = (sr.left + sr.width / 2) - (cr.left + cr.width / 2);
-    fcar.scrollTo({ left: fcar.scrollLeft + delta, behavior });
-  };
 
-  // klik na neaktivnu -> centriraj je; klik na aktivnu -> otvori stranicu (default link)
-  fcar.addEventListener('click', (e) => {
-    const s = e.target.closest('.fslide');
-    if (s && !s.classList.contains('active')) { e.preventDefault(); centerOn(slides.indexOf(s)); }
+  // pomeraj za jednu stranu = širina prozora + jedan razmak
+  // (prozor pokazuje tačno `per` kartica, pa je to i korak)
+  function apply() {
+    page = Math.max(0, Math.min(pages() - 1, page));
+    track.style.transform = `translateX(${-page * (view.clientWidth + gap())}px)`;
+    [...dotsEl.children].forEach((d, i) => d.setAttribute('aria-selected', i === page ? 'true' : 'false'));
+    prevBtn.disabled = page === 0;
+    nextBtn.disabled = page >= pages() - 1;
+  }
+
+  const go = (p) => { page = p; apply(); };
+
+  function render() {
+    track.innerHTML = EB6.map(card).join('');
+    buildDots();
+    apply();
+  }
+
+  prevBtn.onclick = () => go(page - 1);
+  nextBtn.onclick = () => go(page + 1);
+
+  // prevlačenje prstom
+  let x0 = null;
+  view.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  view.addEventListener('touchend', (e) => {
+    if (x0 == null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) go(page + (dx < 0 ? 1 : -1));
+    x0 = null;
+  }, { passive: true });
+
+  /* Broj kartica po strani zavisi od širine -> na promenu preračunaj strane i pomeraj.
+     Tri izvora signala namerno: matchMedia hvata baš prelaz preko breakpointa i radi
+     i kad stranica ne renderuje; ResizeObserver hvata promenu kontejnera bez window
+     eventa (zum, scrollbar); window.resize je rezerva za starije browsere. */
+  let rt, prevPer = per();
+  const relayout = () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      const p = per();
+      if (p !== prevPer) { prevPer = p; buildDots(); }
+      apply();
+    }, 120);
+  };
+  ['(max-width:1024px)', '(max-width:720px)'].forEach(q => {
+    const mq = window.matchMedia(q);
+    if (mq.addEventListener) mq.addEventListener('change', relayout);
+    else if (mq.addListener) mq.addListener(relayout);
   });
-  let tick;
-  const settle = () => { normalize(); syncActive(); };
-  fcar.addEventListener('scroll', () => { clearTimeout(tick); tick = setTimeout(settle, 90); }, { passive: true });
-  window.addEventListener('resize', () => { clearTimeout(tick); tick = setTimeout(syncActive, 120); });
+  if (window.ResizeObserver) new ResizeObserver(relayout).observe(slider);
+  window.addEventListener('resize', relayout);
+  document.addEventListener('langchange', render);
 
-  document.getElementById('fPrev').onclick = () => centerOn(nearestIdx() - 1);
-  document.getElementById('fNext').onclick = () => centerOn(nearestIdx() + 1);
-
-  // krećemo od srednjeg pojasa (i od srednje kartice, da traka ne počinje prazninom levo)
-  let start = Math.min(2, BAND - 1);
+  render();
+  // ?ukus=... otvara stranu na kojoj je taj ukus i postavlja naslov u heroju
   const uk = new URLSearchParams(location.search).get('ukus');
-  if (uk) { const i = EB6.findIndex(f => f.slug === uk); if (i >= 0) start = i; }
-  // 'instant' je bitno: 'auto' bi pokupio CSS scroll-behavior:smooth i animirao na ucitavanju
-  const initPos = () => { centerOn(BAND + start, 'instant'); syncActive(); };
-  initPos();
-  document.addEventListener('langchange', () => {
-    const keep = nearestIdx();
-    slides = renderAll();
-    centerOn(keep, 'instant'); syncActive();
-  });
-  // jos jednom kad se ucitaju fontovi/slike (sirine kartica se tada mogu promeniti)
-  window.addEventListener('load', initPos);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(initPos);
+  const found = uk ? EB6.findIndex(f => f.slug === uk) : -1;
+  setTitle(found >= 0 ? EB6[found] : EB6[0]);
+  if (found >= 0) go(Math.floor(found / per()));
 })();
 
 /* ---------- Kontakt forma (kontakt.html) ----------
