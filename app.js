@@ -498,7 +498,7 @@ const FLAVORS = [
     });
 
     mapReady = true;
-    if (pending) { const p = pending; pending = null; search(p[0], p[1], p[2]); }
+    if (pending) { const p = pending; pending = null; search(p[0], p[1], p[2], p[3]); }
   });
 
   // na mobilnom je mapa ispod forme -> posle pretrage vodi korisnika dole do mape
@@ -508,8 +508,8 @@ const FLAVORS = [
     }
   };
 
-  function search(refLat, refLng, label) {
-    if (!mapReady) { pending = [refLat, refLng, label]; return; }
+  function search(refLat, refLng, label, accuracyM) {
+    if (!mapReady) { pending = [refLat, refLng, label, accuracyM]; return; }
     // uzmi prvi radijus u kome ima rezultata (ako nigde nema, ostaje najveći)
     const dists = LOCATIONS.map(l => haversine(refLat, refLng, l.lat, l.lng));
     const km = RADII.find(r => dists.some(d => d <= r)) || RADII[RADII.length - 1];
@@ -531,6 +531,13 @@ const FLAVORS = [
     const head = document.createElement('div');
     head.className = 'locempty';
     head.textContent = t('loc.found', { n: near.length, km, d: near[0].d.toFixed(1) });
+    // ako je fix nepouzdan (desktop bez GPS-a cesto promasi par km), reci to otvoreno
+    if (accuracyM && accuracyM > 3000) {
+      const warn = document.createElement('div');
+      warn.className = 'locempty loc-approx';
+      warn.textContent = t('loc.geo_approx', { km: Math.round(accuracyM / 1000) });
+      resultsEl.insertBefore(warn, head.nextSibling);
+    }
     resultsEl.appendChild(head);
     near.slice(0, 30).forEach(l => {
       const item = document.createElement('div');
@@ -576,11 +583,22 @@ const FLAVORS = [
   });
 
   // jedno mesto za geolokaciju — koristi ga i dugme i meka najava
+  const geoFail = (key) => {
+    resultsEl.innerHTML = `<div class="locempty">${t(key)}</div>`;
+    document.getElementById('locQuery').focus();
+  };
   function locateMe() {
-    if (!navigator.geolocation) { search(44.8125, 20.4612, 'Beograd'); return; }
+    if (!navigator.geolocation) { geoFail('loc.geo_failed'); return; }
+    resultsEl.innerHTML = `<div class="locempty">${t('loc.geo_searching')}</div>`;
     navigator.geolocation.getCurrentPosition(
-      (pos) => search(pos.coords.latitude, pos.coords.longitude, t('loc.my_location')),
-      () => search(44.8125, 20.4612, t('loc.default_bg'))
+      (pos) => {
+        const { latitude, longitude, accuracy } = pos.coords;
+        search(latitude, longitude, t('loc.my_location'), accuracy);
+      },
+      // NIKAD ne podmetati neku drugu lokaciju kao korisnikovu — reci šta je pošlo naopako
+      (err) => geoFail(err.code === 1 ? 'loc.geo_denied' : 'loc.geo_failed'),
+      // visoka preciznost (na telefonu GPS), bez keširanog starog fixa
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
     );
   }
 

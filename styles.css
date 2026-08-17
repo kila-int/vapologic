@@ -415,6 +415,7 @@ section{padding:72px 0}
 .locitem .ld{font-family:var(--mono);font-size:12px;color:var(--c3);margin-top:6px}
 .locempty{color:var(--muted-2);font-size:14px;padding:16px 0}
 .locmore{margin-top:2px;width:100%}
+.loc-approx{color:var(--gold,#ffcf5c);border-left:2px solid #ffcf5c;padding-left:12px;padding-top:0;padding-bottom:0}
 /* na mobilnom bez ugnjezdenog skrola u listi rezultata */
 @media(max-width:900px){.locresults{max-height:none;overflow:visible;padding-right:0}}
 #locmap{position:relative;isolation:isolate;width:100%;min-height:520px;height:100%;border-radius:var(--r-card);border:1px solid var(--hair);overflow:hidden;background:var(--bg-3)}
