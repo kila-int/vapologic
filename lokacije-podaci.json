@@ -1,0 +1,1787 @@
+[
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Partizanski blok ulica 2. 103a, Beograd",
+        "lat":  44.843971,
+        "lng":  20.472995
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Jovana Belića 5, Beograd",
+        "lat":  44.768767,
+        "lng":  20.512527
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Bulevar Peka Dapčevića 19, Beograd",
+        "lat":  44.768222,
+        "lng":  20.486062
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Zage Malivuk ulica 3. 22, Beograd",
+        "lat":  44.851265,
+        "lng":  20.51048
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Kej oslobođenja 11f, Beograd",
+        "lat":  44.840586,
+        "lng":  20.418823
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Lazara Dokića 120, Beograd",
+        "lat":  44.854641,
+        "lng":  20.42012
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Jahorinska 11, Beograd",
+        "lat":  44.813012,
+        "lng":  20.504191
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Pančevački put 36a, Beograd",
+        "lat":  44.843168,
+        "lng":  20.509057
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Milorada Jovanovića 4, Beograd",
+        "lat":  44.76967,
+        "lng":  20.406359
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Dunavski kej 43b, Beograd",
+        "lat":  44.82778,
+        "lng":  20.464342
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Goleška 2, Beograd",
+        "lat":  44.776841,
+        "lng":  20.465731
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Veljka Lukića Kurjaka 2v, Beograd",
+        "lat":  44.774141,
+        "lng":  20.467469
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Volgina 34a, Beograd",
+        "lat":  44.810716,
+        "lng":  20.500983
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Bulevar Zorana Đinđića 191, Beograd",
+        "lat":  44.824102,
+        "lng":  20.402978
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Cara Dušana 53, Beograd",
+        "lat":  44.849331,
+        "lng":  20.401595
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Dunavska 40a, Beograd",
+        "lat":  44.823599,
+        "lng":  20.467429
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Ustanička 125l, Beograd",
+        "lat":  44.784722,
+        "lng":  20.492966
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Obala majora Dragutina Gavrilovića 10, Beograd",
+        "lat":  44.829208,
+        "lng":  20.440754
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Zapadnomoravska 58, Beograd",
+        "lat":  44.830773,
+        "lng":  20.500718
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Jaše Ignjatovića 79, Beograd",
+        "lat":  44.780558,
+        "lng":  20.488304
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Obala kralja Aleksandra I Karađorđevića 88, Beograd",
+        "lat":  44.827752,
+        "lng":  20.434549
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Skadarska 35, Beograd",
+        "lat":  44.818785,
+        "lng":  20.465145
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Obala kralja Aleksandra I Karađorđevića 88, Beograd",
+        "lat":  44.823301,
+        "lng":  20.440761
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Španskih boraca 8, Beograd",
+        "lat":  44.817421,
+        "lng":  20.422227
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Pionirska 8a, Beograd",
+        "lat":  44.779643,
+        "lng":  20.430754
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Nebojšina 51, Beograd",
+        "lat":  44.792261,
+        "lng":  20.468989
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Omladinskih brigada 63, Beograd",
+        "lat":  44.799419,
+        "lng":  20.400136
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Bulevar Arsenija Čarnojevića 109, Beograd",
+        "lat":  44.814365,
+        "lng":  20.413446
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Branka Momirova 130, Beograd",
+        "lat":  44.842522,
+        "lng":  20.466782
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Zapadnomoravska 14, Beograd",
+        "lat":  44.832134,
+        "lng":  20.494443
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Gorana Berežana 19, Beograd",
+        "lat":  44.849267,
+        "lng":  20.435719
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Veljka Lukića Kurjaka 6g, Beograd",
+        "lat":  44.772077,
+        "lng":  20.466628
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Uralska - Patrisa Lumumbe 28, Beograd",
+        "lat":  44.814789,
+        "lng":  20.508524
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Ada Ciganlija 2, Beograd",
+        "lat":  44.790575,
+        "lng":  20.40084
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Bulevar Zorana Đinđića 59, Beograd",
+        "lat":  44.815089,
+        "lng":  20.424709
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Zage Malivuk ulica 4. 20d, Beograd",
+        "lat":  44.853681,
+        "lng":  20.520495
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Andre Stevanovića 5a, Beograd",
+        "lat":  44.768361,
+        "lng":  20.50188
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Studentski trg 1, Beograd",
+        "lat":  44.818683,
+        "lng":  20.45789
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Ustanička 139, Beograd",
+        "lat":  44.784753,
+        "lng":  20.497752
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Bulevar kralja Aleksandra 416, Beograd",
+        "lat":  44.790572,
+        "lng":  20.513172
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Bulevar Zorana Đinđića 219, Beograd",
+        "lat":  44.82516,
+        "lng":  20.400396
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Zage Malivuk 69, Beograd",
+        "lat":  44.854517,
+        "lng":  20.523065
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Pančevački put 69, Beograd",
+        "lat":  44.851436,
+        "lng":  20.524105
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Gospodara Vučića 59, Beograd",
+        "lat":  44.791436,
+        "lng":  20.47801
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Viline vode 3b, Beograd",
+        "lat":  44.819665,
+        "lng":  20.480471
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Đorđa Stanojevića 16, Beograd",
+        "lat":  44.809575,
+        "lng":  20.401762
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Podravska 7, Beograd",
+        "lat":  44.777383,
+        "lng":  20.478592
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Jovice Vasiljevića 101, Beograd",
+        "lat":  44.837091,
+        "lng":  20.478214
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Serdar Jola 7, Beograd",
+        "lat":  44.779347,
+        "lng":  20.463904
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Dravska 10a, Beograd",
+        "lat":  44.797242,
+        "lng":  20.489722
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Bulevar Nikole Tesle 3a, Beograd",
+        "lat":  44.819541,
+        "lng":  20.431499
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Beogradskog bataljona 99, Beograd",
+        "lat":  44.767978,
+        "lng":  20.423266
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Zapadnomoravska 56a, Beograd",
+        "lat":  44.826456,
+        "lng":  20.504627
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Dr Agostina Neta 33, Beograd",
+        "lat":  44.798236,
+        "lng":  20.405524
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Gorana Berežana 36, Beograd",
+        "lat":  44.83952,
+        "lng":  20.441516
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Beograd",
+        "addr":  "Karađorđeva 67, Beograd",
+        "lat":  44.812186,
+        "lng":  20.45367
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Beograd",
+        "addr":  "Zapadnomoravska 56a, Beograd",
+        "lat":  44.825668,
+        "lng":  20.500105
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Ive Vojnovića 1, Beograd",
+        "lat":  44.770468,
+        "lng":  20.450994
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Beograd",
+        "addr":  "Sime Igumanova 3, Beograd",
+        "lat":  44.792698,
+        "lng":  20.477852
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Beograd",
+        "addr":  "Braće Nedića 2, Beograd",
+        "lat":  44.806282,
+        "lng":  20.473392
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Ribarska 3, Novi Sad",
+        "lat":  45.274486,
+        "lng":  19.858746
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Ulica I 47, Novi Sad",
+        "lat":  45.269156,
+        "lng":  19.870523
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Ulica I 47, Novi Sad",
+        "lat":  45.265526,
+        "lng":  19.870362
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Ribarsko ostrvo 5, Novi Sad",
+        "lat":  45.231954,
+        "lng":  19.837405
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Sajlovo 25, Novi Sad",
+        "lat":  45.266133,
+        "lng":  19.796347
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Podunavska 4, Novi Sad",
+        "lat":  45.2295,
+        "lng":  19.804566
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Mišeluk 56, Novi Sad",
+        "lat":  45.232368,
+        "lng":  19.873256
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Tome Maretića 3a, Novi Sad",
+        "lat":  45.23457,
+        "lng":  19.888804
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Vase Ostojića 33, Novi Sad",
+        "lat":  45.300463,
+        "lng":  19.836697
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Koče Vasiljevića 19, Novi Sad",
+        "lat":  45.285242,
+        "lng":  19.842033
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Braće Mogin 2b, Novi Sad",
+        "lat":  45.264454,
+        "lng":  19.814241
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Slavka Rodića 24a, Novi Sad",
+        "lat":  45.236023,
+        "lng":  19.786735
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Desanke Maksimović 15, Novi Sad",
+        "lat":  45.234229,
+        "lng":  19.798053
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Preradovićeva 183, Novi Sad",
+        "lat":  45.235957,
+        "lng":  19.888435
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Atar 23, Novi Sad",
+        "lat":  45.30321,
+        "lng":  19.772882
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Ribarska 3, Novi Sad",
+        "lat":  45.27041,
+        "lng":  19.851143
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Petrovaradin – Beočin, Novi Sad",
+        "lat":  45.231677,
+        "lng":  19.86137
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Aleja Mike Antića, Novi Sad",
+        "lat":  45.249195,
+        "lng":  19.852694
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Jelke Ređep 5, Novi Sad",
+        "lat":  45.261852,
+        "lng":  19.771174
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Bulevar vojvode Stepe 36а, Novi Sad",
+        "lat":  45.257945,
+        "lng":  19.798027
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Rumenački put 96, Novi Sad",
+        "lat":  45.283416,
+        "lng":  19.784184
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Ulica I 17, Novi Sad",
+        "lat":  45.274342,
+        "lng":  19.863772
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Rada Končara 1, Novi Sad",
+        "lat":  45.253742,
+        "lng":  19.881172
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Karas Pala 24, Novi Sad",
+        "lat":  45.232494,
+        "lng":  19.807098
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Ćirila i Metodija 53a, Novi Sad",
+        "lat":  45.237322,
+        "lng":  19.811206
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Bajči Žilinskog 7, Novi Sad",
+        "lat":  45.266963,
+        "lng":  19.852819
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Patrijarha Rajačića 20, Novi Sad",
+        "lat":  45.253796,
+        "lng":  19.873551
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Stefana Prvovenčanog 6, Novi Sad",
+        "lat":  45.242331,
+        "lng":  19.783179
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Futoška 39, Novi Sad",
+        "lat":  45.247408,
+        "lng":  19.829168
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Sad",
+        "addr":  "Petrovaradin – Beočin, Novi Sad",
+        "lat":  45.235297,
+        "lng":  19.883405
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Sad",
+        "addr":  "Đakona Avakuma 27g, Novi Sad",
+        "lat":  45.281121,
+        "lng":  19.842377
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Sad",
+        "addr":  "Donje Sajlovo 3, Novi Sad",
+        "lat":  45.269036,
+        "lng":  19.783179
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Obilaznica Novi Sad, Novi Sad",
+        "lat":  45.299236,
+        "lng":  19.875909
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Sad",
+        "addr":  "Stanoja Glavaša 42, Novi Sad",
+        "lat":  45.23693,
+        "lng":  19.812426
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Niš",
+        "addr":  "Vojvode Putnika 208, Niš",
+        "lat":  43.287483,
+        "lng":  21.884625
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Niš",
+        "addr":  "63. padobranske brigade 20, Niš",
+        "lat":  43.331254,
+        "lng":  21.881036
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Niš",
+        "addr":  "Pavla Savića 45, Niš",
+        "lat":  43.283074,
+        "lng":  21.908943
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Niš",
+        "addr":  "Bulevar Nikole Tesle 35, Niš",
+        "lat":  43.335005,
+        "lng":  21.88843
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Niš",
+        "addr":  "Požarevačka 29, Niš",
+        "lat":  43.354383,
+        "lng":  21.868061
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Niš",
+        "addr":  "Dragiše Stankovića Čelika 7, Niš",
+        "lat":  43.297122,
+        "lng":  21.835478
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Niš",
+        "addr":  "Stefana Stratimirovića 51, Niš",
+        "lat":  43.295239,
+        "lng":  21.936122
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Niš",
+        "addr":  "Maršala Tita 212a, Niš",
+        "lat":  43.299166,
+        "lng":  21.835191
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Niš",
+        "addr":  "Školska 6, Niš",
+        "lat":  43.287755,
+        "lng":  21.850881
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Niš",
+        "addr":  "Petra Aranđelovića 1l, Niš",
+        "lat":  43.313217,
+        "lng":  21.852932
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Niš",
+        "addr":  "63. padobranske brigade 109, Niš",
+        "lat":  43.331756,
+        "lng":  21.870138
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Niš",
+        "addr":  "Pobede 19, Niš",
+        "lat":  43.285146,
+        "lng":  21.922557
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Niš",
+        "addr":  "Danila Price 7a, Niš",
+        "lat":  43.360415,
+        "lng":  21.896772
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Niš",
+        "addr":  "Vukova 18, Niš",
+        "lat":  43.354093,
+        "lng":  21.880473
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Niš",
+        "addr":  "Serdara Jola Piletića 29, Niš",
+        "lat":  43.294987,
+        "lng":  21.873781
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Niš",
+        "addr":  "Učitelja Spiridona 53, Niš",
+        "lat":  43.286931,
+        "lng":  21.868266
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Niš",
+        "addr":  "Vukadina Miljkovića 38, Niš",
+        "lat":  43.277026,
+        "lng":  21.877233
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Niš",
+        "addr":  "Prvomajska 18, Niš",
+        "lat":  43.297342,
+        "lng":  21.848721
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Niš",
+        "addr":  "Blagoja Parovića 1n, Niš",
+        "lat":  43.324599,
+        "lng":  21.91195
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Niš",
+        "addr":  "Babički odred 114b, Niš",
+        "lat":  43.299663,
+        "lng":  21.905669
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Niš",
+        "addr":  "Jelene Šaulić Bojović 39, Niš",
+        "lat":  43.298059,
+        "lng":  21.905866
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Niš",
+        "addr":  "Pobede 120b, Niš",
+        "lat":  43.276992,
+        "lng":  21.926512
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Niš",
+        "addr":  "Petra Božovića 42v, Niš",
+        "lat":  43.348104,
+        "lng":  21.914251
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Niš",
+        "addr":  "Zetska 46, Niš",
+        "lat":  43.308831,
+        "lng":  21.909526
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kragujevac",
+        "addr":  "Bogdana Kršića 7, Kragujevac",
+        "lat":  44.033052,
+        "lng":  20.922981
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kragujevac",
+        "addr":  "Grošnička 11, Kragujevac",
+        "lat":  43.986006,
+        "lng":  20.880819
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kragujevac",
+        "addr":  "Desankin venac 2b, Kragujevac",
+        "lat":  44.024575,
+        "lng":  20.900501
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Kragujevac",
+        "addr":  "Milunke Savić 12, Kragujevac",
+        "lat":  43.978774,
+        "lng":  20.9167
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Kragujevac",
+        "addr":  "Mlavska 52, Kragujevac",
+        "lat":  44.036524,
+        "lng":  20.90147
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kragujevac",
+        "addr":  "Milivoja Bankovića Sićka 98, Kragujevac",
+        "lat":  43.98468,
+        "lng":  20.91152
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kragujevac",
+        "addr":  "Romanijska 34, Kragujevac",
+        "lat":  43.988387,
+        "lng":  20.936232
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kragujevac",
+        "addr":  "Kostadina Nešića 11, Kragujevac",
+        "lat":  44.039244,
+        "lng":  20.946519
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Kragujevac",
+        "addr":  "Živomira Žive Kovanovića 18, Kragujevac",
+        "lat":  44.015763,
+        "lng":  20.972082
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Kragujevac",
+        "addr":  "Topoljak opornički 9, Kragujevac",
+        "lat":  44.05333,
+        "lng":  20.878391
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kragujevac",
+        "addr":  "Save Kovačevića 150, Kragujevac",
+        "lat":  44.042989,
+        "lng":  20.946475
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kragujevac",
+        "addr":  "Kapetana Radomira Milovanovića 44b, Kragujevac",
+        "lat":  43.988248,
+        "lng":  20.95443
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kragujevac",
+        "addr":  "Milorada Bankovića 1, Kragujevac",
+        "lat":  43.989053,
+        "lng":  20.928114
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Kragujevac",
+        "addr":  "Industrijska 21, Kragujevac",
+        "lat":  44.029206,
+        "lng":  20.944858
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Kragujevac",
+        "addr":  "Dr Miše Smiljkovića 6e, Kragujevac",
+        "lat":  43.975019,
+        "lng":  20.941562
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kragujevac",
+        "addr":  "Banijskih brigada 37, Kragujevac",
+        "lat":  44.031586,
+        "lng":  20.851061
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kragujevac",
+        "addr":  "Mitra Bakića 25, Kragujevac",
+        "lat":  44.014437,
+        "lng":  20.869095
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kragujevac",
+        "addr":  "Deli Radivoja 6, Kragujevac",
+        "lat":  43.983979,
+        "lng":  20.945397
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Subotica",
+        "addr":  "Zapadne Ugarnice 9, Subotica",
+        "lat":  46.093024,
+        "lng":  19.608886
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Subotica",
+        "addr":  "Đevđelijska 56a, Subotica",
+        "lat":  46.116522,
+        "lng":  19.696794
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Subotica",
+        "addr":  "Petra Horvackog 2, Subotica",
+        "lat":  46.068259,
+        "lng":  19.660107
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Subotica",
+        "addr":  "Mala Bosna salaši 17, Subotica",
+        "lat":  46.071287,
+        "lng":  19.603032
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Subotica",
+        "addr":  "Masarikova 120, Subotica",
+        "lat":  46.080769,
+        "lng":  19.684279
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Subotica",
+        "addr":  "Baranjska 82, Subotica",
+        "lat":  46.082568,
+        "lng":  19.641346
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Subotica",
+        "addr":  "Ljermontova 101, Subotica",
+        "lat":  46.137796,
+        "lng":  19.661647
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Subotica",
+        "addr":  "Čantavirski put 3, Subotica",
+        "lat":  46.058925,
+        "lng":  19.687297
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Subotica",
+        "addr":  "Graničarska 59, Subotica",
+        "lat":  46.144991,
+        "lng":  19.676054
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Subotica",
+        "addr":  "Josipa Kolumba 59, Subotica",
+        "lat":  46.115439,
+        "lng":  19.616487
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Subotica",
+        "addr":  "Venac bratstva i jedinstva 219a, Subotica",
+        "lat":  46.11641,
+        "lng":  19.722425
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Subotica",
+        "addr":  "Franje Kluza 144a, Subotica",
+        "lat":  46.080095,
+        "lng":  19.625851
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Zrenjanin",
+        "addr":  "Avenija Linglong 1, Zrenjanin",
+        "lat":  45.348658,
+        "lng":  20.440145
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Zrenjanin",
+        "addr":  "9. januara 16, Zrenjanin",
+        "lat":  45.385546,
+        "lng":  20.371062
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Zrenjanin",
+        "addr":  "Tiski red 24ž, Zrenjanin",
+        "lat":  45.382701,
+        "lng":  20.343361
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Zrenjanin",
+        "addr":  "Junaka Vasilija Ristića 32, Zrenjanin",
+        "lat":  45.362418,
+        "lng":  20.372783
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Zrenjanin",
+        "addr":  "Dr Laze Kostića 64, Zrenjanin",
+        "lat":  45.366014,
+        "lng":  20.412706
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Zrenjanin",
+        "addr":  "Hunjadi Janoša 177, Zrenjanin",
+        "lat":  45.341305,
+        "lng":  20.416628
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Zrenjanin",
+        "addr":  "Voje Tankosića 52, Zrenjanin",
+        "lat":  45.395259,
+        "lng":  20.384123
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Zrenjanin",
+        "addr":  "Tot Ištvana 33, Zrenjanin",
+        "lat":  45.353744,
+        "lng":  20.394224
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Zrenjanin",
+        "addr":  "Balzakova 33a, Zrenjanin",
+        "lat":  45.394078,
+        "lng":  20.411352
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Zrenjanin",
+        "addr":  "Melenački drum 243, Zrenjanin",
+        "lat":  45.42637,
+        "lng":  20.368749
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Pančevo",
+        "addr":  "Ilije Garašanina 5, Pančevo",
+        "lat":  44.873136,
+        "lng":  20.663745
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Pančevo",
+        "addr":  "Bratstva jedinstva 234, Pančevo",
+        "lat":  44.846531,
+        "lng":  20.693717
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Pančevo",
+        "addr":  "Pančevačkih pisaca 38, Pančevo",
+        "lat":  44.867086,
+        "lng":  20.693579
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Pančevo",
+        "addr":  "Kolarčeva 22, Pančevo",
+        "lat":  44.902742,
+        "lng":  20.639341
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Pančevo",
+        "addr":  "Olimpijskih pobednika 53, Pančevo",
+        "lat":  44.904271,
+        "lng":  20.653168
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Pančevo",
+        "addr":  "Nasipska čuvarnica broj 11 11, Pančevo",
+        "lat":  44.911704,
+        "lng":  20.62107
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Pančevo",
+        "addr":  "Dimitrija Tucovića 69a, Pančevo",
+        "lat":  44.877069,
+        "lng":  20.632081
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Pančevo",
+        "addr":  "Ive Kurjačkog 133, Pančevo",
+        "lat":  44.892929,
+        "lng":  20.649099
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Pančevo",
+        "addr":  "Pančevačkih pisaca 150, Pančevo",
+        "lat":  44.858751,
+        "lng":  20.701591
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Pančevo",
+        "addr":  "Luka Dunav 1v, Pančevo",
+        "lat":  44.841403,
+        "lng":  20.648179
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Pančevo",
+        "addr":  "Spoljnostarčevačka 84, Pančevo",
+        "lat":  44.82794,
+        "lng":  20.667822
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Pančevo",
+        "addr":  "Kolarčeva 50, Pančevo",
+        "lat":  44.908806,
+        "lng":  20.638613
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Čačak",
+        "addr":  "Put za Gorevnicu 21, Čačak",
+        "lat":  43.930939,
+        "lng":  20.315621
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Čačak",
+        "addr":  "Gradski Bedem 2, Čačak",
+        "lat":  43.896965,
+        "lng":  20.343565
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Čačak",
+        "addr":  "Potes Krivaje 59, Čačak",
+        "lat":  43.857462,
+        "lng":  20.383388
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Čačak",
+        "addr":  "Put za Nedoviće 22, Čačak",
+        "lat":  43.902907,
+        "lng":  20.322787
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Čačak",
+        "addr":  "Centralni put 3, Čačak",
+        "lat":  43.870219,
+        "lng":  20.292079
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Čačak",
+        "addr":  "Arsenalska 7a, Čačak",
+        "lat":  43.88306,
+        "lng":  20.359503
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Čačak",
+        "addr":  "Put za Pridvoricu 2, Čačak",
+        "lat":  43.875619,
+        "lng":  20.308311
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Čačak",
+        "addr":  "Glavni Rakovački put 72, Čačak",
+        "lat":  43.927791,
+        "lng":  20.368363
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Čačak",
+        "addr":  "Put za raketnu stanicu 40a, Čačak",
+        "lat":  43.923057,
+        "lng":  20.306809
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Čačak",
+        "addr":  "Dabića put 11, Čačak",
+        "lat":  43.924342,
+        "lng":  20.330765
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kraljevo",
+        "addr":  "Rudopoljska 44b, Kraljevo",
+        "lat":  43.722973,
+        "lng":  20.727503
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Kraljevo",
+        "addr":  "Petra Karađorđevića 57, Kraljevo",
+        "lat":  43.760774,
+        "lng":  20.635507
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Kraljevo",
+        "addr":  "4. kraljevački bataljon 11e, Kraljevo",
+        "lat":  43.722793,
+        "lng":  20.684849
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kraljevo",
+        "addr":  "Majdanska 21, Kraljevo",
+        "lat":  43.744459,
+        "lng":  20.735367
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kraljevo",
+        "addr":  "Moravska 7v, Kraljevo",
+        "lat":  43.76024,
+        "lng":  20.67233
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Kraljevo",
+        "addr":  "Patrijarha Pavla 64v, Kraljevo",
+        "lat":  43.690986,
+        "lng":  20.656202
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Kraljevo",
+        "addr":  "Petra Karađorđevića 79, Kraljevo",
+        "lat":  43.759675,
+        "lng":  20.631574
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Kraljevo",
+        "addr":  "Hilandarska 111, Kraljevo",
+        "lat":  43.693197,
+        "lng":  20.728167
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Kraljevo",
+        "addr":  "Žička 159b, Kraljevo",
+        "lat":  43.700884,
+        "lng":  20.657773
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Kraljevo",
+        "addr":  "Karađorđeva 260a, Kraljevo",
+        "lat":  43.723368,
+        "lng":  20.65253
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Pazar",
+        "addr":  "Hadžet 134b, Novi Pazar",
+        "lat":  43.131418,
+        "lng":  20.497409
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Pazar",
+        "addr":  "Mur 964, Novi Pazar",
+        "lat":  43.101897,
+        "lng":  20.499043
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Pazar",
+        "addr":  "Bajevica 105, Novi Pazar",
+        "lat":  43.096371,
+        "lng":  20.475713
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Pazar",
+        "addr":  "Brđani 26, Novi Pazar",
+        "lat":  43.096365,
+        "lng":  20.551271
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Novi Pazar",
+        "addr":  "Izbice 212, Novi Pazar",
+        "lat":  43.119069,
+        "lng":  20.569724
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Novi Pazar",
+        "addr":  "Vidovo 2, Novi Pazar",
+        "lat":  43.153645,
+        "lng":  20.46782
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Novi Pazar",
+        "addr":  "Izbice 11, Novi Pazar",
+        "lat":  43.144055,
+        "lng":  20.563725
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Pazar",
+        "addr":  "Gornji Aleksinac 9b, Novi Pazar",
+        "lat":  43.146763,
+        "lng":  20.510837
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Novi Pazar",
+        "addr":  "Banja 175, Novi Pazar",
+        "lat":  43.160913,
+        "lng":  20.561504
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Leskovac",
+        "addr":  "Ivana Gorana Kovačića 20, Leskovac",
+        "lat":  42.99181,
+        "lng":  21.918624
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Leskovac",
+        "addr":  "Beogradska 22, Leskovac",
+        "lat":  43.017196,
+        "lng":  21.904133
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Leskovac",
+        "addr":  "Dobrice Ćosića 1, Leskovac",
+        "lat":  42.998836,
+        "lng":  21.97719
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Leskovac",
+        "addr":  "Šantićeva 16, Leskovac",
+        "lat":  42.993682,
+        "lng":  21.972839
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Leskovac",
+        "addr":  "Zaselak Splav 1, Leskovac",
+        "lat":  43.036456,
+        "lng":  22.000805
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Leskovac",
+        "addr":  "Lebanski put 70v, Leskovac",
+        "lat":  42.981886,
+        "lng":  21.900067
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Leskovac",
+        "addr":  "Zlatiborska 9, Leskovac",
+        "lat":  43.007205,
+        "lng":  21.969198
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Leskovac",
+        "addr":  "Novosadska 25, Leskovac",
+        "lat":  42.98329,
+        "lng":  21.972716
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Leskovac",
+        "addr":  "Nikole Skobaljića 110, Leskovac",
+        "lat":  42.959855,
+        "lng":  21.9302
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Valjevo",
+        "addr":  "Dr Bore Blagojevića 10, Valjevo",
+        "lat":  44.281112,
+        "lng":  19.928661
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Valjevo",
+        "addr":  "Vladike Nikolaja Velimirovića 14a, Valjevo",
+        "lat":  44.235667,
+        "lng":  19.854456
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Valjevo",
+        "addr":  "Jahorinska 4, Valjevo",
+        "lat":  44.281691,
+        "lng":  19.868235
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Valjevo",
+        "addr":  "Kneza Arsena 49, Valjevo",
+        "lat":  44.314557,
+        "lng":  19.858105
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Valjevo",
+        "addr":  "Braće Dabića 2, Valjevo",
+        "lat":  44.274965,
+        "lng":  19.870734
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Valjevo",
+        "addr":  "Orahovačka 26, Valjevo",
+        "lat":  44.26986,
+        "lng":  19.84295
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Valjevo",
+        "addr":  "Poparski put 205a, Valjevo",
+        "lat":  44.24603,
+        "lng":  19.865363
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Valjevo",
+        "addr":  "Filipa Višnjića 32, Valjevo",
+        "lat":  44.316851,
+        "lng":  19.842771
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Valjevo",
+        "addr":  "Zlatarska 3, Valjevo",
+        "lat":  44.231213,
+        "lng":  19.930238
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Užice",
+        "addr":  "Gradinska 51, Užice",
+        "lat":  43.871015,
+        "lng":  19.811497
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Užice",
+        "addr":  "Mendino brdo 1v, Užice",
+        "lat":  43.848207,
+        "lng":  19.864959
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Užice",
+        "addr":  "Patrijarha Pavla 23, Užice",
+        "lat":  43.870731,
+        "lng":  19.894199
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Užice",
+        "addr":  "Strahinjića Bana 27, Užice",
+        "lat":  43.827489,
+        "lng":  19.863152
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Užice",
+        "addr":  "Braće Nikolić 63, Užice",
+        "lat":  43.850588,
+        "lng":  19.891177
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Užice",
+        "addr":  "Kralja Petra I 120, Užice",
+        "lat":  43.85906,
+        "lng":  19.829074
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Užice",
+        "addr":  "Bate Živojinovića 17b, Užice",
+        "lat":  43.8779,
+        "lng":  19.845472
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Užice",
+        "addr":  "Tunel 15 (zatvoren), Užice",
+        "lat":  43.847019,
+        "lng":  19.810047
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Sombor",
+        "addr":  "Čičovi 2i, Sombor",
+        "lat":  45.733849,
+        "lng":  19.121697
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Sombor",
+        "addr":  "Švrakin put 63, Sombor",
+        "lat":  45.756609,
+        "lng":  19.053093
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Sombor",
+        "addr":  "Dravska 35, Sombor",
+        "lat":  45.800137,
+        "lng":  19.113321
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Sombor",
+        "addr":  "Livadska 21, Sombor",
+        "lat":  45.775056,
+        "lng":  19.141899
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Sombor",
+        "addr":  "Štrandova 68, Sombor",
+        "lat":  45.760063,
+        "lng":  19.0825
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Sombor",
+        "addr":  "Josićki salaši 50, Sombor",
+        "lat":  45.764433,
+        "lng":  19.067493
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Sombor",
+        "addr":  "Topolska 61, Sombor",
+        "lat":  45.769254,
+        "lng":  19.052796
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Smederevo",
+        "addr":  "Kovinski put 82, Smederevo",
+        "lat":  44.649559,
+        "lng":  20.97504
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Smederevo",
+        "addr":  "Desanke Maksimović 14, Smederevo",
+        "lat":  44.697832,
+        "lng":  20.901295
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Smederevo",
+        "addr":  "Šalinačka 67, Smederevo",
+        "lat":  44.700475,
+        "lng":  20.976887
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Smederevo",
+        "addr":  "Dragoljuba Mikića 1, Smederevo",
+        "lat":  44.62508,
+        "lng":  20.875624
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Smederevo",
+        "addr":  "Mihajla Pupina 130, Smederevo",
+        "lat":  44.668694,
+        "lng":  20.879725
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Smederevo",
+        "addr":  "Udovički put 84, Smederevo",
+        "lat":  44.643878,
+        "lng":  20.873091
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Smederevo",
+        "addr":  "Đure Strugara 159, Smederevo",
+        "lat":  44.681519,
+        "lng":  20.934469
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Smederevo",
+        "addr":  "Mihajla Pupina 4, Smederevo",
+        "lat":  44.691429,
+        "lng":  20.923401
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Vranje",
+        "addr":  "Vlastimira Kostića 80, Vranje",
+        "lat":  42.506757,
+        "lng":  21.840073
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Vranje",
+        "addr":  "Viševska 17, Vranje",
+        "lat":  42.511374,
+        "lng":  21.92842
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Vranje",
+        "addr":  "Zlatni lug 108, Vranje",
+        "lat":  42.527476,
+        "lng":  21.954565
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Vranje",
+        "addr":  "Carski drum 272b, Vranje",
+        "lat":  42.522332,
+        "lng":  21.923428
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Vranje",
+        "addr":  "Hajduk Stankova 9, Vranje",
+        "lat":  42.53511,
+        "lng":  21.892176
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Vranje",
+        "addr":  "Save Šumanovića 63, Vranje",
+        "lat":  42.583386,
+        "lng":  21.908421
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Vranje",
+        "addr":  "Vranjskih ratnika 34, Vranje",
+        "lat":  42.52641,
+        "lng":  21.893666
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Šabac",
+        "addr":  "8. mart 2d, Šabac",
+        "lat":  44.789148,
+        "lng":  19.711593
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Šabac",
+        "addr":  "Zaselak Travnjak 1 1, Šabac",
+        "lat":  44.726321,
+        "lng":  19.681821
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Šabac",
+        "addr":  "7. oktobra 30g, Šabac",
+        "lat":  44.716365,
+        "lng":  19.67458
+    },
+    {
+        "typeKey":  "loctype.kiosk",
+        "city":  "Šabac",
+        "addr":  "Zapadna transverzala 1 2a, Šabac",
+        "lat":  44.753593,
+        "lng":  19.662442
+    },
+    {
+        "typeKey":  "loctype.gas",
+        "city":  "Šabac",
+        "addr":  "Savska avenija, Šabac",
+        "lat":  44.762637,
+        "lng":  19.703838
+    },
+    {
+        "typeKey":  "loctype.vape",
+        "city":  "Šabac",
+        "addr":  "Pavla Pavlovića 8, Šabac",
+        "lat":  44.725816,
+        "lng":  19.723138
+    },
+    {
+        "typeKey":  "loctype.mini",
+        "city":  "Šabac",
+        "addr":  "Šabački put 84, Šabac",
+        "lat":  44.773728,
+        "lng":  19.721278
+    },
+    {
+        "typeKey":  "loctype.trafika",
+        "city":  "Šabac",
+        "addr":  "Beogradska 7v, Šabac",
+        "lat":  44.746706,
+        "lng":  19.72811
+    }
+]
