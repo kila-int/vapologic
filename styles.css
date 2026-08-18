@@ -352,7 +352,10 @@ section{padding:72px 0}
 .pslider .next{order:3}
 .pslider .pdots{order:4;flex:0 0 100%;justify-content:center}
 
-.pview{overflow:hidden}
+/* overflow:hidden mora da ostane (traka klizi vodoravno), ali je sekao hover:
+   kartica se die 6px i nosi senku koja ide ~17px gore i ~21px dole.
+   Vertikalni padding pomera ivicu secenja, negativna margina vraca raspored. */
+.pview{overflow:hidden;padding-block:40px;margin-block:-40px}
 .ptrack{display:flex;gap:var(--gap);transition:transform .45s var(--ease);will-change:transform}
 /* sirina kartice = (100% - razmaci) / broj po strani */
 .ptrack>.card{flex:0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));min-width:0}
@@ -374,6 +377,18 @@ section{padding:72px 0}
 
 /* ispod desktopa: traka preko cele sirine, kontrole u redu ispod nje
    (levo prev · sredina tackice · desno next) */
+/* Kad u marginama ima mesta, strelice izlaze VAN kontejnera, a traka uzima punu
+   sirinu. Prag: strelica 36px + 8px margine = 44px, a gutter je 3vw (max 48px),
+   pa 44px staje tek od ~1467px navise. Ispod toga se vracaju pored trake. */
+@media(min-width:1480px){
+  .pslider{position:relative}
+  .pslider .pview{flex:0 0 100%}
+  .pslider .parrow{position:absolute;top:0;bottom:calc(22px + 18px);margin-block:auto;
+    width:36px;height:36px}
+  .pslider .parrow svg{width:16px;height:16px}
+  .pslider .prev{right:100%;margin-right:8px}
+  .pslider .next{left:100%;margin-left:8px}
+}
 @media(max-width:1024px){
   .pslider{--per:2}
   .pslider .pview{order:1;flex:0 0 100%}
