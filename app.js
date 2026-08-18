@@ -239,12 +239,12 @@ const FLAVORS = [
     m.forEach(f => {
       const a = document.createElement('a');
       a.className = 'rcard';
-      a.href = `proizvod.html?ukus=${slug(f.fl)}&dev=${f.dev}`;
+      a.href = `/proizvod?ukus=${slug(f.fl)}&dev=${f.dev}`;
       a.setAttribute('aria-label', t('quiz.open_aria', { fl: f.fl, dev: f.dev }));
       a.style.setProperty('--acc', accFor(f.fl));
       const tags = f.taste.map(x => `<span class="t">${t('taste.' + x)}</span>`).join('')
         + `<span class="t">${t('intensity.' + f.intensity)}</span><span class="t">${f.puffs}</span>`;
-      a.innerHTML = `<div class="rimg"><span class="remo" aria-hidden="true">${emoFor(f.fl)}</span><span class="fr">3:4</span></div>
+      a.innerHTML = `<div class="rimg"><span class="remo" aria-hidden="true">${emoFor(f.fl)}</span><span class="fr">1:1</span></div>
         <div class="rbody">
           <div class="fl">${f.fl}</div><div class="dev">${f.dev}</div>
           <div class="tags">${tags}</div>
@@ -297,7 +297,7 @@ const FLAVORS = [
   /* Ista struktura kao kartice proizvoda na početnoj (.card.ring > .shot + .body),
      da se dizajn ne razilazi između stranica. */
   const card = (f) => `
-    <a class="card ring" href="proizvod.html?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
+    <a class="card ring" href="/proizvod?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
       <div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span>
         <span class="femo" aria-hidden="true">${f.emo}</span></div>
       <div class="body"><h3>${f.fn}</h3>

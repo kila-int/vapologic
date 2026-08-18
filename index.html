@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=25">
+<link rel="stylesheet" href="styles.css?v=28">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -30,18 +30,18 @@
 
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html" aria-label="Vapologic — početna"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a>
+    <a class="logo" href="/" aria-label="Vapologic — početna"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a>
     <button class="nav-toggle" data-i18n-attr="aria-label:nav.menu_open" aria-label="Otvori meni" aria-expanded="false" aria-controls="navMenu" onclick="toggleNav()"><span class="bars"></span></button>
     <div class="nav-menu" id="navMenu">
     <nav class="center" aria-label="Glavni meni">
       <div class="drop">
         <button type="button" class="drop-label" aria-haspopup="true">Elfbar <i class="caret" aria-hidden="true"></i></button>
-        <div class="menu"><a href="proizvod.html?ukus=watermelon-ice">EB1000</a><a href="proizvod.html">EB6000</a></div>
+        <div class="menu"><a href="/proizvod?ukus=watermelon-ice">EB1000</a><a href="/proizvod">EB6000</a></div>
       </div>
-      <a href="proizvod.html">Lost Mary</a>
-      <a href="lokacije.html" data-i18n="nav.locations">Lokacije</a>
-      <a href="blog.html" data-i18n="nav.blog">Blog</a>
-      <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
+      <a href="/proizvod">Lost Mary</a>
+      <a href="/lokacije" data-i18n="nav.locations">Lokacije</a>
+      <a href="/blog" data-i18n="nav.blog">Blog</a>
+      <a href="/kontakt" data-i18n="nav.contact">Kontakt</a>
     </nav>
     <div class="langpick drop">
       <button type="button" class="lang-btn" aria-haspopup="true" data-i18n-attr="aria-label:nav.lang"><span id="langCurrent">SR</span><i class="caret" aria-hidden="true"></i></button>
@@ -64,10 +64,10 @@
   <div class="hero wrap">
     <div class="slider" id="slider">
       <div class="slides" id="slides">
-        <div class="slide s1"><div class="slide-txt"><span class="pill">Elfbar · EB1000</span><h2 data-i18n="hero.s1.title">Do hiljadu puffova!</h2><div class="sub" data-i18n="hero.s1.sub">Pun ukus u svakom udahu</div><a class="btn btn-primary" href="proizvod.html?ukus=watermelon-ice"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
-        <div class="slide s2"><div class="slide-txt"><span class="pill">Lost Mary · BM1000</span><h2>Turbo Mode</h2><div class="sub" data-i18n="hero.s2.sub">Ukusi u koje se odmah zaljubiš</div><a class="btn btn-primary" href="proizvod.html"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
-        <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="proizvod.html"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
-        <div class="slide s4"><div class="slide-txt"><span class="pill" data-i18n="hero.s4.pill">Lokacije</span><h2 data-i18n="hero.s4.title">Preko 1200 lokacija</h2><div class="sub" data-i18n="hero.s4.sub">Pronađite nas širom Srbije</div><a class="btn btn-primary" href="lokacije.html"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s1"><div class="slide-txt"><span class="pill">Elfbar · EB1000</span><h2 data-i18n="hero.s1.title">Do hiljadu puffova!</h2><div class="sub" data-i18n="hero.s1.sub">Pun ukus u svakom udahu</div><a class="btn btn-primary" href="/proizvod?ukus=watermelon-ice"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
+        <div class="slide s2"><div class="slide-txt"><span class="pill">Lost Mary · BM1000</span><h2>Turbo Mode</h2><div class="sub" data-i18n="hero.s2.sub">Ukusi u koje se odmah zaljubiš</div><a class="btn btn-primary" href="/proizvod"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
+        <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="/proizvod"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
+        <div class="slide s4"><div class="slide-txt"><span class="pill" data-i18n="hero.s4.pill">Lokacije</span><h2 data-i18n="hero.s4.title">Preko 1200 lokacija</h2><div class="sub" data-i18n="hero.s4.sub">Pronađite nas širom Srbije</div><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
       <button class="arrow prev" onclick="go(-1)" data-i18n-attr="aria-label:hero.prev" aria-label="Prethodni slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="arrow next" onclick="go(1)" data-i18n-attr="aria-label:hero.next" aria-label="Sledeći slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -108,11 +108,11 @@
       <div class="sec-head"><span class="eyebrow" data-i18n="prods.eyebrow">Proizvodi</span><h2 class="sec-title" data-i18n="prods.title">Upoznaj uređaje, isprobaj ukuse</h2>
         <p class="lead" data-i18n="prods.lead">Elfbar i Lost Mary proizvode odlikuje prepoznatljiv kvalitet, raskošna lepeza ukusa i moderan dizajn. Otkrij kakva tehnologija stoji iza njih.</p></div>
       <div class="prods">
-        <a class="card eb ring" href="proizvod.html?ukus=watermelon-ice"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb ring" href="/proizvod?ukus=watermelon-ice"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>EB1000</h3><p data-i18n="prods.eb1000.desc">Oseti pun ukus u svakom udahu uz turbo režim i 1000 puffova.</p><div class="specs"><span class="spec" data-i18n="spec.puffs1000">1000 puffova</span><span class="spec" data-i18n="spec.turbo">Turbo režim</span></div><span class="go"><span data-i18n="common.more">Detaljnije</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-        <a class="card bm ring" href="proizvod.html"><div class="shot"><span class="brand">Lost Mary</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card bm ring" href="/proizvod"><div class="shot"><span class="brand">Lost Mary</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>BM1000</h3><p data-i18n="prods.bm1000.desc">Intenzivni ukusi, moderan dizajn i indikator nivoa tečnosti.</p><div class="specs"><span class="spec" data-i18n="spec.puffs1000">1000 puffova</span><span class="spec" data-i18n="spec.indicator">Indikator</span></div><span class="go"><span data-i18n="common.more">Detaljnije</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-        <a class="card eb6 ring" href="proizvod.html"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb6 ring" href="/proizvod"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>EB6000</h3><p data-i18n="prods.eb6000.desc">Premium uređaj do 6000 puffova, Type-C punjenje i lako korišćenje.</p><div class="specs"><span class="spec" data-i18n="spec.puffs6000">6000 puffova</span><span class="spec">Type-C</span></div><span class="go"><span data-i18n="common.more">Detaljnije</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
       </div>
     </div>
@@ -139,7 +139,7 @@
         <div class="result" id="result"><h3 data-i18n="quiz.result_title">Tvoj izbor 🎉</h3><p class="lead" id="resSummary"></p>
           <div class="empty" id="empty" style="display:none" data-i18n="quiz.empty">Nema tačnog poklapanja za baš tu kombinaciju — evo najbližih ukusa.</div>
           <div class="rgrid" id="rgrid"></div>
-          <div class="qnav"><button class="btn btn-ghost" onclick="restart()" data-i18n="quiz.restart">↻ Počni ponovo</button><a class="btn btn-primary" href="index.html#prods"><span data-i18n="quiz.all">Pogledaj sve uređaje</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+          <div class="qnav"><button class="btn btn-ghost" onclick="restart()" data-i18n="quiz.restart">↻ Počni ponovo</button><a class="btn btn-primary" href="/#prods"><span data-i18n="quiz.all">Pogledaj sve uređaje</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
     </div>
   </section>
@@ -148,7 +148,7 @@
     <div class="wrap loc">
       <div><span class="eyebrow" data-i18n="loc.eyebrow">Lokacije</span><h2 class="sec-title" style="margin-top:12px" data-i18n="loc.teaser_title">1200+ lokacija širom Srbije</h2>
         <p class="lead" style="margin-top:12px" data-i18n="loc.teaser_lead">Elfbar i Lost Mary pronađi na preko 1200 prodajnih mesta: kiosci, benzinske stanice, tobacco i vape shopovi i male trgovine u tvojoj blizini.</p>
-        <a class="btn btn-primary" href="lokacije.html" style="margin-top:24px"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+        <a class="btn btn-primary" href="/lokacije" style="margin-top:24px"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
       <div class="mapbox"><svg viewBox="0 0 300 300" role="img" data-i18n-attr="aria-label:loc.map_aria" aria-label="Mapa Srbije sa lokacijama">
         <path d="M150 20 L185 40 L200 75 L235 90 L225 130 L245 165 L210 195 L215 235 L175 255 L150 285 L120 255 L95 245 L80 210 L60 175 L80 140 L70 100 L95 70 L115 45 Z" fill="rgba(255,255,255,.04)" stroke="var(--hair-2)" stroke-width="2"/>
         <g><circle class="ping" cx="150" cy="90" r="5"/><circle class="ping b" cx="130" cy="120" r="5"/><circle class="ping" cx="170" cy="140" r="5"/><circle class="ping b" cx="110" cy="170" r="5"/><circle class="ping" cx="190" cy="110" r="5"/><circle class="ping" cx="150" cy="200" r="5"/><circle class="ping b" cx="200" cy="180" r="5"/><circle class="ping" cx="120" cy="215" r="5"/><circle class="ping b" cx="165" cy="235" r="5"/><circle class="ping" cx="100" cy="130" r="5"/></g></svg>
@@ -171,8 +171,8 @@
     <div class="wrap">
       <div class="sec-head"><span class="eyebrow" data-i18n="blog.eyebrow">Blog</span><h2 class="sec-title" data-i18n="blog.title">Priče iz sveta vape-a</h2></div>
       <div class="blog">
-        <a class="post ring" href="blog.html"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="blog.cover">vaša naslovna slika</span></div><div class="pbody"><span class="pill">Elfbar</span><h3 data-i18n="blog.p1.title">Kako je nastao Elfbar: inovacije i raznovrsni ukusi savremenih elektronskih cigareta</h3><p data-i18n="blog.p1.excerpt">Prepoznatljiv po modernom dizajnu, širokoj paleti aroma i kontinuiranom razvoju tehnologije.</p><span class="go"><span data-i18n="common.read">Pročitaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-        <a class="post ring" href="blog.html"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="blog.cover">vaša naslovna slika</span></div><div class="pbody"><span class="pill">Lost Mary</span><h3 data-i18n="blog.p2.title">Dizajn kao deo identiteta: kako je estetika oblikovala prepoznatljivost Lost Mary uređaja</h3><p data-i18n="blog.p2.excerpt">Zaobljene linije, mat obrada i pažljivo odabrane boje kao ključna razlika među brendovima.</p><span class="go"><span data-i18n="common.read">Pročitaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+        <a class="post ring" href="/blog"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="blog.cover">vaša naslovna slika</span></div><div class="pbody"><span class="pill">Elfbar</span><h3 data-i18n="blog.p1.title">Kako je nastao Elfbar: inovacije i raznovrsni ukusi savremenih elektronskih cigareta</h3><p data-i18n="blog.p1.excerpt">Prepoznatljiv po modernom dizajnu, širokoj paleti aroma i kontinuiranom razvoju tehnologije.</p><span class="go"><span data-i18n="common.read">Pročitaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+        <a class="post ring" href="/blog"><div class="thumb ph"><span class="ratio">3:2</span><span data-i18n="blog.cover">vaša naslovna slika</span></div><div class="pbody"><span class="pill">Lost Mary</span><h3 data-i18n="blog.p2.title">Dizajn kao deo identiteta: kako je estetika oblikovala prepoznatljivost Lost Mary uređaja</h3><p data-i18n="blog.p2.excerpt">Zaobljene linije, mat obrada i pažljivo odabrane boje kao ključna razlika među brendovima.</p><span class="go"><span data-i18n="common.read">Pročitaj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
       </div>
     </div>
   </section>
@@ -182,11 +182,11 @@
 <footer>
   <div class="wrap">
     <div class="fgrid">
-      <div class="foot-brand"><a class="logo" href="index.html" aria-label="Vapologic"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a><p style="color:var(--muted);font-size:14px;max-width:34ch" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p>
+      <div class="foot-brand"><a class="logo" href="/" aria-label="Vapologic"><img class="logo-img" src="vapologic-logo-white.png" alt="Vapologic"></a><p style="color:var(--muted);font-size:14px;max-width:34ch" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p>
         <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
         <p class="foot-legal" data-i18n="footer.legal">Vapologic d.o.o. &middot; PIB 000000000 &middot; Matični broj 00000000 &middot; Bulevar oslobođenja 1, 21000 Novi Sad, Srbija</p></div>
-      <div><h4 data-i18n="footer.products">Proizvodi</h4><a href="proizvod.html?ukus=watermelon-ice">EB1000</a><a href="proizvod.html">BM1000</a><a href="proizvod.html">EB6000</a></div>
-      <div><h4 data-i18n="footer.info">Info</h4><a href="index.html" data-i18n="footer.about">O nama</a><a href="lokacije.html" data-i18n="nav.locations">Lokacije</a><a href="blog.html" data-i18n="nav.blog">Blog</a><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></div>
+      <div><h4 data-i18n="footer.products">Proizvodi</h4><a href="/proizvod?ukus=watermelon-ice">EB1000</a><a href="/proizvod">BM1000</a><a href="/proizvod">EB6000</a></div>
+      <div><h4 data-i18n="footer.info">Info</h4><a href="/" data-i18n="footer.about">O nama</a><a href="/lokacije" data-i18n="nav.locations">Lokacije</a><a href="/blog" data-i18n="nav.blog">Blog</a><a href="/kontakt" data-i18n="nav.contact">Kontakt</a></div>
       <div><h4 data-i18n="footer.legal_col">Pravno</h4><a href="#" data-i18n="footer.privacy">Politika privatnosti</a><a href="#" data-i18n="footer.terms">Uslovi korišćenja</a></div>
     </div>
     <div class="age"><span class="warn">18+</span> <span data-i18n="footer.age_note">Proizvodi sadrže nikotin koji izaziva zavisnost. Nisu namenjeni maloletnim osobama. © 2026 Vapologic.</span></div>
@@ -194,6 +194,6 @@
 </footer>
 
 <script src="i18n.js?v=8"></script>
-<script src="app.js?v=22"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://vapologic.rs/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://vapologic.rs/proizvod.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://vapologic.rs/lokacije.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://vapologic.rs/blog.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://vapologic.rs/proizvod</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://vapologic.rs/lokacije</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vapologic.rs/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
