@@ -322,11 +322,18 @@ const FLAVORS = [
     }
   }
 
-  // pomeraj za jednu stranu = širina prozora + jedan razmak
+  // .pview sada ima vodoravni padding (da se hover ne sece), pa clientWidth
+  // vise nije sirina sadrzaja -- racunamo je bez paddinga
+  const viewW = () => {
+    const cs = getComputedStyle(view);
+    return view.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  };
+
+  // pomeraj za jednu stranu = širina sadržaja + jedan razmak
   // (prozor pokazuje tačno `per` kartica, pa je to i korak)
   function apply() {
     page = Math.max(0, Math.min(pages() - 1, page));
-    track.style.transform = `translateX(${-page * (view.clientWidth + gap())}px)`;
+    track.style.transform = `translateX(${-page * (viewW() + gap())}px)`;
     [...dotsEl.children].forEach((d, i) => d.setAttribute('aria-selected', i === page ? 'true' : 'false'));
     prevBtn.disabled = page === 0;
     nextBtn.disabled = page >= pages() - 1;
