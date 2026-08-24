@@ -1,5 +1,23 @@
 [
     {
+        "name":  "Galaxy Code — Galerija",
+        "featured":  true,
+        "typeKey":  "loctype.vape",
+        "city":  "Beograd",
+        "addr":  "Bulevar Vudroa Vilsona 14, 11000 Beograd (Savski venac)",
+        "lat":  44.8069,
+        "lng":  20.449
+    },
+    {
+        "name":  "Galaxy Code — Novi Sad",
+        "featured":  true,
+        "typeKey":  "loctype.vape",
+        "city":  "Novi Sad",
+        "addr":  "Bulevar Mihajla Pupina 3, 21000 Novi Sad",
+        "lat":  45.2551,
+        "lng":  19.8452
+    },
+    {
         "typeKey":  "loctype.kiosk",
         "city":  "Beograd",
         "addr":  "Partizanski blok ulica 2. 103a, Beograd",

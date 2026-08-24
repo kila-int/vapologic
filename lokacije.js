@@ -36,7 +36,7 @@ if (mapEl) {
     type: 'FeatureCollection',
     features: LOCATIONS.map((l, i) => ({
       type: 'Feature', geometry: { type: 'Point', coordinates: [l.lng, l.lat] },
-      properties: { id: i, typeKey: l.typeKey, city: l.city, addr: l.addr },
+      properties: { id: i, typeKey: l.typeKey, city: l.city, addr: l.addr, name: l.name || '', featured: !!l.featured },
     })),
   });
 
@@ -55,7 +55,8 @@ if (mapEl) {
   // MapLibre gura greske stila/tileova kroz 'error' i inace ih tiho proguta
   map.on('error', (e) => console.warn('[lokacije] map error:', (e && e.error && e.error.message) || e, e && e.error));
 
-  const locName = (l) => `${t(l.typeKey)} — ${l.city}`;
+  // izdvojene (flagship) lokacije nose svoje ime; ostale se prikazuju kao „tip — grad"
+  const locName = (l) => l.name ? l.name : `${t(l.typeKey)} — ${l.city}`;
 
   const R = 6371, rad = (d) => d * Math.PI / 180;
   const haversine = (a, b, c, d) => {
@@ -175,7 +176,7 @@ if (mapEl) {
       const p = e.features[0].properties;
       selectLoc(p.id);
       new maptilersdk.Popup().setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(`<b>${t(p.typeKey)} — ${p.city}</b><br>${p.addr}`).addTo(map);
+        .setHTML(`<b>${p.name || (t(p.typeKey) + ' — ' + p.city)}</b><br>${p.addr}`).addTo(map);
     });
     ['clusters', 'points'].forEach(id => {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
@@ -232,7 +233,8 @@ if (mapEl) {
     // uzmi prvi radijus u kome ima rezultata (ako nigde nema, ostaje najveći)
     const all = LOCATIONS.map((l, i) => ({ ...l, id: i, d: haversine(refLat, refLng, l.lat, l.lng) }));
     const km = RADII.find(r => all.some(l => l.d <= r)) || RADII[RADII.length - 1];
-    const near = all.filter(l => l.d <= km).sort((a, b) => a.d - b.d);
+    // izdvojene prodavnice (najveći izbor) idu prve, pa ostatak po blizini
+    const near = all.filter(l => l.d <= km).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.d - b.d);
 
     if (mapReady) drawOnMap(refLat, refLng, label, accuracyM, km, near);
     else pending = [refLat, refLng, label, accuracyM];
@@ -265,8 +267,9 @@ if (mapEl) {
 
     near.slice(0, 30).forEach(l => {
       const item = document.createElement('div');
-      item.className = 'locitem'; item.tabIndex = 0;
-      item.innerHTML = `<div class="ln">${locName(l)}</div><div class="la">${l.addr}</div><div class="ld">${t('loc.km_from_you', { d: l.d.toFixed(1) })}</div>`;
+      item.className = 'locitem' + (l.featured ? ' is-featured' : ''); item.tabIndex = 0;
+      const tag = l.featured ? `<span class="loc-tag">${t('loc.featured_tag')}</span>` : '';
+      item.innerHTML = `${tag}<div class="ln">${locName(l)}</div><div class="la">${l.addr}</div><div class="ld">${t('loc.km_from_you', { d: l.d.toFixed(1) })}</div>`;
 
       const dir = document.createElement('a');
       dir.className = 'dirlink';

@@ -294,16 +294,14 @@ const FLAVORS = [
     if (title && f) title.innerHTML = 'EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">' + f.fn + '</span>';
   };
 
-  /* Ista struktura kao kartice proizvoda na početnoj (.card.ring > .shot + .body),
-     da se dizajn ne razilazi između stranica. */
+  /* Ista slika+ime struktura kao kartice proizvoda na početnoj, ali BEZ opisa i
+     BEZ linka — nema per-flavor stranice, pa kartica ukusa nije klikabilna. */
   const card = (f) => `
-    <a class="card ring" href="/proizvod?ukus=${f.slug}" style="--acc:${f.acc}" aria-label="${t('flav.open', { fn: f.fn })}">
+    <div class="card" style="--acc:${f.acc}">
       <div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span>
         <span class="femo" aria-hidden="true">${f.emo}</span></div>
-      <div class="body"><h3>${f.fn}</h3>
-        <div class="specs"><span class="spec">${t('taste.' + f.taste)}</span><span class="spec">${t('intensity.' + f.intensity)}</span></div>
-        <span class="go"><span>${t('common.more')}</span> ${ARROW}</span></div>
-    </a>`;
+      <div class="body"><h3>${f.fn}</h3></div>
+    </div>`;
 
   let page = 0;
   const per = () => Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--per'), 10) || 1);
@@ -332,11 +330,14 @@ const FLAVORS = [
   // pomeraj za jednu stranu = širina sadržaja + jedan razmak
   // (prozor pokazuje tačno `per` kartica, pa je to i korak)
   function apply() {
-    page = Math.max(0, Math.min(pages() - 1, page));
+    // infinite loop: strana se uvija u opseg [0, pages()-1] umesto da se seče na kraju
+    const n = pages();
+    page = ((page % n) + n) % n;
     track.style.transform = `translateX(${-page * (viewW() + gap())}px)`;
     [...dotsEl.children].forEach((d, i) => d.setAttribute('aria-selected', i === page ? 'true' : 'false'));
-    prevBtn.disabled = page === 0;
-    nextBtn.disabled = page >= pages() - 1;
+    // strelice su uvek aktivne — sa poslednje ide na prvu i obrnuto
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
   }
 
   const go = (p) => { page = p; apply(); };
