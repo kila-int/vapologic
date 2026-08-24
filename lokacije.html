@@ -59,6 +59,8 @@
         <p class="lead" data-i18n="loc.page_lead">Unesi grad ili ulicu, izaberi radijus i pronađi najbliža prodajna mesta — kioske, benzinske stanice i vape shopove.</p>
 
         <form class="locform" id="locForm" autocomplete="off">
+          <button class="btn btn-primary" type="button" id="geoBtn"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span> <span data-i18n="loc.geo">Koristi moju lokaciju</span></button>
+          <div class="loc-or"><span data-i18n="loc.or">ili</span></div>
           <div class="field">
             <label for="locQuery" data-i18n="loc.city_label">Grad ili adresa</label>
             <div class="loc-input-wrap">
@@ -78,9 +80,7 @@
               </button>
             </div>
           </div>
-          <button class="btn btn-primary" type="submit"><span data-i18n="loc.submit">Pretraži</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span></button>
-          <div class="loc-or"><span data-i18n="loc.or">ili</span></div>
-          <button class="btn btn-ghost" type="button" id="geoBtn"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span> <span data-i18n="loc.geo">Koristi moju lokaciju</span></button>
+          <button class="btn btn-ghost" type="submit"><span data-i18n="loc.submit">Pretraži</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span></button>
         </form>
 
         <!-- meka najava: pravi browser prompt se okida tek klikom na „Dozvoli pristup" -->
