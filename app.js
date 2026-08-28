@@ -407,6 +407,131 @@ const FLAVORS = [
   document.addEventListener('langchange', () => { if (note.textContent) note.textContent = t('contact.demo'); });
 })();
 
-/* ---------- Lokacije (lokacije.html) ---------- 
+/* ---------- Filter proizvoda + nav deep-link (index.html) ----------
+   Marka (Elfbar/Lost Mary) i Tip (Pod sistem/Jednokratni) su radio grupe —
+   po jedan izbor iz svake. Nav dropdown „Proizvodi" ne vodi na posebnu
+   stranicu: samo pre-selektuje filtere i skroluje na #prods (bez reloada).
+   Za sad 3 uređaja; logika je spremna za veći katalog kad stigne. */
+(function () {
+  const pf = document.getElementById('pf');
+  const grid = document.querySelector('#prods .prods');
+  if (!pf || !grid) return;
+
+  const cards = [...grid.querySelectorAll('.card')];
+  const chipsWrap = document.getElementById('pfChips');
+  const emptyEl = document.getElementById('pfEmpty');
+  const clearBtn = document.getElementById('pfClear');
+  const drops = [...pf.querySelectorAll('.pf-drop')];
+
+  const state = { brand: 'all', type: 'all' };
+  const VALID = { brand: ['all', 'lost-mary', 'elfbar'], type: ['all', 'pod', 'jednokratni'] };
+
+  // labela za dugme/čip po grupi+vrednosti (brendovi se ne prevode)
+  const valLabel = (group, val) => {
+    if (val === 'all') return t(group === 'brand' ? 'prods.filter.all_brands' : 'prods.filter.all_types');
+    if (group === 'brand') return val === 'elfbar' ? 'Elfbar' : 'Lost Mary';
+    return t(val === 'pod' ? 'prods.filter.pod' : 'prods.filter.disp');
+  };
+  const chipClass = (group, val) =>
+    group === 'brand' ? (val === 'elfbar' ? 'brand-elf' : 'brand-lm') : 'type';
+
+  function renderChips() {
+    chipsWrap.innerHTML = '';
+    const groups = ['brand', 'type'].filter(g => state[g] !== 'all');
+    if (!groups.length) return;
+    const lbl = document.createElement('span');
+    lbl.className = 'pf-chips-lbl';
+    lbl.textContent = t('prods.filter.active');
+    chipsWrap.appendChild(lbl);
+    groups.forEach(g => {
+      const chip = document.createElement('span');
+      chip.className = 'chip ' + chipClass(g, state[g]);
+      chip.innerHTML = `<span>${valLabel(g, state[g])}</span>` +
+        `<button type="button" class="x" data-clear="${g}" aria-label="${t('prods.filter.remove')}">` +
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
+      chipsWrap.appendChild(chip);
+    });
+  }
+
+  function apply() {
+    let shown = 0;
+    cards.forEach(c => {
+      const ok = (state.brand === 'all' || c.dataset.brand === state.brand)
+              && (state.type === 'all' || c.dataset.type === state.type);
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    if (emptyEl) emptyEl.hidden = shown !== 0;
+    pf.querySelectorAll('.pf-val').forEach(el => { el.textContent = valLabel(el.dataset.val, state[el.dataset.val]); });
+    pf.querySelectorAll('.pf-opt').forEach(o =>
+      o.setAttribute('aria-checked', state[o.dataset.group] === o.dataset.val ? 'true' : 'false'));
+    renderChips();
+    if (clearBtn) clearBtn.hidden = !(state.brand !== 'all' || state.type !== 'all');
+  }
+
+  const scrollToProds = () =>
+    document.getElementById('prods').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  function setFilter(group, val) {
+    if (!VALID[group] || !VALID[group].includes(val)) return;
+    state[group] = val;
+    apply();
+  }
+
+  const closeDrops = () => drops.forEach(d => {
+    d.classList.remove('open');
+    const b = d.querySelector('.pf-btn'); if (b) b.setAttribute('aria-expanded', 'false');
+  });
+
+  drops.forEach(d => {
+    const btn = d.querySelector('.pf-btn');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !d.classList.contains('open');
+      closeDrops();
+      d.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  pf.querySelectorAll('.pf-opt').forEach(o =>
+    o.addEventListener('click', () => { setFilter(o.dataset.group, o.dataset.val); closeDrops(); }));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.pf-drop')) closeDrops(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrops(); });
+
+  chipsWrap.addEventListener('click', (e) => {
+    const x = e.target.closest('[data-clear]');
+    if (x) setFilter(x.dataset.clear, 'all');
+  });
+  if (clearBtn) clearBtn.addEventListener('click', () => { state.brand = 'all'; state.type = 'all'; apply(); });
+
+  // nav dropdown „Proizvodi" -> filtriraj + skroluj (bez reloada na index-u)
+  document.querySelectorAll('.prod-menu [data-filter]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      state.brand = VALID.brand.includes(a.dataset.brand) ? a.dataset.brand : 'all';
+      state.type = VALID.type.includes(a.dataset.type) ? a.dataset.type : 'all';
+      apply();
+      if (document.body.classList.contains('nav-open')) {
+        document.body.classList.remove('nav-open');
+        const nb = document.querySelector('.nav-toggle');
+        if (nb) nb.setAttribute('aria-expanded', 'false');
+      }
+      scrollToProds();
+    });
+  });
+
+  // ?brand=&type= pri učitavanju (npr. dolazak sa druge stranice)
+  const q = new URLSearchParams(location.search);
+  const qb = q.get('brand'), qt = q.get('type');
+  if (qb && VALID.brand.includes(qb)) state.brand = qb;
+  if (qt && VALID.type.includes(qt)) state.type = qt;
+
+  apply();
+  document.addEventListener('langchange', apply);
+
+  if ((qb && qb !== 'all') || (qt && qt !== 'all')) setTimeout(scrollToProds, 60);
+})();
+
+/* ---------- Lokacije (lokacije.html) ----------
    Preseljeno u lokacije.js — MapTiler SDK je ESM, pa taj deo mora
    da se ucitava kao <script type="module">. ---------- */

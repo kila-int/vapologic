@@ -180,32 +180,87 @@ section{padding:72px 0}
 .arrow:hover{background:rgba(0,0,0,.62)}
 .arrow.prev{left:16px}.arrow.next{right:16px}.arrow svg{width:18px;height:18px}
 
-/* ---------- traka sa mesovitim sadrzajem (recenzije / brojevi / partneri) ---------- */
-.mq{position:relative;overflow:hidden;margin-top:34px;padding:6px 0;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-/* track = [grupa][gap][ista grupa] -> pomeraj za tacno (grupa + gap) = calc(-50% - gap/2) */
-.mq-track{display:flex;gap:16px;width:max-content;animation:mq 46s linear infinite}
-.mq-group{display:flex;gap:16px;flex:0 0 auto}
+/* ---------- SOCIAL PROOF: free-form pokretna traka (bez boksova/kartica) ----------
+   Sve teče kao jedna linija: recenzija · broj · logo · … Razdvaja ih tanka
+   hairline linija (::before na svakoj stavci -> razmak uniforman i preko „šava"). */
+.mq{position:relative;overflow:hidden;margin-top:34px;padding:22px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 60s linear infinite}
+.mq-group{display:flex}
 .mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
-.mq-item{flex:0 0 auto;border:1px solid var(--hair);background:var(--surface);border-radius:var(--r-card);padding:20px 22px;display:flex}
-.mq-review{width:clamp(290px,30vw,360px);flex-direction:column;gap:10px}
-.mq-stars{color:#ffcf5c;letter-spacing:.12em;font-size:14px}
-.mq-review p{color:#d6d2e2;font-size:14.5px;line-height:1.55}
-.mq-who{font-family:var(--sans);font-size:11.5px;color:var(--muted-2);letter-spacing:.04em}
-.mq-stat{width:clamp(180px,17vw,210px);flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;
-  background:linear-gradient(180deg,var(--surface),transparent)}
-.mq-stat b{font-family:var(--mono);font-weight:700;font-size:30px;line-height:1;
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.mq-track{animation:none}}
+.mq .it{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap}
+.mq .it::before{content:"";width:1px;height:18px;background:var(--hair-2);margin:0 34px;flex:0 0 auto}
+.it-rev{gap:10px;font-size:15px;color:#d6d2e2}
+.it-rev .stars{color:#ffcf5c;letter-spacing:.08em;font-size:13px}
+.it-rev .q{font-style:italic}
+.it-rev .who{color:var(--muted-2);font-size:13px}
+.it-rev .who::before{content:"— "}
+.it-stat{gap:9px}
+.it-stat b{font-family:var(--mono);font-weight:700;font-size:26px;line-height:1;
   background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent}
-.mq-stat span{color:var(--muted);font-size:13px}
-.mq-logo{width:clamp(170px,16vw,200px);align-items:center;justify-content:center;
-  background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);
-  border-style:dashed;border-color:var(--hair-2);color:var(--muted-2);
-  font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-align:center}
+.it-stat span{color:var(--muted);font-size:14px}
+.it-logo{font-weight:800;font-size:16px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-2);opacity:.75;transition:opacity .25s}
+.mq:hover .it-logo{opacity:.9}
 
 /* ---------- CARD HOVER: statičan neon glow (bez pokretnih linija) ---------- */
 .ring{position:relative}
+
+/* ---------- FILTER PROIZVODA (Marka + Tip, radio) ---------- */
+.pf{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 18px}
+.pf-drop{position:relative}
+.pf-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;
+  background:var(--surface-2);border:1px solid var(--hair-2);color:var(--ink);font-family:var(--sans);
+  font-size:14px;font-weight:500;cursor:pointer;transition:border-color .2s var(--ease),background .2s}
+.pf-btn:hover{border-color:var(--c2)}
+.pf-btn .pf-cap{color:var(--muted);font-weight:500}
+.pf-btn .caret{margin-left:2px;border-color:var(--muted)}
+.pf-drop.open .pf-btn{border-color:var(--c2);background:var(--bg-3)}
+.pf-menu{position:absolute;top:calc(100% + 8px);left:0;z-index:20;min-width:220px;background:var(--bg-3);
+  border:1px solid var(--hair);border-radius:14px;padding:7px;opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:.18s var(--ease);box-shadow:0 20px 44px rgba(0,0,0,.55)}
+.pf-drop.open .pf-menu{opacity:1;visibility:visible;transform:none}
+.pf-opt{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border-radius:9px;background:transparent;
+  border:0;color:var(--muted);font-family:var(--sans);font-size:14.5px;text-align:left;cursor:pointer;transition:.15s}
+.pf-opt:hover{background:var(--surface-2);color:var(--ink)}
+.pf-radio{width:17px;height:17px;flex:none;border-radius:50%;border:2px solid var(--hair-2);position:relative;transition:.15s}
+.pf-opt[aria-checked="true"]{color:var(--ink)}
+.pf-opt[aria-checked="true"] .pf-radio{border-color:var(--c2)}
+.pf-opt[aria-checked="true"] .pf-radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--candy)}
+.pf-clear{margin-left:2px;display:inline-flex;align-items:center;gap:7px;padding:11px 14px;border-radius:12px;
+  background:transparent;border:1px solid transparent;color:var(--muted);font-family:var(--sans);font-size:13.5px;
+  font-weight:500;cursor:pointer;transition:.18s}
+.pf-clear:hover{color:var(--ink);border-color:var(--hair)}
+.pf-clear svg{width:14px;height:14px}
+
+/* aktivni čipovi (V3 — tinta akcenta) */
+.pf-chips{display:flex;flex-wrap:wrap;align-items:center;gap:9px;min-height:20px;margin:0 0 30px}
+.pf-chips:empty{margin:0}
+.pf-chips .pf-chips-lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:2px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:500;line-height:1;
+  border-radius:999px;padding:7px 9px 7px 13px;white-space:nowrap;color:var(--ink)}
+.chip .x{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
+  cursor:pointer;transition:.15s;border:0;background:transparent;padding:0;color:inherit}
+.chip .x svg{width:11px;height:11px}
+.chip .x:hover{background:rgba(255,255,255,.12)}
+.chip.brand-elf{background:color-mix(in srgb,var(--c3) 15%,transparent);border:1px solid color-mix(in srgb,var(--c3) 45%,transparent)}
+.chip.brand-lm{background:color-mix(in srgb,var(--c1) 15%,transparent);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent)}
+.chip.type{background:color-mix(in srgb,var(--c2) 15%,transparent);border:1px solid color-mix(in srgb,var(--c2) 45%,transparent)}
+.chip.brand-elf .x{color:var(--c3)}
+.chip.brand-lm .x{color:var(--c1)}
+.chip.type .x{color:#c79bff}
+
+.pf-empty{color:var(--muted);font-size:15px;padding:22px 0 8px}
+.card[hidden],.pf-empty[hidden]{display:none}
+
+/* nav dropdown „Proizvodi" — grupe sa pod-stavkama */
+.prod-menu{min-width:210px}
+.prod-menu .pm-group{margin-top:4px;padding-top:5px;border-top:1px solid var(--hair)}
+.prod-menu .pm-head{font-weight:600;color:var(--ink)}
+.prod-menu .pm-sub{padding-left:22px;font-size:13px;color:var(--muted-2)}
 
 /* ---------- PRODUCTS GRID ---------- */
 .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}

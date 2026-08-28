@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=32">
+<link rel="stylesheet" href="styles.css?v=33">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -35,10 +35,20 @@
     <div class="nav-menu" id="navMenu">
     <nav class="center" aria-label="Glavni meni">
       <div class="drop">
-        <button type="button" class="drop-label" aria-haspopup="true">Elfbar <i class="caret" aria-hidden="true"></i></button>
-        <div class="menu"><a href="/proizvod?ukus=watermelon-ice">EB1000</a><a href="/proizvod">EB6000</a></div>
+        <button type="button" class="drop-label" aria-haspopup="true"><span data-i18n="nav.products">Proizvodi</span> <i class="caret" aria-hidden="true"></i></button>
+        <div class="menu prod-menu">
+          <a href="/?brand=all&amp;type=all#prods" class="pm-all" data-filter data-brand="all" data-type="all" data-i18n="nav.all_products">Svi proizvodi</a>
+          <div class="pm-group">
+            <a href="/?type=pod#prods" class="pm-head" data-filter data-brand="all" data-type="pod" data-i18n="nav.pod_group">Pod sistem</a>
+            <a href="/?brand=elfbar&amp;type=pod#prods" class="pm-sub" data-filter data-brand="elfbar" data-type="pod">EB6000</a>
+          </div>
+          <div class="pm-group">
+            <a href="/?type=jednokratni#prods" class="pm-head" data-filter data-brand="all" data-type="jednokratni" data-i18n="nav.disp_group">Jednokratni uređaji</a>
+            <a href="/?brand=elfbar&amp;type=jednokratni#prods" class="pm-sub" data-filter data-brand="elfbar" data-type="jednokratni">EB1000</a>
+            <a href="/?brand=lost-mary&amp;type=jednokratni#prods" class="pm-sub" data-filter data-brand="lost-mary" data-type="jednokratni">BM1000</a>
+          </div>
+        </div>
       </div>
-      <a href="/proizvod">Lost Mary</a>
       <a href="/lokacije" data-i18n="nav.locations">Lokacije</a>
       <a href="/blog" data-i18n="nav.blog">Blog</a>
       <a href="/kontakt" data-i18n="nav.contact">Kontakt</a>
@@ -75,30 +85,32 @@
     </div>
   </div>
 
-  <!-- traka: recenzije + brojevi + partneri (recenzije/logotipi su placeholderi) -->
+  <!-- SOCIAL PROOF: free-form ticker (recenzije · brojevi · partneri), bez boksova.
+       Recenzije/logotipi su placeholderi — klijent šalje prave tekstove i logoe.
+       Grupa se dešava dvaput radi bešavnog loopa (druga je aria-hidden). -->
   <div class="mq" tabindex="0" data-i18n-attr="aria-label:mq.aria" aria-label="Recenzije, brojevi i partneri">
     <div class="mq-track">
       <div class="mq-group">
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★★</div><p data-i18n="mq.r1">Ovde stoji kratak citat kupca — dve rečenice su taman. Dužina je namerno ovakva da se vidi kako se lomi tekst.</p><div class="mq-who" data-i18n="mq.who1">Ime P. · Beograd</div></div>
-        <div class="mq-item mq-stat"><b>1200+</b><span data-i18n="mq.stat1">prodajnih mesta</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★★</div><p data-i18n="mq.r2">Druga recenzija — ovde ide iskustvo o ukusu ili dostupnosti. Tekst dostavljate vi.</p><div class="mq-who" data-i18n="mq.who2">Ime M. · Novi Sad</div></div>
-        <div class="mq-item mq-stat"><b>20+</b><span data-i18n="mq.stat2">ukusa u ponudi</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★☆</div><p data-i18n="mq.r3">Treća recenzija — kratka i konkretna rečenica prolazi najbolje u ovakvoj traci.</p><div class="mq-who" data-i18n="mq.who3">Ime J. · Niš</div></div>
-        <div class="mq-item mq-stat"><b>6000</b><span data-i18n="mq.stat3">puffova (EB6000)</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
+        <span class="it it-rev"><span class="stars" aria-hidden="true">★★★★★</span><span class="q" data-i18n="mq.r1">Najbolji ukusi koje sam probao</span><span class="who" data-i18n="mq.who1">Ime P. · Beograd</span></span>
+        <span class="it it-stat"><b>1200+</b><span data-i18n="mq.stat1">prodajnih mesta</span></span>
+        <span class="it it-logo">Elfbar</span>
+        <span class="it it-rev"><span class="stars" aria-hidden="true">★★★★★</span><span class="q" data-i18n="mq.r2">Uvek dostupno u komšiluku</span><span class="who" data-i18n="mq.who2">Ime M. · Novi Sad</span></span>
+        <span class="it it-stat"><b>20+</b><span data-i18n="mq.stat2">ukusa u ponudi</span></span>
+        <span class="it it-logo">Lost Mary</span>
+        <span class="it it-rev"><span class="stars" aria-hidden="true">★★★★☆</span><span class="q" data-i18n="mq.r3">Odličan odnos cene i kvaliteta</span><span class="who" data-i18n="mq.who3">Ime J. · Niš</span></span>
+        <span class="it it-stat"><b>6000</b><span data-i18n="mq.stat3">puffova (EB6000)</span></span>
+        <span class="it it-logo" data-i18n="mq.logo">Partner</span>
       </div>
       <div class="mq-group" aria-hidden="true">
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★★</div><p data-i18n="mq.r1">Ovde stoji kratak citat kupca — dve rečenice su taman. Dužina je namerno ovakva da se vidi kako se lomi tekst.</p><div class="mq-who" data-i18n="mq.who1">Ime P. · Beograd</div></div>
-        <div class="mq-item mq-stat"><b>1200+</b><span data-i18n="mq.stat1">prodajnih mesta</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★★</div><p data-i18n="mq.r2">Druga recenzija — ovde ide iskustvo o ukusu ili dostupnosti. Tekst dostavljate vi.</p><div class="mq-who" data-i18n="mq.who2">Ime M. · Novi Sad</div></div>
-        <div class="mq-item mq-stat"><b>20+</b><span data-i18n="mq.stat2">ukusa u ponudi</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
-        <div class="mq-item mq-review"><div class="mq-stars">★★★★☆</div><p data-i18n="mq.r3">Treća recenzija — kratka i konkretna rečenica prolazi najbolje u ovakvoj traci.</p><div class="mq-who" data-i18n="mq.who3">Ime J. · Niš</div></div>
-        <div class="mq-item mq-stat"><b>6000</b><span data-i18n="mq.stat3">puffova (EB6000)</span></div>
-        <div class="mq-item mq-logo" data-i18n="mq.logo">LOGO PARTNERA</div>
+        <span class="it it-rev"><span class="stars">★★★★★</span><span class="q" data-i18n="mq.r1">Najbolji ukusi koje sam probao</span><span class="who" data-i18n="mq.who1">Ime P. · Beograd</span></span>
+        <span class="it it-stat"><b>1200+</b><span data-i18n="mq.stat1">prodajnih mesta</span></span>
+        <span class="it it-logo">Elfbar</span>
+        <span class="it it-rev"><span class="stars">★★★★★</span><span class="q" data-i18n="mq.r2">Uvek dostupno u komšiluku</span><span class="who" data-i18n="mq.who2">Ime M. · Novi Sad</span></span>
+        <span class="it it-stat"><b>20+</b><span data-i18n="mq.stat2">ukusa u ponudi</span></span>
+        <span class="it it-logo">Lost Mary</span>
+        <span class="it it-rev"><span class="stars">★★★★☆</span><span class="q" data-i18n="mq.r3">Odličan odnos cene i kvaliteta</span><span class="who" data-i18n="mq.who3">Ime J. · Niš</span></span>
+        <span class="it it-stat"><b>6000</b><span data-i18n="mq.stat3">puffova (EB6000)</span></span>
+        <span class="it it-logo" data-i18n="mq.logo">Partner</span>
       </div>
     </div>
   </div>
@@ -107,14 +119,40 @@
     <div class="wrap">
       <div class="sec-head center"><span class="eyebrow" data-i18n="prods.eyebrow">Proizvodi</span><h2 class="sec-title" data-i18n="prods.title">Upoznaj uređaje, isprobaj ukuse</h2>
         <p class="lead" data-i18n="prods.lead">Elfbar i Lost Mary proizvode odlikuje prepoznatljiv kvalitet, raskošna lepeza ukusa i moderan dizajn. Otkrij kakva tehnologija stoji iza njih</p></div>
+
+      <!-- Filteri: Marka + Tip (radio, po jedan iz svake grupe) + Očisti -->
+      <div class="pf" id="pf" role="group" data-i18n-attr="aria-label:prods.filter.brand">
+        <div class="pf-drop" data-filter-drop="brand">
+          <button type="button" class="pf-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="pf-cap"><span data-i18n="prods.filter.brand">Marka</span>:</span> <span class="pf-val" data-val="brand"></span> <i class="caret" aria-hidden="true"></i></button>
+          <div class="pf-menu" role="radiogroup" data-i18n-attr="aria-label:prods.filter.brand">
+            <button type="button" class="pf-opt" role="radio" aria-checked="true" data-group="brand" data-val="all"><span class="pf-radio" aria-hidden="true"></span><span data-i18n="prods.filter.all_brands">Svi proizvodi</span></button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="brand" data-val="lost-mary"><span class="pf-radio" aria-hidden="true"></span>Lost Mary</button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="brand" data-val="elfbar"><span class="pf-radio" aria-hidden="true"></span>Elfbar</button>
+          </div>
+        </div>
+        <div class="pf-drop" data-filter-drop="type">
+          <button type="button" class="pf-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="pf-cap"><span data-i18n="prods.filter.type">Tip</span>:</span> <span class="pf-val" data-val="type"></span> <i class="caret" aria-hidden="true"></i></button>
+          <div class="pf-menu" role="radiogroup" data-i18n-attr="aria-label:prods.filter.type">
+            <button type="button" class="pf-opt" role="radio" aria-checked="true" data-group="type" data-val="all"><span class="pf-radio" aria-hidden="true"></span><span data-i18n="prods.filter.all_types">Svi tipovi</span></button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="type" data-val="pod"><span class="pf-radio" aria-hidden="true"></span><span data-i18n="prods.filter.pod">Pod sistem</span></button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="type" data-val="jednokratni"><span class="pf-radio" aria-hidden="true"></span><span data-i18n="prods.filter.disp">Jednokratni</span></button>
+          </div>
+        </div>
+        <button type="button" class="pf-clear" id="pfClear" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> <span data-i18n="prods.filter.clear">Očisti</span></button>
+      </div>
+      <div class="pf-chips" id="pfChips" aria-live="polite"></div>
+
       <div class="prods">
-        <a class="card eb ring" href="/proizvod?ukus=watermelon-ice"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb ring" data-brand="elfbar" data-type="jednokratni" href="/proizvod?ukus=watermelon-ice"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>EB1000</h3></div></a>
-        <a class="card bm ring" href="/proizvod"><div class="shot"><span class="brand">Lost Mary</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card bm ring" data-brand="lost-mary" data-type="jednokratni" href="/proizvod"><div class="shot"><span class="brand">Lost Mary</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>BM1000</h3></div></a>
-        <a class="card eb6 ring" href="/proizvod"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb6 ring" data-brand="elfbar" data-type="pod" href="/proizvod"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
           <div class="body"><h3>EB6000</h3></div></a>
       </div>
+      <p class="pf-empty" id="pfEmpty" hidden data-i18n="prods.filter.empty">Nema proizvoda za ovaj izbor.</p>
     </div>
   </section>
 
@@ -199,7 +237,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=9"></script>
-<script src="app.js?v=25"></script>
+<script src="i18n.js?v=10"></script>
+<script src="app.js?v=26"></script>
 </body>
 </html>
