@@ -268,9 +268,10 @@ const FLAVORS = [
   showStep();
 })();
 
-/* ---------- Slajder ukusa, straničenje (proizvod.html) ----------
-   3 kartice po strani na desktopu, 2 na tabletu, 1 na telefonu — broj dolazi iz
-   CSS promenljive --per, pa raspored živi u CSS-u, a JS samo pomera traku. */
+/* ---------- Slajder ukusa (proizvod.html) — bešavni infinite loop ----------
+   Kartice se pomeraju JEDNA PO JEDNA; kad se dođe do poslednje, traka nastavlja
+   udesno preko klonova pa se tiho (bez tranzicije) resetuje — nema naglog
+   „vraćanja na početak". Broj vidljivih kartica (--per) i dalje dolazi iz CSS-a. */
 (function () {
   const track = document.getElementById('fcar');
   const slider = document.getElementById('fslider');
@@ -294,84 +295,122 @@ const FLAVORS = [
     if (title && f) title.innerHTML = 'EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">' + f.fn + '</span>';
   };
 
-  /* Ista slika+ime struktura kao kartice proizvoda na početnoj, ali BEZ opisa i
-     BEZ linka — nema per-flavor stranice, pa kartica ukusa nije klikabilna. */
-  const card = (f) => `
-    <div class="card" style="--acc:${f.acc}">
+  /* Slika + ime, bez opisa i bez linka (nema per-flavor stranice). */
+  const card = (f, clone) => `
+    <div class="card${clone ? ' is-clone' : ''}" style="--acc:${f.acc}"${clone ? ' aria-hidden="true"' : ''}>
       <div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span>
         <span class="femo" aria-hidden="true">${f.emo}</span></div>
       <div class="body"><h3>${f.fn}</h3></div>
     </div>`;
 
-  let page = 0;
-  const per = () => Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--per'), 10) || 1);
-  const pages = () => Math.max(1, Math.ceil(EB6.length / per()));
-  const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+  const N = EB6.length;
+  const AUTO_MS = 3800;
+  let per = 1, step = 0, pos = 0, animating = false, finTimer = null, autoTimer = null;
 
-  function buildDots() {
-    dotsEl.innerHTML = '';
-    for (let i = 0; i < pages(); i++) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', t('flav.page', { n: i + 1 }));
-      b.onclick = () => go(i);
-      dotsEl.appendChild(b);
-    }
-  }
-
-  // .pview sada ima vodoravni padding (da se hover ne sece), pa clientWidth
-  // vise nije sirina sadrzaja -- racunamo je bez paddinga
+  const readPer = () => Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--per'), 10) || 1);
+  const gapPx = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+  // .pview ima vodoravni padding (da se hover ne seče) -> širina sadržaja je bez njega
   const viewW = () => {
     const cs = getComputedStyle(view);
     return view.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
   };
+  const realIndex = () => ((((pos - per) % N) + N) % N);
 
-  // pomeraj za jednu stranu = širina sadržaja + jedan razmak
-  // (prozor pokazuje tačno `per` kartica, pa je to i korak)
-  function apply() {
-    // infinite loop: strana se uvija u opseg [0, pages()-1] umesto da se seče na kraju
-    const n = pages();
-    page = ((page % n) + n) % n;
-    track.style.transform = `translateX(${-page * (viewW() + gap())}px)`;
-    [...dotsEl.children].forEach((d, i) => d.setAttribute('aria-selected', i === page ? 'true' : 'false'));
-    // strelice su uvek aktivne — sa poslednje ide na prvu i obrnuto
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < N; i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', t('flav.page', { n: i + 1 }));
+      b.onclick = () => userGoTo(i);
+      dotsEl.appendChild(b);
+    }
+  }
+  const updateDots = () => {
+    const ri = realIndex();
+    [...dotsEl.children].forEach((d, i) => d.setAttribute('aria-selected', i === ri ? 'true' : 'false'));
+  };
+
+  const measure = () => { const g = gapPx(); step = (viewW() - (per - 1) * g) / per + g; };
+
+  function place(animate) {
+    if (!animate) track.style.transition = 'none';
+    track.style.transform = `translateX(${-pos * step}px)`;
+    if (!animate) { void track.offsetHeight; track.style.transition = ''; }  // zaključaj kadar bez tranzicije
+    updateDots();
   }
 
-  const go = (p) => { page = p; apply(); };
-
-  function render() {
-    track.innerHTML = EB6.map(card).join('');
+  // prošireni niz: [klonovi poslednjih `per`] + [pravih N] + [klonovi prvih `per`]
+  function build(ri) {
+    per = readPer();
+    const head = EB6.slice(N - per).map(f => card(f, true));
+    const body = EB6.map(f => card(f, false));
+    const tail = EB6.slice(0, per).map(f => card(f, true));
+    track.innerHTML = head.concat(body, tail).join('');
     buildDots();
-    apply();
+    measure();
+    pos = per + ((((ri || 0) % N) + N) % N);
+    place(false);
   }
 
-  prevBtn.onclick = () => go(page - 1);
-  nextBtn.onclick = () => go(page + 1);
+  function afterMove() {
+    animating = false;
+    // ušli smo u klon-zonu -> tiho vrati na ekvivalentnu pravu karticu (bez „skoka")
+    if (pos >= per + N) { pos -= N; place(false); }
+    else if (pos < per) { pos += N; place(false); }
+  }
+  function moveTo(newPos) {
+    if (animating || newPos === pos) return;
+    animating = true;
+    pos = newPos;
+    place(true);
+    clearTimeout(finTimer);
+    finTimer = setTimeout(afterMove, 650);   // rezerva ako 'transitionend' izostane
+  }
+  track.addEventListener('transitionend', (e) => {
+    if (e.propertyName !== 'transform') return;
+    clearTimeout(finTimer);
+    afterMove();
+  });
+
+  const stepBy = (d) => moveTo(pos + d);
+  const userGoTo = (ri) => { restartAuto(); moveTo(per + ri); };
+
+  function startAuto() { stopAuto(); autoTimer = setInterval(() => stepBy(1), AUTO_MS); }
+  function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+  const restartAuto = () => { if (autoTimer) startAuto(); };
+
+  prevBtn.onclick = () => { restartAuto(); stepBy(-1); };
+  nextBtn.onclick = () => { restartAuto(); stepBy(1); };
+
+  // pauza dok korisnik gleda / koristi
+  slider.addEventListener('mouseenter', stopAuto);
+  slider.addEventListener('mouseleave', startAuto);
+  slider.addEventListener('focusin', stopAuto);
+  slider.addEventListener('focusout', startAuto);
 
   // prevlačenje prstom
   let x0 = null;
-  view.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  view.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; stopAuto(); }, { passive: true });
   view.addEventListener('touchend', (e) => {
-    if (x0 == null) return;
-    const dx = e.changedTouches[0].clientX - x0;
-    if (Math.abs(dx) > 45) go(page + (dx < 0 ? 1 : -1));
-    x0 = null;
+    if (x0 != null) {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) stepBy(dx < 0 ? 1 : -1);
+    }
+    x0 = null; startAuto();
   }, { passive: true });
 
-  /* Broj kartica po strani zavisi od širine -> na promenu preračunaj strane i pomeraj.
-     Tri izvora signala namerno: matchMedia hvata baš prelaz preko breakpointa i radi
-     i kad stranica ne renderuje; ResizeObserver hvata promenu kontejnera bez window
-     eventa (zum, scrollbar); window.resize je rezerva za starije browsere. */
-  let rt, prevPer = per();
+  /* Broj kartica po strani zavisi od širine -> na prelaz breakpointa rebuild-uj
+     klonove čuvajući trenutni ukus; inače samo preračunaj korak i pomeraj. */
+  let rt, prevPer = readPer();
   const relayout = () => {
     clearTimeout(rt);
     rt = setTimeout(() => {
-      const p = per();
-      if (p !== prevPer) { prevPer = p; buildDots(); }
-      apply();
+      const ri = realIndex();
+      const p = readPer();
+      if (p !== prevPer) { prevPer = p; build(ri); }
+      else { measure(); place(false); }
     }, 120);
   };
   ['(max-width:1024px)', '(max-width:720px)'].forEach(q => {
@@ -381,14 +420,14 @@ const FLAVORS = [
   });
   if (window.ResizeObserver) new ResizeObserver(relayout).observe(slider);
   window.addEventListener('resize', relayout);
-  document.addEventListener('langchange', render);
+  document.addEventListener('langchange', () => build(realIndex()));
 
-  render();
-  // ?ukus=... otvara stranu na kojoj je taj ukus i postavlja naslov u heroju
+  // init: ?ukus=... postavlja početni ukus i naslov u heroju
   const uk = new URLSearchParams(location.search).get('ukus');
   const found = uk ? EB6.findIndex(f => f.slug === uk) : -1;
+  build(found >= 0 ? found : 0);
   setTitle(found >= 0 ? EB6[found] : EB6[0]);
-  if (found >= 0) go(Math.floor(found / per()));
+  startAuto();
 })();
 
 /* ---------- Kontakt forma (kontakt.html) ----------

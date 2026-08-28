@@ -190,7 +190,6 @@ section{padding:72px 0}
 .mq-group{display:flex}
 .mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){.mq-track{animation:none}}
 .mq .it{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap}
 .mq .it::before{content:"";width:1px;height:18px;background:var(--hair-2);margin:0 34px;flex:0 0 auto}
 .it-rev{gap:10px;font-size:15px;color:#d6d2e2}
