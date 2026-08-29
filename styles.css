@@ -373,6 +373,9 @@ section{padding:72px 0}
 
 /* ---------- LOCATIONS (home teaser) ---------- */
 .loc{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+/* teaser bez mape — centriran tekst + CTA */
+.loc-solo{max-width:760px;margin-inline:auto;text-align:center}
+.loc-solo .lead{margin-inline:auto}
 @media(max-width:860px){.loc{grid-template-columns:1fr}}
 .search{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
 .search input{flex:1;min-width:180px;background:var(--surface-2);border:1px solid var(--hair);color:var(--ink);border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit}
