@@ -383,21 +383,8 @@ section{padding:72px 0}
 .ping{fill:var(--c1)}.ping.b{fill:var(--c3)}
 .mapnote{position:absolute;left:22px;bottom:16px;z-index:3;font-family:var(--sans);font-size:11px;color:var(--muted-2)}
 
-/* ---------- Statična mapa na početnoj (2x2 raster pločice + candy pinovi) ---------- */
-.mapbox-static{display:block;padding:0;aspect-ratio:1/1;background:var(--bg-3)}
-/* 3x3 mozaik pomeren tako da je Srbija u centru vidljivog kvadrata */
-.sm-tiles{position:absolute;top:-11.6%;left:-34.9%;width:150%;height:150%;
-  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
-.sm-tiles img{width:100%;height:100%;display:block;object-fit:cover}
-/* zatamnjenje dna za čitljivost napomene/atribucije */
-.mapbox-static::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;z-index:1;pointer-events:none;
-  background:linear-gradient(to top,rgba(10,8,14,.78),transparent)}
-.sm-pins{position:absolute;inset:0;z-index:2;pointer-events:none}
-.sm-pin{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--c1);
-  box-shadow:0 0 0 3px rgba(255,77,157,.28),0 0 10px 2px rgba(255,77,157,.6)}
-.sm-pin.b{background:var(--c3);box-shadow:0 0 0 3px rgba(56,214,255,.28),0 0 10px 2px rgba(56,214,255,.6)}
-.sm-attrib{position:absolute;right:8px;bottom:6px;z-index:3;font-size:9px;letter-spacing:.02em;color:var(--muted-2);
-  background:rgba(0,0,0,.42);padding:2px 6px;border-radius:6px}
+/* ---------- SVG silueta Srbije na početnoj (bez rastera / bez sporne granice) ---------- */
+.mapbox-svg{display:grid;place-items:center;padding:16px}
 
 /* ---------- FAQ ---------- */
 .faq-sec{max-width:920px;margin-inline:auto}
