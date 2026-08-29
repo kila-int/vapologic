@@ -474,33 +474,127 @@ const FLAVORS = [
   const chipClass = (group, val) =>
     group === 'brand' ? (val === 'elfbar' ? 'brand-elf' : 'brand-lm') : 'type';
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CHIP_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  const raf2 = (fn) => requestAnimationFrame(() => requestAnimationFrame(fn));
+
+  // Čipovi se usklađuju (ne brišu se svi odjednom): postojeći ostaju, novi ulaze
+  // fade+scale, uklonjeni izlaze fade+scale — da prelaz ne bude ispresecan.
   function renderChips() {
-    chipsWrap.innerHTML = '';
-    const groups = ['brand', 'type'].filter(g => state[g] !== 'all');
-    if (!groups.length) return;
-    const lbl = document.createElement('span');
-    lbl.className = 'pf-chips-lbl';
-    lbl.textContent = t('prods.filter.active');
-    chipsWrap.appendChild(lbl);
-    groups.forEach(g => {
-      const chip = document.createElement('span');
-      chip.className = 'chip ' + chipClass(g, state[g]);
-      chip.innerHTML = `<span>${valLabel(g, state[g])}</span>` +
-        `<button type="button" class="x" data-clear="${g}" aria-label="${t('prods.filter.remove')}">` +
-        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
-      chipsWrap.appendChild(chip);
+    const want = ['brand', 'type'].filter(g => state[g] !== 'all');
+    let lbl = chipsWrap.querySelector('.pf-chips-lbl');
+    if (want.length && !lbl) {
+      lbl = document.createElement('span');
+      lbl.className = 'pf-chips-lbl';
+      chipsWrap.prepend(lbl);
+    }
+    if (lbl) { lbl.textContent = t('prods.filter.active'); lbl.hidden = !want.length; }
+
+    // izlazak čipova koji više nisu aktivni
+    chipsWrap.querySelectorAll('.chip').forEach(el => {
+      if (!want.includes(el.dataset.group) && !el.classList.contains('pf-chip-out')) {
+        if (reduceMotion) { el.remove(); return; }
+        el.classList.add('pf-chip-out');
+        const done = () => el.remove();
+        el.addEventListener('transitionend', done, { once: true });
+        setTimeout(done, 320);
+      }
+    });
+
+    // dodavanje/ažuriranje aktivnih (isti čvor ostaje -> bez re-animacije)
+    want.forEach(g => {
+      let el = chipsWrap.querySelector('.chip[data-group="' + g + '"]:not(.pf-chip-out)');
+      if (el) {
+        el.className = 'chip ' + chipClass(g, state[g]);
+        el.querySelector('.chip-lbl').textContent = valLabel(g, state[g]);
+      } else {
+        el = document.createElement('span');
+        el.className = 'chip ' + chipClass(g, state[g]);
+        el.dataset.group = g;
+        el.innerHTML = `<span class="chip-lbl">${valLabel(g, state[g])}</span>` +
+          `<button type="button" class="x" data-clear="${g}" aria-label="${t('prods.filter.remove')}">${CHIP_X}</button>`;
+        chipsWrap.appendChild(el);
+        if (!reduceMotion) { el.classList.add('pf-chip-in'); raf2(() => el.classList.remove('pf-chip-in')); }
+      }
+    });
+    // redosled: Marka pa Tip
+    want.forEach(g => {
+      const el = chipsWrap.querySelector('.chip[data-group="' + g + '"]:not(.pf-chip-out)');
+      if (el) chipsWrap.appendChild(el);
+    });
+  }
+
+  const cardOk = (c) =>
+    (state.brand === 'all' || c.dataset.brand === state.brand)
+    && (state.type === 'all' || c.dataset.type === state.type);
+
+  let cardsInit = false;
+  // FLIP: kartice koje ostaju vidljive glatko skliznu na nove pozicije; nove
+  // ulaze fade+scale, nepotrebne izlaze fade pa se uklone iz toka.
+  function animateCards() {
+    let shown = 0;
+    cards.forEach(c => { if (cardOk(c)) shown++; });
+    if (emptyEl) emptyEl.hidden = shown !== 0;
+
+    if (!cardsInit || reduceMotion) {
+      cards.forEach(c => { c.hidden = !cardOk(c); });
+      cardsInit = true;
+      return;
+    }
+
+    // FIRST — pozicije trenutno vidljivih
+    const first = new Map();
+    cards.forEach(c => { if (!c.hidden) first.set(c, c.getBoundingClientRect()); });
+    const gridRect = grid.getBoundingClientRect();
+
+    // izlazeće -> van toka (apsolutno) + fade-out, da ostale odmah reflow-uju
+    cards.forEach(c => {
+      if (!c.hidden && !cardOk(c)) {
+        const r = first.get(c);
+        c.style.width = r.width + 'px';
+        c.style.height = r.height + 'px';
+        c.style.top = (r.top - gridRect.top) + 'px';
+        c.style.left = (r.left - gridRect.left) + 'px';
+        c.classList.add('pf-abs');
+        raf2(() => c.classList.add('pf-out'));
+        const tm = setTimeout(finish, 420);
+        function finish(e) {
+          if (e && e.propertyName && e.propertyName !== 'opacity') return;
+          c.hidden = true;
+          c.classList.remove('pf-abs', 'pf-out');
+          c.style.cssText = '';
+          clearTimeout(tm);
+          c.removeEventListener('transitionend', finish);
+        }
+        c.addEventListener('transitionend', finish);
+      }
+    });
+
+    // ulazeće -> otkrivamo u pred-stanju (nevidljivo, ali zauzima svoj slot)
+    cards.forEach(c => { if (c.hidden && cardOk(c)) { c.hidden = false; c.classList.add('pf-in-pre'); } });
+
+    // LAST — nove pozicije vidljivih (izlazeće su apsolutne, van računa)
+    const stay = cards.filter(c => cardOk(c) && !c.classList.contains('pf-abs'));
+    const last = new Map(stay.map(c => [c, c.getBoundingClientRect()]));
+
+    // INVERT + PLAY
+    stay.forEach(c => {
+      if (first.has(c)) {                         // ostaje vidljiva -> FLIP klizanje
+        const f = first.get(c), l = last.get(c);
+        const dx = f.left - l.left, dy = f.top - l.top;
+        if (dx || dy) {
+          c.style.transition = 'none';
+          c.style.transform = `translate(${dx}px, ${dy}px)`;
+          raf2(() => { c.style.transition = ''; c.style.transform = ''; });
+        }
+      } else {                                    // nova -> fade+scale in
+        raf2(() => c.classList.remove('pf-in-pre'));
+      }
     });
   }
 
   function apply() {
-    let shown = 0;
-    cards.forEach(c => {
-      const ok = (state.brand === 'all' || c.dataset.brand === state.brand)
-              && (state.type === 'all' || c.dataset.type === state.type);
-      c.hidden = !ok;
-      if (ok) shown++;
-    });
-    if (emptyEl) emptyEl.hidden = shown !== 0;
+    animateCards();
     pf.querySelectorAll('.pf-val').forEach(el => { el.textContent = valLabel(el.dataset.val, state[el.dataset.val]); });
     pf.querySelectorAll('.pf-opt').forEach(o =>
       o.setAttribute('aria-checked', state[o.dataset.group] === o.dataset.val ? 'true' : 'false'));

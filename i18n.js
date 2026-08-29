@@ -157,7 +157,7 @@ window.I18N = {
     'loc.did_you_mean': 'Više rezultata — izaberi tačan:',
     'loc.recent': 'Skorašnje pretrage',
     'loc.clear': 'Obriši',
-    'loc.directions': 'Uputstva',
+    'loc.directions': 'Putanja',
     'loc.geo_fix_manually': 'Unesi adresu ručno',
     'loc.your_location_chip': 'Tvoja lokacija · ±{m} m',
     'loctype.kiosk': 'Kiosk Duvan',

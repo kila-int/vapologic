@@ -113,32 +113,48 @@ body.nav-open .nav-toggle .bars::after{top:0;transform:rotate(-45deg)}
   .nav{gap:12px}
   .nav-toggle{display:block;margin-left:auto}
   body.nav-open{overflow:hidden}
-  /* header ima backdrop-filter => on je containing block; zato absolute (fixed bi se vezao za header) */
-  /* justify-content:flex-end NE sme ovde: kad sadrzaj premasi visinu, pocetak liste
-     postane nedostupan skrolu. Dno se drzi preko margin-top:auto na prvom detetu. */
-  .nav-menu{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:16px;
-    position:absolute;top:100%;left:0;right:0;max-height:calc(100dvh - 72px);z-index:39;background:var(--bg-2);
-    border-top:1px solid var(--hair);padding:40px var(--gutter) 52px;
+  /* logo i X (hamburger) ostaju IZNAD full-screen panela (isti stacking kontekst header-a) */
+  body.nav-open .logo{position:relative;z-index:60}
+  body.nav-open .nav-toggle{z-index:60}
+  /* Full-screen preklapanje. Mora absolute: header ima backdrop-filter pa je on
+     containing block (fixed bi se vezao za header). top:0 + height:100dvh svejedno
+     prekriva ceo ekran jer je header prikačen na vrh. */
+  .nav-menu{display:flex;flex-direction:column;align-items:stretch;gap:0;
+    position:absolute;top:0;left:0;right:0;height:100dvh;z-index:50;background:var(--bg);
+    padding:100px var(--gutter) 40px;
     overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
-    opacity:0;visibility:hidden;transform:translateY(-8px);
-    transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s}
-  .nav-menu>*:first-child{margin-top:auto}
+    opacity:0;visibility:hidden;transform:translateY(-10px);
+    transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s}
   body.nav-open .nav-menu{opacity:1;visibility:visible;transform:none}
-  .nav-menu .center{flex-direction:column;align-items:flex-start;gap:0;margin:0;width:100%}
-  .nav-menu .center a,.nav-menu .center .drop-label{font-size:28px;font-weight:600;padding:5px 0}
+  /* glavni linkovi: na vrhu, veliki, sa suptilnim razdelnicima */
+  .nav-menu .center{flex-direction:column;align-items:stretch;gap:0;margin:0;width:100%}
+  .nav-menu .center>a,.nav-menu .center .drop{border-bottom:1px solid var(--hair)}
+  .nav-menu .center>a:last-child{border-bottom:0}
+  .nav-menu .center a,.nav-menu .center .drop-label{font-size:26px;font-weight:700;padding:13px 0;letter-spacing:-.01em}
   .nav-menu .drop{width:100%}
   .nav-menu .drop .drop-label{display:flex;width:100%;justify-content:space-between;align-items:center;cursor:pointer}
-  .nav-menu .drop .caret{transition:transform .25s var(--ease)}
+  .nav-menu .drop .caret{width:9px;height:9px;transition:transform .25s var(--ease)}
   /* .caret je vec rotiran 45deg (strelica nadole) — 225deg je okrece nagore */
   .nav-menu .drop.open .caret{transform:rotate(225deg)}
-  /* zatvoren po defaultu: ranije je bio zakucan na visibility:visible pa su svi
-     dropdownovi stajali otvoreni i gurali sadrzaj van ekrana */
+  /* accordion: zatvoren po defaultu, otvara se na klik */
   .nav-menu .drop .menu{position:static;opacity:1;visibility:visible;transform:none;background:transparent;
-    border:0;box-shadow:none;min-width:0;width:100%;padding:0 0 0 16px;
+    border:0;box-shadow:none;min-width:0;width:100%;padding:0;
     display:flex;flex-direction:column;
-    max-height:0;overflow:hidden;transition:max-height .28s var(--ease)}
-  .nav-menu .drop.open .menu{max-height:340px}
-  .nav-menu .drop .menu a{font-size:19px;font-weight:500;color:var(--muted);padding:6px 0}
+    max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+  .nav-menu .drop.open .menu{max-height:600px}
+  .nav-menu .drop .menu a{font-size:18px;font-weight:500;color:var(--muted);
+    padding:11px 0 11px 16px;border-left:2px solid var(--hair)}
+  .nav-menu .drop .menu a:hover{background:transparent;color:var(--ink)}
+  /* „Proizvodi": čist uvučen spisak sa levom akcentnom šinom, dosledne veličine */
+  .nav-menu .prod-menu{padding:8px 0 6px}
+  .nav-menu .prod-menu .pm-group{margin:0;padding:0;border-top:0}
+  /* a.pm-* diže specifičnost iznad `.nav-menu .drop .menu a` (inače gube veličinu/boju) */
+  .nav-menu .drop .menu a.pm-all{font-size:19px;color:var(--ink);font-weight:600;border-left-color:var(--c3)}
+  .nav-menu .drop .menu a.pm-head{font-size:18px;color:var(--ink);font-weight:600;border-left-color:var(--c2)}
+  .nav-menu .drop .menu a.pm-sub{font-size:15px;color:var(--muted-2);padding-left:30px}
+  /* jezik + mreže zakačeni na dno, sa razdelnikom */
+  .nav-menu .langpick{margin-top:auto;width:100%;padding-top:24px;border-top:1px solid var(--hair)}
+  .nav-menu .socials{margin-top:20px;gap:12px}
 }
 
 main{padding-bottom:20px}
@@ -209,7 +225,7 @@ section{padding:72px 0}
 .ring{position:relative}
 
 /* ---------- FILTER PROIZVODA (Marka + Tip, radio) ---------- */
-.pf{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 18px}
+.pf{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 10px}
 .pf-drop{position:relative}
 .pf-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;
   background:var(--surface-2);border:1px solid var(--hair-2);color:var(--ink);font-family:var(--sans);
@@ -236,11 +252,14 @@ section{padding:72px 0}
 .pf-clear svg{width:14px;height:14px}
 
 /* aktivni čipovi (V3 — tinta akcenta) */
-.pf-chips{display:flex;flex-wrap:wrap;align-items:center;gap:9px;min-height:20px;margin:0 0 30px}
-.pf-chips:empty{margin:0}
+/* rezervisana visina reda: čipovi se pojave/nestanu bez pomeranja visine strane */
+.pf-chips{display:flex;flex-wrap:wrap;align-items:center;gap:9px;min-height:34px;margin:0 0 24px}
 .pf-chips .pf-chips-lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:2px}
 .chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:500;line-height:1;
-  border-radius:999px;padding:7px 9px 7px 13px;white-space:nowrap;color:var(--ink)}
+  border-radius:999px;padding:7px 9px 7px 13px;white-space:nowrap;color:var(--ink);
+  transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.chip.pf-chip-in,.chip.pf-chip-out{opacity:0;transform:scale(.82)}
+.chip.pf-chip-out{pointer-events:none}
 .chip .x{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
   cursor:pointer;transition:.15s;border:0;background:transparent;padding:0;color:inherit}
 .chip .x svg{width:11px;height:11px}
@@ -262,7 +281,11 @@ section{padding:72px 0}
 .prod-menu .pm-sub{padding-left:22px;font-size:13px;color:var(--muted-2)}
 
 /* ---------- PRODUCTS GRID ---------- */
-.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+/* FLIP: kartica koja nestaje izlazi iz toka (apsolutna) da ostale glatko skliznu */
+.card.pf-abs{position:absolute!important;margin:0!important;z-index:1;pointer-events:none}
+.card.pf-out{opacity:0;transform:scale(.95)}
+.card.pf-in-pre{opacity:0;transform:scale(.96)}
 @media(max-width:860px){.prods{grid-template-columns:1fr}}
 /* ===== zajednicki skelet kartice: proizvod (home) · ukus (slajder) · rezultat kviza ===== */
 .card,.rcard{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden;
@@ -275,7 +298,7 @@ section{padding:72px 0}
 .card .ratio,.rcard .fr{position:absolute;top:10px;right:10px;font-family:var(--sans);font-size:10px;color:var(--muted-2);
   background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
 
-.card{transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+.card{transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),opacity .32s var(--ease)}
 .card:hover,.rcard:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
 .card .shot{aspect-ratio:1/1}
 /* brand okvir: Elfbar plavo/cyan, Lost Mary roze/magenta — vidljiv i bez hovera */
@@ -358,7 +381,23 @@ section{padding:72px 0}
 .mapbox{position:relative;background:var(--bg-2);border:1px solid var(--hair);border-radius:var(--r-card);padding:22px;aspect-ratio:4/3;overflow:hidden}
 .mapbox svg{width:100%;height:100%;filter:drop-shadow(0 8px 20px rgba(0,0,0,.4))}
 .ping{fill:var(--c1)}.ping.b{fill:var(--c3)}
-.mapnote{position:absolute;left:22px;bottom:16px;font-family:var(--sans);font-size:11px;color:var(--muted-2)}
+.mapnote{position:absolute;left:22px;bottom:16px;z-index:3;font-family:var(--sans);font-size:11px;color:var(--muted-2)}
+
+/* ---------- Statična mapa na početnoj (2x2 raster pločice + candy pinovi) ---------- */
+.mapbox-static{display:block;padding:0;aspect-ratio:1/1;background:var(--bg-3)}
+/* 3x3 mozaik pomeren tako da je Srbija u centru vidljivog kvadrata */
+.sm-tiles{position:absolute;top:-11.6%;left:-34.9%;width:150%;height:150%;
+  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
+.sm-tiles img{width:100%;height:100%;display:block;object-fit:cover}
+/* zatamnjenje dna za čitljivost napomene/atribucije */
+.mapbox-static::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,rgba(10,8,14,.78),transparent)}
+.sm-pins{position:absolute;inset:0;z-index:2;pointer-events:none}
+.sm-pin{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--c1);
+  box-shadow:0 0 0 3px rgba(255,77,157,.28),0 0 10px 2px rgba(255,77,157,.6)}
+.sm-pin.b{background:var(--c3);box-shadow:0 0 0 3px rgba(56,214,255,.28),0 0 10px 2px rgba(56,214,255,.6)}
+.sm-attrib{position:absolute;right:8px;bottom:6px;z-index:3;font-size:9px;letter-spacing:.02em;color:var(--muted-2);
+  background:rgba(0,0,0,.42);padding:2px 6px;border-radius:6px}
 
 /* ---------- FAQ ---------- */
 .faq-sec{max-width:920px;margin-inline:auto}
