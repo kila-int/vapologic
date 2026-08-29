@@ -474,9 +474,7 @@ const FLAVORS = [
   const chipClass = (group, val) =>
     group === 'brand' ? (val === 'elfbar' ? 'brand-elf' : 'brand-lm') : 'type';
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CHIP_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  const raf2 = (fn) => requestAnimationFrame(() => requestAnimationFrame(fn));
 
   // Čipovi se usklađuju (ne brišu se svi odjednom): postojeći ostaju, novi ulaze
   // fade+scale, uklonjeni izlaze fade+scale — da prelaz ne bude ispresecan.
@@ -493,7 +491,6 @@ const FLAVORS = [
     // izlazak čipova koji više nisu aktivni
     chipsWrap.querySelectorAll('.chip').forEach(el => {
       if (!want.includes(el.dataset.group) && !el.classList.contains('pf-chip-out')) {
-        if (reduceMotion) { el.remove(); return; }
         el.classList.add('pf-chip-out');
         const done = () => el.remove();
         el.addEventListener('transitionend', done, { once: true });
@@ -514,7 +511,9 @@ const FLAVORS = [
         el.innerHTML = `<span class="chip-lbl">${valLabel(g, state[g])}</span>` +
           `<button type="button" class="x" data-clear="${g}" aria-label="${t('prods.filter.remove')}">${CHIP_X}</button>`;
         chipsWrap.appendChild(el);
-        if (!reduceMotion) { el.classList.add('pf-chip-in'); raf2(() => el.classList.remove('pf-chip-in')); }
+        el.classList.add('pf-chip-in');
+        void el.offsetWidth;                        // flush pre uklanjanja (ne zavisi od rAF)
+        el.classList.remove('pf-chip-in');
       }
     });
     // redosled: Marka pa Tip
@@ -536,7 +535,7 @@ const FLAVORS = [
     cards.forEach(c => { if (cardOk(c)) shown++; });
     if (emptyEl) emptyEl.hidden = shown !== 0;
 
-    if (!cardsInit || reduceMotion) {
+    if (!cardsInit) {                             // prvi (inicijalni) prikaz je instant
       cards.forEach(c => { c.hidden = !cardOk(c); });
       cardsInit = true;
       return;
@@ -547,7 +546,8 @@ const FLAVORS = [
     cards.forEach(c => { if (!c.hidden) first.set(c, c.getBoundingClientRect()); });
     const gridRect = grid.getBoundingClientRect();
 
-    // izlazeće -> van toka (apsolutno) + fade-out, da ostale odmah reflow-uju
+    // izlazeće -> van toka (apsolutno), da ostale odmah reflow-uju
+    const leaving = [];
     cards.forEach(c => {
       if (!c.hidden && !cardOk(c)) {
         const r = first.get(c);
@@ -556,41 +556,51 @@ const FLAVORS = [
         c.style.top = (r.top - gridRect.top) + 'px';
         c.style.left = (r.left - gridRect.left) + 'px';
         c.classList.add('pf-abs');
-        raf2(() => c.classList.add('pf-out'));
-        const tm = setTimeout(finish, 420);
-        function finish(e) {
-          if (e && e.propertyName && e.propertyName !== 'opacity') return;
-          c.hidden = true;
-          c.classList.remove('pf-abs', 'pf-out');
-          c.style.cssText = '';
-          clearTimeout(tm);
-          c.removeEventListener('transitionend', finish);
-        }
-        c.addEventListener('transitionend', finish);
+        leaving.push(c);
       }
     });
 
     // ulazeće -> otkrivamo u pred-stanju (nevidljivo, ali zauzima svoj slot)
-    cards.forEach(c => { if (c.hidden && cardOk(c)) { c.hidden = false; c.classList.add('pf-in-pre'); } });
+    const entering = [];
+    cards.forEach(c => { if (c.hidden && cardOk(c)) { c.hidden = false; c.classList.add('pf-in-pre'); entering.push(c); } });
 
     // LAST — nove pozicije vidljivih (izlazeće su apsolutne, van računa)
     const stay = cards.filter(c => cardOk(c) && !c.classList.contains('pf-abs'));
     const last = new Map(stay.map(c => [c, c.getBoundingClientRect()]));
 
-    // INVERT + PLAY
+    // INVERT — kartice koje ostaju pomeramo na staru poziciju (bez tranzicije)
+    const moving = [];
     stay.forEach(c => {
-      if (first.has(c)) {                         // ostaje vidljiva -> FLIP klizanje
+      if (first.has(c)) {
         const f = first.get(c), l = last.get(c);
         const dx = f.left - l.left, dy = f.top - l.top;
         if (dx || dy) {
           c.style.transition = 'none';
           c.style.transform = `translate(${dx}px, ${dy}px)`;
-          raf2(() => { c.style.transition = ''; c.style.transform = ''; });
+          moving.push(c);
         }
-      } else {                                    // nova -> fade+scale in
-        raf2(() => c.classList.remove('pf-in-pre'));
       }
     });
+
+    // FLUSH — sinhrono „komituj" početno stanje (ne zavisi od rAF/vidljivosti taba)
+    void grid.offsetWidth;
+
+    // PLAY — pokreni sve tranzicije istovremeno
+    leaving.forEach(c => {
+      c.classList.add('pf-out');                  // fade+scale out
+      const tm = setTimeout(() => finish(), 460);
+      function finish(e) {
+        if (e && e.propertyName && e.propertyName !== 'opacity') return;
+        c.hidden = true;
+        c.classList.remove('pf-abs', 'pf-out');
+        c.style.cssText = '';
+        clearTimeout(tm);
+        c.removeEventListener('transitionend', finish);
+      }
+      c.addEventListener('transitionend', finish);
+    });
+    moving.forEach(c => { c.style.transition = ''; c.style.transform = ''; });  // FLIP klizanje
+    entering.forEach(c => c.classList.remove('pf-in-pre'));                     // fade+scale in
   }
 
   function apply() {
