@@ -165,6 +165,24 @@ document.addEventListener('keydown', (e) => {
   window.go = (d) => { set(idx + d); restartAuto(); };
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function restartAuto() { if (reduce) return; clearInterval(timer); timer = setInterval(() => set(idx + 1), 5000); }
+
+  /* Prevlacenje prstom — na mobilnom nema strelica, pa je swipe glavna kontrola.
+     Vertikalni potez se ignorise da ne otimamo skrol stranice. */
+  const sliderEl = document.getElementById('slider');
+  if (sliderEl) {
+    let x0 = null, y0 = null;
+    sliderEl.addEventListener('touchstart', (e) => {
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+    }, { passive: true });
+    sliderEl.addEventListener('touchend', (e) => {
+      if (x0 == null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      const dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { set(idx + (dx < 0 ? 1 : -1)); restartAuto(); }
+      x0 = y0 = null;
+    }, { passive: true });
+  }
+
   set(0); restartAuto();
 })();
 

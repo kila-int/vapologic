@@ -168,7 +168,7 @@ section{padding:72px 0}
 .sec-head.center{text-align:center;align-items:center}
 
 /* ---------- HERO SLIDER ---------- */
-.hero{padding-top:28px;padding-bottom:8px}
+.hero{position:relative;padding-top:28px;padding-bottom:8px}
 .slider{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
 .slides{display:flex;transition:transform .6s var(--ease)}
 .slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
@@ -181,8 +181,21 @@ section{padding:72px 0}
 .slide h2{font-size:clamp(30px,5.6vw,58px);letter-spacing:-.015em}
 .slide .sub{margin-top:14px;color:#e6e2f2;font-weight:500;font-size:clamp(15px,2.1vw,21px)}
 .slide .btn{margin-top:34px}
-/* slika zauzima pola slajda; visina prati slajd (bez fiksnog odnosa da se slajd ne razvuče) */
-.ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:stretch;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
+/* Uspravna slika (3:4): visina prati slajd, sirina se racuna iz odnosa — slika se
+   vise ne razvlaci preko pola slajda. Tekst levo dobija ostatak sirine. */
+.ghost-prod{flex:0 0 auto;align-self:stretch;aspect-ratio:3/4;width:auto;min-height:200px;max-width:46%;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
+
+/* Visina hero-a je vezana za ekran: slajder + traka ispod staju u prvi ekran, a
+   sledeca sekcija tek malo izviruje (--peek). Mere (izmereno u browseru):
+   header 73px (72 + hairline), .hero padding 28+8, .mq = 34 margine + 70 visine.
+   Samo od tableta navise — ispod 720px je slajd stakovan pa bi 100dvh sabio sadrzaj. */
+@media(min-width:721px){
+  /* --arrow-lane: bocna traka u kojoj sede strelice, van slajda. Hero je za
+     toliko uzi od ostalih sekcija, pa strelice nikad ne ulaze u sam slajd. */
+  .hero{--hdr:73px;--hero-pad:36px;--mq-block:104px;--peek:64px;--arrow-lane:58px;
+    padding-inline:calc(var(--gutter) + var(--arrow-lane))}
+  .slide{min-height:clamp(380px,calc(100dvh - var(--hdr) - var(--hero-pad) - var(--mq-block) - var(--peek)),900px)}
+}
 @media(max-width:720px){
   /* display:contents -> deca .slide-txt postaju flex stavke .slide, pa slika moze izmedju teksta i dugmeta */
   .slide{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0;padding:44px 24px 56px}
@@ -190,16 +203,24 @@ section{padding:72px 0}
   .slide .pill{order:1;margin-bottom:10px}
   .slide h2{order:2}
   .slide .sub{order:3;margin-top:10px}
-  /* na mobilnom slika ide u sredinu kolone, sa svojim odnosom */
-  .ghost-prod{order:4;display:grid;flex:0 0 auto;align-self:center;width:min(70%,260px);aspect-ratio:3/4;min-height:0;margin:24px 0 0}
+  /* na mobilnom slika ide u sredinu kolone, sa svojim odnosom — bez strelica
+     ima punu sirinu slajda na raspolaganju */
+  /* max-width:none ponistava desktop kapu (46%) koja bi sliku sabila */
+  .ghost-prod{order:4;display:grid;flex:0 0 auto;align-self:center;width:min(96%,340px);max-width:none;aspect-ratio:3/4;min-height:0;margin:22px 0 0}
   .slide .btn{order:5;margin-top:28px}
 }
 .dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
 .dots button{width:9px;height:9px;border-radius:999px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:.25s var(--ease)}
 .dots button.on{width:28px;background:#fff}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:999px;background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.22);color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .2s}
-.arrow:hover{background:rgba(0,0,0,.62)}
-.arrow.prev{left:16px}.arrow.next{right:16px}.arrow svg{width:18px;height:18px}
+/* Strelice su van slajda (deca .hero-a, ne .slider-a) i sede u bocnoj traci.
+   .hero je pomeren za +10px jer ima paddinge 28 gore / 8 dole, pa mu centar
+   nije i centar slajdera. */
+.arrow{position:absolute;top:calc(50% + 10px);transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:999px;background:var(--surface);border:1px solid var(--hair-2);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s var(--ease),border-color .2s var(--ease)}
+.arrow:hover{background:var(--surface-2);border-color:var(--c2)}
+.arrow.prev{left:var(--gutter)}.arrow.next{right:var(--gutter)}.arrow svg{width:18px;height:18px}
+/* Na mobilnom nema strelica — slika dobija punu sirinu slajda, a slajdovi se
+   menjaju prevlacenjem prsta i tackicama. Mora IZA baznog .arrow pravila. */
+@media(max-width:720px){.arrow{display:none}}
 
 /* ---------- SOCIAL PROOF: free-form pokretna traka (bez boksova/kartica) ----------
    Sve teče kao jedna linija: recenzija · broj · logo · … Razdvaja ih tanka
@@ -230,7 +251,7 @@ section{padding:72px 0}
 .ring{position:relative}
 
 /* ---------- FILTER PROIZVODA (Marka + Tip, radio) ---------- */
-.pf{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 10px}
+.pf{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin:26px 0 10px}
 .pf-drop{position:relative}
 .pf-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;
   background:var(--surface-2);border:1px solid var(--hair-2);color:var(--ink);font-family:var(--sans);
@@ -239,10 +260,13 @@ section{padding:72px 0}
 .pf-btn .pf-cap{color:var(--muted);font-weight:500}
 .pf-btn .caret{margin-left:2px;border-color:var(--muted)}
 .pf-drop.open .pf-btn{border-color:var(--c2);background:var(--bg-3)}
-.pf-menu{position:absolute;top:calc(100% + 8px);left:0;z-index:20;min-width:220px;background:var(--bg-3);
-  border:1px solid var(--hair);border-radius:14px;padding:7px;opacity:0;visibility:hidden;transform:translateY(6px);
+/* filteri su centrirani, pa je i meni centriran ispod svog dugmeta (ne left:0,
+   inace na uskim ekranima izlazi iz kontejnera) */
+.pf-menu{position:absolute;top:calc(100% + 8px);left:50%;z-index:20;min-width:220px;background:var(--bg-3);
+  border:1px solid var(--hair);border-radius:14px;padding:7px;opacity:0;visibility:hidden;
+  transform:translateX(-50%) translateY(6px);
   transition:.18s var(--ease);box-shadow:0 20px 44px rgba(0,0,0,.55)}
-.pf-drop.open .pf-menu{opacity:1;visibility:visible;transform:none}
+.pf-drop.open .pf-menu{opacity:1;visibility:visible;transform:translateX(-50%)}
 .pf-opt{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border-radius:9px;background:transparent;
   border:0;color:var(--muted);font-family:var(--sans);font-size:14.5px;text-align:left;cursor:pointer;transition:.15s}
 .pf-opt:hover{background:var(--surface-2);color:var(--ink)}
@@ -258,7 +282,7 @@ section{padding:72px 0}
 
 /* aktivni čipovi (V3 — tinta akcenta) */
 /* rezervisana visina reda: čipovi se pojave/nestanu bez pomeranja visine strane */
-.pf-chips{display:flex;flex-wrap:wrap;align-items:center;gap:9px;min-height:34px;margin:0 0 24px}
+.pf-chips{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;min-height:34px;margin:0 0 24px}
 .pf-chips .pf-chips-lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:2px}
 .chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:500;line-height:1;
   border-radius:999px;padding:7px 9px 7px 13px;white-space:nowrap;color:var(--ink);
@@ -656,11 +680,20 @@ section{padding:72px 0}
 
 /* ---------- FOOTER ---------- */
 footer{border-top:1px solid var(--hair);background:var(--bg-2);padding:52px 0 32px;margin-top:24px}
-/* kolone linkova (Info · Pravno) centrirane u redu */
-.fnav{display:flex;justify-content:center;gap:clamp(40px,8vw,80px);flex-wrap:wrap;text-align:center}
-/* firmini podaci na dnu: centrirani, jedno ispod drugog, bez logoa */
-.foot-company{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
-.foot-tagline{color:var(--muted);font-size:14px;max-width:44ch}
+/* Tri kolone jedna pored druge: Firma · Info · Pravno.
+   Firma je sira (nosi tekst), pa 3 -> 2 -> 1 kolona kako se ekran suzava. */
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start;text-align:left}
+@media(max-width:900px){
+  /* 2 kolone: Firma preko oba stupca, pa Info i Pravno u redu ispod */
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fgrid>.foot-company{grid-column:1 / -1}
+}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr;gap:30px}}
+.foot-company{display:flex;flex-direction:column;gap:12px}
+/* h4 nosi svoju donju marginu; u flex koloni bi se sabrala sa gap-om */
+.foot-company h4{margin-bottom:0}
+.foot-tagline{color:var(--muted);font-size:14px;max-width:46ch}
+.foot-lorem{color:var(--muted-2);font-size:13.5px;line-height:1.65;max-width:46ch}
 .foot-legal{color:var(--muted-2);font-size:14px;line-height:1.7}
 .foot-legal span{display:block}
 footer h4{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin:0 0 14px}

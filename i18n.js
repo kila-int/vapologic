@@ -254,6 +254,9 @@ window.I18N = {
     'contact.required': 'obavezno polje',
 
     'footer.tagline': 'Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji',
+    'footer.company': 'Firma',
+    /* PLACEHOLDER — zameniti pravim tekstom kad ga klijent pošalje */
+    'footer.company_lorem': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     'footer.legal_name': 'Vapologic d.o.o.',
     'footer.legal_pib': 'PIB 000000000',
     'footer.legal_reg': 'Matični broj 00000000',
@@ -504,6 +507,9 @@ window.I18N = {
     'contact.required': 'required field',
 
     'footer.tagline': 'Official distributor of Elfbar and Lost Mary products in Serbia',
+    'footer.company': 'Company',
+    /* PLACEHOLDER — replace once the client sends the real copy */
+    'footer.company_lorem': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     'footer.legal_name': 'Vapologic LLC',
     'footer.legal_pib': 'VAT 000000000',
     'footer.legal_reg': 'Reg. No. 00000000',
@@ -754,6 +760,9 @@ window.I18N = {
     'contact.required': 'обязательное поле',
 
     'footer.tagline': 'Официальный дистрибьютор продукции Elfbar и Lost Mary в Сербии',
+    'footer.company': 'Компания',
+    /* PLACEHOLDER — заменить настоящим текстом, когда клиент его пришлёт */
+    'footer.company_lorem': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     'footer.legal_name': 'Vapologic d.o.o.',
     'footer.legal_pib': 'ИНН 000000000',
     'footer.legal_reg': 'Рег. № 00000000',

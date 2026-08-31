@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=36">
+<link rel="stylesheet" href="styles.css?v=39">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -40,12 +40,12 @@
           <a href="/?brand=all&amp;type=all#prods" class="pm-all" data-filter data-brand="all" data-type="all" data-i18n="nav.all_products">Svi proizvodi</a>
           <div class="pm-group">
             <a href="/?type=pod#prods" class="pm-head" data-filter data-brand="all" data-type="pod" data-i18n="nav.pod_group">Pod sistem</a>
-            <a href="/?brand=elfbar&amp;type=pod#prods" class="pm-sub" data-filter data-brand="elfbar" data-type="pod">EB6000</a>
+            <a href="/proizvod" class="pm-sub">EB6000</a>
           </div>
           <div class="pm-group">
             <a href="/?type=jednokratni#prods" class="pm-head" data-filter data-brand="all" data-type="jednokratni" data-i18n="nav.disp_group">Jednokratni uređaji</a>
-            <a href="/?brand=elfbar&amp;type=jednokratni#prods" class="pm-sub" data-filter data-brand="elfbar" data-type="jednokratni">EB1000</a>
-            <a href="/?brand=lost-mary&amp;type=jednokratni#prods" class="pm-sub" data-filter data-brand="lost-mary" data-type="jednokratni">BM1000</a>
+            <a href="/proizvod?ukus=watermelon-ice" class="pm-sub">EB1000</a>
+            <a href="/proizvod" class="pm-sub">BM1000</a>
           </div>
         </div>
       </div>
@@ -79,10 +79,13 @@
         <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="/proizvod"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod" data-i18n="hero.photo">Vaša fotografija · 16:7</div></div>
         <div class="slide s4"><div class="slide-txt"><span class="pill" data-i18n="hero.s4.pill">Lokacije</span><h2 data-i18n="hero.s4.title">Preko 1200 lokacija</h2><div class="sub" data-i18n="hero.s4.sub">Pronađite nas širom Srbije</div><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
-      <button class="arrow prev" onclick="go(-1)" data-i18n-attr="aria-label:hero.prev" aria-label="Prethodni slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="arrow next" onclick="go(1)" data-i18n-attr="aria-label:hero.next" aria-label="Sledeći slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
       <div class="dots" id="dots" role="tablist" data-i18n-attr="aria-label:hero.slides" aria-label="Slajdovi"></div>
     </div>
+    <!-- Strelice stoje VAN slajda: .slider ima overflow:hidden pa bi ih odsekao,
+         zato su deca .hero-a i sede u bocnoj traci (--arrow-lane). Na mobilnom
+         se sklanjaju (kontrola su prevlacenje prstom i tackice). -->
+    <button class="arrow prev" onclick="go(-1)" data-i18n-attr="aria-label:hero.prev" aria-label="Prethodni slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="arrow next" onclick="go(1)" data-i18n-attr="aria-label:hero.next" aria-label="Sledeći slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
 
   <!-- SOCIAL PROOF: free-form ticker (recenzije · brojevi · partneri), bez boksova.
@@ -215,25 +218,29 @@
 
 <footer>
   <div class="wrap">
-    <div class="fnav">
+    <!-- Tri kolone jedna pored druge: Firma (tekst + podaci) · Info · Pravno.
+         Ispod njih divider pa copyright/disclaimer (.age). -->
+    <div class="fgrid">
+      <div class="foot-company">
+        <h4 data-i18n="footer.company">Firma</h4>
+        <p class="foot-tagline" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji</p>
+        <p class="foot-lorem" data-i18n="footer.company_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
+        <p class="foot-legal">
+          <span data-i18n="footer.legal_name">Vapologic d.o.o.</span>
+          <span data-i18n="footer.legal_pib">PIB 000000000</span>
+          <span data-i18n="footer.legal_reg">Matični broj 00000000</span>
+          <span data-i18n="footer.legal_addr">Bulevar oslobođenja 1, 21000 Novi Sad, Srbija</span>
+        </p>
+      </div>
       <div><h4 data-i18n="footer.info">Info</h4><a href="/" data-i18n="footer.about">O nama</a><a href="/lokacije" data-i18n="nav.locations">Lokacije</a><a href="/blog" data-i18n="nav.blog">Blog</a><a href="/kontakt" data-i18n="nav.contact">Kontakt</a></div>
       <div><h4 data-i18n="footer.legal_col">Pravno</h4><a href="#" data-i18n="footer.privacy">Politika privatnosti</a><a href="#" data-i18n="footer.terms">Uslovi korišćenja</a></div>
-    </div>
-    <div class="foot-company">
-      <p class="foot-tagline" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji</p>
-      <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
-      <p class="foot-legal">
-        <span data-i18n="footer.legal_name">Vapologic d.o.o.</span>
-        <span data-i18n="footer.legal_pib">PIB 000000000</span>
-        <span data-i18n="footer.legal_reg">Matični broj 00000000</span>
-        <span data-i18n="footer.legal_addr">Bulevar oslobođenja 1, 21000 Novi Sad, Srbija</span>
-      </p>
     </div>
     <div class="age"><span class="warn">18+</span> <span data-i18n="footer.age_note">Proizvodi sadrže nikotin koji izaziva zavisnost. Nisu namenjeni maloletnim osobama. © 2026 Vapologic</span></div>
   </div>
 </footer>
 
-<script src="i18n.js?v=11"></script>
-<script src="app.js?v=29"></script>
+<script src="i18n.js?v=12"></script>
+<script src="app.js?v=30"></script>
 </body>
 </html>
