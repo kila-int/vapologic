@@ -182,8 +182,8 @@ section{padding:72px 0}
 .slide .sub{margin-top:14px;color:#e6e2f2;font-weight:500;font-size:clamp(15px,2.1vw,21px)}
 .slide .btn{margin-top:34px}
 /* PRAVILO: slika UVEK zauzima pola slajda po sirini — aspect-ratio se menja, 50% ne.
-   Visina se racuna iz sirine (3:4 uspravno), pa slajd moze da bude visi od ekrana. */
-.ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:center;aspect-ratio:3/4;height:auto;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
+   Visina se racuna iz sirine (4:3). */
+.ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:center;aspect-ratio:4/3;height:auto;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
 
 /* Visina hero-a je vezana za ekran: slajder + traka ispod staju u prvi ekran, a
    sledeca sekcija tek malo izviruje (--peek). Mere (izmereno u browseru):
