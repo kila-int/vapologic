@@ -181,9 +181,9 @@ section{padding:72px 0}
 .slide h2{font-size:clamp(30px,5.6vw,58px);letter-spacing:-.015em}
 .slide .sub{margin-top:14px;color:#e6e2f2;font-weight:500;font-size:clamp(15px,2.1vw,21px)}
 .slide .btn{margin-top:34px}
-/* Uspravna slika (3:4): visina prati slajd, sirina se racuna iz odnosa — slika se
-   vise ne razvlaci preko pola slajda. Tekst levo dobija ostatak sirine. */
-.ghost-prod{flex:0 0 auto;align-self:stretch;aspect-ratio:3/4;width:auto;min-height:200px;max-width:46%;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
+/* PRAVILO: slika UVEK zauzima pola slajda po sirini — aspect-ratio se menja, 50% ne.
+   Visina se racuna iz sirine (3:4 uspravno), pa slajd moze da bude visi od ekrana. */
+.ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:center;aspect-ratio:3/4;height:auto;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
 
 /* Visina hero-a je vezana za ekran: slajder + traka ispod staju u prvi ekran, a
    sledeca sekcija tek malo izviruje (--peek). Mere (izmereno u browseru):
@@ -669,6 +669,8 @@ section{padding:72px 0}
 .contact-form .field-wide{grid-column:1 / -1}
 .contact-form label{display:flex;align-items:center;gap:5px;font-family:var(--sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
 .contact-form .req{color:var(--c1);font-size:13px}
+/* oznaka za neobavezno polje (telefon) */
+.contact-form .opt-tag{color:var(--muted-2);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
 .contact-form input,.contact-form textarea{background:var(--surface-2);border:1px solid var(--hair);color:var(--ink);border-radius:12px;
   padding:13px 15px;font-size:15px;font-family:inherit;width:100%;transition:border-color .2s}
 .contact-form input:focus,.contact-form textarea:focus{border-color:var(--c2);outline:none}

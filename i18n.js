@@ -252,6 +252,7 @@ window.I18N = {
     'contact.send': 'Pošalji',
     'contact.demo': 'Forma je za sada prikazna — povezivanje sa mejlom radimo u sledećem koraku',
     'contact.required': 'obavezno polje',
+    'contact.optional': 'opciono',
 
     'footer.tagline': 'Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji',
     'footer.company': 'Firma',
@@ -505,6 +506,7 @@ window.I18N = {
     'contact.send': 'Send',
     'contact.demo': 'The form is a preview for now — connecting it to email is the next step',
     'contact.required': 'required field',
+    'contact.optional': 'optional',
 
     'footer.tagline': 'Official distributor of Elfbar and Lost Mary products in Serbia',
     'footer.company': 'Company',
@@ -758,6 +760,7 @@ window.I18N = {
     'contact.send': 'Отправить',
     'contact.demo': 'Пока форма демонстрационная — подключение к почте сделаем на следующем шаге',
     'contact.required': 'обязательное поле',
+    'contact.optional': 'необязательно',
 
     'footer.tagline': 'Официальный дистрибьютор продукции Elfbar и Lost Mary в Сербии',
     'footer.company': 'Компания',
