@@ -171,22 +171,15 @@ section{padding:72px 0}
 .hero{position:relative;padding-top:28px;padding-bottom:8px}
 /* --hero-fade: jedno trajanje i za boju pozadine i za sadrzaj slajda */
 .slider{--hero-fade:.9s;position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
-/* Svi slajdovi sede u ISTOJ grid celiji, jedan preko drugog, pa se smenjuju
-   pretapanjem umesto klizanjem. Visina slajdera = najvisi slajd, kao i pre. */
-.slides{position:relative;z-index:1;display:grid}
-/* visibility (a ne samo opacity) vadi neaktivan slajd iz tab reda i sa citaca
-   ekrana; kasni za pretapanjem da se sadrzaj ne ugasi pre kraja prelaza */
-.slide{--slide-gap:clamp(20px,4vw,56px);grid-area:1/1;min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px);
-  opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--hero-fade) var(--ease),visibility 0s linear var(--hero-fade)}
-/* pointer-events: dok traje pretapanje oba slajda su vidljiva i preklopljena,
-   pa bi dugme sa odlazeceg moglo da presretne klik — hvata samo aktivni */
-.slide.is-on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity var(--hero-fade) var(--ease),visibility 0s}
-/* Boja stoji u zasebnom steku iza slajdova, a ne na samom slajdu. Razlog:
-   dva poluprovidna slajda tokom pretapanja ne daju punu neprozirnost, pa bi
-   se kroz njih videla pozadina stranice. Ovaj stek je uvek pun.
+.slides{position:relative;z-index:1;display:flex;transition:transform var(--hero-fade) var(--ease)}
+.slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
+/* Pozadina NE putuje sa slajdom: stoji u zasebnom steku iza trake i samo se
+   pretapa, dok tekst i slika i dalje ulaze sa strane. Probano je i da se ceo
+   slajd pretapa, ali slike imaju svoju pozadinu pa im se platno vidi tokom
+   prelaza — zato sadrzaj klizi, a pretapa se samo boja.
    Slojeve pravi app.js iz klasa .s1../.s4 ispod. */
 .slide-bgs{position:absolute;inset:0;z-index:0}
-/* Isto trajanje i kriva kao sadrzaj slajda, da boja i sadrzaj idu u korak. */
+/* Isto trajanje i kriva kao klizanje trake, da boja i sadrzaj idu u korak. */
 .slide-bg{position:absolute;inset:0;transition:opacity var(--hero-fade) var(--ease)}
 /* Boja svakog slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
    ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
@@ -570,11 +563,11 @@ section{padding:72px 0}
 .tech .t .ic{font-size:24px;margin-bottom:10px}
 .tech .t h4{font-size:17px;margin-bottom:6px}
 .tech .t p{color:var(--muted);font-size:14px}
-/* Slika pakovanja: isti odnos kao fajl (1300x975 = 4:3), pa nema secenja.
-   Ogranicena je i centrirana — placeholder je ranije isao punom sirinom, ali
-   prava svetla fotografija na toj sirini preglasi ostatak sekcije. */
-.pack{display:block;width:100%;max-width:860px;height:auto;aspect-ratio:4/3;object-fit:cover;
-  margin:28px auto 0;border-radius:var(--r-card);border:1px solid var(--hair)}
+/* Slika pakovanja ide punom sirinom sekcije. Odnos kutije je isti kao odnos
+   fajla (4:3), pa `cover` nista ne isece. Izvor je 1920px sirok — .wrap ide do
+   1704 CSS px, tako da ostaje ostra i na najsirem ekranu. */
+.pack{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;
+  margin-top:28px;border-radius:var(--r-card);border:1px solid var(--hair)}
 
 /* ---------- PRAVE FOTOGRAFIJE U KARTICAMA (.is-shot) ----------
    Iste kutije koje su ranije nosile placeholder (1:1, radial glow po --acc)
