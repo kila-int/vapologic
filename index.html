@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://vapologic.rs/">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=43">
+<link rel="stylesheet" href="styles.css?v=45">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -40,12 +40,12 @@
           <a href="/?brand=all&amp;type=all#prods" class="pm-all" data-filter data-brand="all" data-type="all" data-i18n="nav.all_products">Svi proizvodi</a>
           <div class="pm-group">
             <a href="/?type=pod#prods" class="pm-head" data-filter data-brand="all" data-type="pod" data-i18n="nav.pod_group">Pod sistem</a>
-            <a href="/proizvod" class="pm-sub">EB6000</a>
+            <a href="/proizvod?dev=EB6000" class="pm-sub">EB6000</a>
           </div>
           <div class="pm-group">
             <a href="/?type=jednokratni#prods" class="pm-head" data-filter data-brand="all" data-type="jednokratni" data-i18n="nav.disp_group">Jednokratni uređaji</a>
-            <a href="/proizvod?ukus=watermelon-ice" class="pm-sub">EB1000</a>
-            <a href="/proizvod" class="pm-sub">BM1000</a>
+            <a href="/proizvod?dev=EB1000" class="pm-sub">EB1000</a>
+            <a href="/proizvod?dev=BM1000" class="pm-sub">BM1000</a>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@
   <div class="hero wrap">
     <div class="slider" id="slider">
       <div class="slides" id="slides">
-        <div class="slide s1"><div class="slide-txt"><span class="pill">Elfbar · EB1000</span><h2 data-i18n="hero.s1.title">Do hiljadu puffova!</h2><div class="sub" data-i18n="hero.s1.sub">Pun ukus u svakom udahu</div><a class="btn btn-primary" href="/proizvod?ukus=watermelon-ice"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/EB1000.webp" width="1300" height="975" loading="eager" decoding="async" fetchpriority="high" alt="Elfbar EB1000 Blueberry Sour Raspberry — uređaj, pakovanje i display"></div></div>
-        <div class="slide s2"><div class="slide-txt"><span class="pill">Lost Mary · BM1000</span><h2>Turbo Mode</h2><div class="sub" data-i18n="hero.s2.sub">Ukusi u koje se odmah zaljubiš</div><a class="btn btn-primary" href="/proizvod"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/BM1000.webp" width="1300" height="975" loading="eager" decoding="async" alt="Lost Mary BM1000 Turbo Strawberry Ice — uređaj, pakovanje i display"></div></div>
-        <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="/proizvod"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/BM6000.webp" width="1300" height="975" loading="eager" decoding="async" alt="Elfbar 6000 — uređaj, pod i pakovanja"></div></div>
+        <div class="slide s1"><div class="slide-txt"><span class="pill">Elfbar · EB1000</span><h2 data-i18n="hero.s1.title">Do hiljadu puffova!</h2><div class="sub" data-i18n="hero.s1.sub">Pun ukus u svakom udahu</div><a class="btn btn-primary" href="/proizvod?dev=EB1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/EB1000.webp" width="1300" height="975" loading="eager" decoding="async" fetchpriority="high" alt="Elfbar EB1000 Blueberry Sour Raspberry — uređaj, pakovanje i display"></div></div>
+        <div class="slide s2"><div class="slide-txt"><span class="pill">Lost Mary · BM1000</span><h2>Turbo Mode</h2><div class="sub" data-i18n="hero.s2.sub">Ukusi u koje se odmah zaljubiš</div><a class="btn btn-primary" href="/proizvod?dev=BM1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/BM1000.webp" width="1300" height="975" loading="eager" decoding="async" alt="Lost Mary BM1000 Turbo Strawberry Ice — uređaj, pakovanje i display"></div></div>
+        <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="/proizvod?dev=EB6000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div class="ghost-prod shot"><img src="Slike/BM6000.webp" width="1300" height="975" loading="eager" decoding="async" alt="Elfbar 6000 — uređaj, pod i pakovanja"></div></div>
         <div class="slide s4"><div class="slide-txt"><span class="pill" data-i18n="hero.s4.pill">Lokacije</span><h2 data-i18n="hero.s4.title">Preko 1200 lokacija</h2><div class="sub" data-i18n="hero.s4.sub">Pronađite nas širom Srbije</div><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
       <div class="dots" id="dots" role="tablist" data-i18n-attr="aria-label:hero.slides" aria-label="Slajdovi"></div>
@@ -148,11 +148,11 @@
       <div class="pf-chips" id="pfChips" aria-live="polite"></div>
 
       <div class="prods">
-        <a class="card eb ring" data-brand="elfbar" data-type="jednokratni" href="/proizvod?ukus=watermelon-ice"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb ring" data-brand="elfbar" data-type="jednokratni" href="/proizvod?dev=EB1000"><div class="shot is-shot"><span class="brand">Elfbar</span><img src="Slike/web/eb1000/blueberry-sour-raspberry.webp" alt="Elfbar EB1000" width="700" height="700" loading="eager" decoding="async"></div>
           <div class="body"><h3>EB1000</h3></div></a>
-        <a class="card bm ring" data-brand="lost-mary" data-type="jednokratni" href="/proizvod"><div class="shot"><span class="brand">Lost Mary</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card bm ring" data-brand="lost-mary" data-type="jednokratni" href="/proizvod?dev=BM1000"><div class="shot is-shot"><span class="brand">Lost Mary</span><img src="Slike/web/bm1000/strawberry-ice.webp" alt="Lost Mary BM1000" width="700" height="700" loading="eager" decoding="async"></div>
           <div class="body"><h3>BM1000</h3></div></a>
-        <a class="card eb6 ring" data-brand="elfbar" data-type="pod" href="/proizvod"><div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span><span class="shot-lbl" data-i18n="prods.shot">vaša slika proizvoda</span></div>
+        <a class="card eb6 ring" data-brand="elfbar" data-type="pod" href="/proizvod?dev=EB6000"><div class="shot is-shot"><span class="brand">Elfbar</span><img src="Slike/web/eb6000/blue.webp" alt="Elfbar EB6000" width="700" height="700" loading="eager" decoding="async"></div>
           <div class="body"><h3>EB6000</h3></div></a>
       </div>
       <p class="pf-empty" id="pfEmpty" hidden data-i18n="prods.filter.empty">Nema proizvoda za ovaj izbor.</p>
@@ -166,16 +166,16 @@
         <div class="qbar" aria-hidden="true"><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div>
         <div class="qstep on" data-step="0"><h3 data-i18n="quiz.q1">Kakav ukus voliš?</h3><div class="qsub" data-i18n="quiz.q1sub">Izaberi jedan.</div>
           <div class="opts c5">
-            <button type="button" class="opt" aria-pressed="false" onclick="pick('taste','slatki',this)"><span class="emo" aria-hidden="true">🍓</span><span data-i18n="taste.slatki">Slatki</span></button>
-            <button type="button" class="opt" aria-pressed="false" onclick="pick('taste','kiseli',this)"><span class="emo" aria-hidden="true">🍋</span><span data-i18n="taste.kiseli">Kiseli</span></button>
-            <button type="button" class="opt" aria-pressed="false" onclick="pick('taste','slatko-kiseli',this)"><span class="emo" aria-hidden="true">🍒</span><span data-i18n="taste.slatko-kiseli">Slatko-kiseli</span></button>
-            <button type="button" class="opt" aria-pressed="false" onclick="pick('taste','osvežavajući',this)"><span class="emo" aria-hidden="true">❄️</span><span data-i18n="taste.osvežavajući">Osvežavajući</span></button>
-            <button type="button" class="opt" aria-pressed="false" onclick="pick('taste','tropski',this)"><span class="emo" aria-hidden="true">🥭</span><span data-i18n="taste.tropski">Tropski</span></button>
+            <button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('taste','slatki',this)"><img class="ovis" src="Slike/web/kviz/ukus-slatki.webp" alt="" width="336" height="198" loading="eager" decoding="async"><span class="olbl" data-i18n="taste.slatki">Slatki</span></button>
+            <button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('taste','kiseli',this)"><img class="ovis" src="Slike/web/kviz/ukus-kiseli.webp" alt="" width="336" height="198" loading="eager" decoding="async"><span class="olbl" data-i18n="taste.kiseli">Kiseli</span></button>
+            <button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('taste','slatko-kiseli',this)"><img class="ovis" src="Slike/web/kviz/ukus-slatko-kiseli.webp" alt="" width="336" height="198" loading="eager" decoding="async"><span class="olbl" data-i18n="taste.slatko-kiseli">Slatko-kiseli</span></button>
+            <button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('taste','osvežavajući',this)"><img class="ovis" src="Slike/web/kviz/ukus-osvezavajuci.webp" alt="" width="336" height="198" loading="eager" decoding="async"><span class="olbl" data-i18n="taste.osvežavajući">Osvežavajući</span></button>
+            <button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('taste','tropski',this)"><img class="ovis" src="Slike/web/kviz/ukus-tropski.webp" alt="" width="336" height="198" loading="eager" decoding="async"><span class="olbl" data-i18n="taste.tropski">Tropski</span></button>
           </div></div>
         <div class="qstep" data-step="1"><h3 data-i18n="quiz.q2">Koliko intenzivno?</h3><div class="qsub" data-i18n="quiz.q2sub">Snaga udaha.</div>
-          <div class="opts c2"><button type="button" class="opt" aria-pressed="false" onclick="pick('intensity','snažniji',this)"><span class="emo" aria-hidden="true">🔥</span><span data-i18n="intensity.snažniji">Snažniji</span><small data-i18n="quiz.hit_strong">jači hit</small></button><button type="button" class="opt" aria-pressed="false" onclick="pick('intensity','nežniji',this)"><span class="emo" aria-hidden="true">🌿</span><span data-i18n="intensity.nežniji">Nežniji</span><small data-i18n="quiz.hit_mild">blaži, glatkiji</small></button></div></div>
+          <div class="opts c2"><button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('intensity','snažniji',this)"><img class="ovis" src="Slike/web/kviz/jacina-snazniji.webp" alt="" width="508" height="246" loading="eager" decoding="async"><span class="olbl" data-i18n="intensity.snažniji">Snažniji</span><small data-i18n="quiz.hit_strong">jači hit</small></button><button type="button" class="opt has-vis" data-vis-lang="sr" aria-pressed="false" onclick="pick('intensity','nežniji',this)"><img class="ovis" src="Slike/web/kviz/jacina-nezniji.webp" alt="" width="508" height="246" loading="eager" decoding="async"><span class="olbl" data-i18n="intensity.nežniji">Nežniji</span><small data-i18n="quiz.hit_mild">blaži, glatkiji</small></button></div></div>
         <div class="qstep" data-step="2"><h3 data-i18n="quiz.q3">Koliko puffova?</h3><div class="qsub" data-i18n="quiz.q3sub">Koliko dugo želiš da traje.</div>
-          <div class="opts c2"><button type="button" class="opt" aria-pressed="false" onclick="pick('puffs','1000',this)"><span class="emo" aria-hidden="true">💨</span>1000<small>EB1000 · BM1000</small></button><button type="button" class="opt" aria-pressed="false" onclick="pick('puffs','6000',this)"><span class="emo" aria-hidden="true">🚀</span>6000<small>EB6000</small></button></div></div>
+          <div class="opts c2"><button type="button" class="opt has-vis" data-vis-lang="*" aria-pressed="false" onclick="pick('puffs','1000',this)"><img class="ovis" src="Slike/web/kviz/puff-1000.webp" alt="" width="508" height="246" loading="eager" decoding="async"><span class="olbl">1000</span><small>EB1000 · BM1000</small></button><button type="button" class="opt has-vis" data-vis-lang="*" aria-pressed="false" onclick="pick('puffs','6000',this)"><img class="ovis" src="Slike/web/kviz/puff-6000.webp" alt="" width="508" height="246" loading="eager" decoding="async"><span class="olbl">6000</span><small>EB6000</small></button></div></div>
         <div class="qnav"><button class="btn btn-ghost" id="backBtn" onclick="back()" style="visibility:hidden"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> <span data-i18n="quiz.back">Nazad</span></button></div>
         <div class="result" id="result"><h3 data-i18n="quiz.result_title">Tvoj izbor 🎉</h3><p class="lead" id="resSummary"></p>
           <div class="empty" id="empty" style="display:none" data-i18n="quiz.empty">Nema tačnog poklapanja za baš tu kombinaciju — evo najbližih ukusa.</div>
@@ -240,7 +240,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=13"></script>
-<script src="app.js?v=30"></script>
+<script src="i18n.js?v=14"></script>
+<script src="app.js?v=32"></script>
 </body>
 </html>

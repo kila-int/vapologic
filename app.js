@@ -1,9 +1,7 @@
 /* ===== Vapologic — zajednički JS (index / proizvod / blog / lokacije) ===== */
 
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-// emoji + akcenat po ukusu (koristi se na karticama rezultata kviza)
-const FLAVOR_EMO = { watermelon: '🍉', strawberry: '🍓', blueberry: '🫐', grape: '🍇', mango: '🥭',
-  melon: '🍈', pineapple: '🍍', cherry: '🍒', kiwi: '🥝', menthol: '❄️', lemonade: '🍋' };
+// akcenat (boja okvira/senke) po ukusu — kartice kviza i slajder ukusa
 const FLAVOR_ACC = { watermelon: '#ff4d9d', strawberry: '#ff4d9d', cherry: '#ff4d9d', lemonade: '#ffcf5c',
   mango: '#ffcf5c', pineapple: '#ffcf5c', grape: '#b14bff', blueberry: '#38d6ff', menthol: '#38d6ff',
   melon: '#ff4d9d', kiwi: '#38d6ff' };
@@ -12,12 +10,7 @@ const pickBy = (map, name, fallback) => {
   for (const k in map) if (n.includes(k)) return map[k];
   return fallback;
 };
-const emoFor = (name) => pickBy(FLAVOR_EMO, name, '💨');
 const accFor = (name) => pickBy(FLAVOR_ACC, name, '#b14bff');
-
-const slug = (s) => s.toLowerCase()
-  .replace(/č|ć/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'dj')
-  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 /* ============================================================
    i18n — tekstovi se menjaju u i18n.js, ne ovde.
@@ -186,32 +179,69 @@ document.addEventListener('keydown', (e) => {
   set(0); restartAuto();
 })();
 
-/* ---------- Kviz (index.html) ---------- */
-const FLAVORS = [
-  { fl: "Watermelon ice", dev: "BM1000", taste: ["slatki"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Strawberry ice", dev: "BM1000", taste: ["slatki"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Blueberry sour raspberry", dev: "BM1000", taste: ["kiseli"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Strawberry kiwi", dev: "BM1000", taste: ["slatko-kiseli"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Grape", dev: "BM1000", taste: ["osvežavajući"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Triple Mango", dev: "BM1000", taste: ["tropski"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Triple Melon", dev: "BM1000", taste: ["slatki"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Pineapple Ice", dev: "BM1000", taste: ["tropski"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Watermelon", dev: "EB1000", taste: ["slatki", "osvežavajući"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Cherry", dev: "EB1000", taste: ["slatko-kiseli"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Strawberry ice", dev: "EB1000", taste: ["slatki"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Blueberry", dev: "EB1000", taste: ["slatko-kiseli"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Kiwi passion fruit guava", dev: "EB1000", taste: ["kiseli", "tropski"], intensity: "nežniji", puffs: "1000" },
-  { fl: "Blueberry sour raspberry", dev: "EB1000", taste: ["kiseli"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Menthol", dev: "EB1000", taste: ["osvežavajući"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Pink lemonade", dev: "EB1000", taste: ["slatko-kiseli"], intensity: "snažniji", puffs: "1000" },
-  { fl: "Watermelon ice", dev: "EB6000", taste: ["slatki"], intensity: "nežniji", puffs: "6000" },
-  { fl: "Triple mango", dev: "EB6000", taste: ["tropski"], intensity: "nežniji", puffs: "6000" },
-  { fl: "Strawberry ice", dev: "EB6000", taste: ["slatki"], intensity: "snažniji", puffs: "6000" },
-  { fl: "Menthol", dev: "EB6000", taste: ["osvežavajući"], intensity: "snažniji", puffs: "6000" },
-  { fl: "Grape", dev: "EB6000", taste: ["osvežavajući"], intensity: "nežniji", puffs: "6000" },
-  { fl: "Blueberry sour raspberry", dev: "EB6000", taste: ["kiseli", "slatko-kiseli"], intensity: "snažniji", puffs: "6000" },
-];
+/* ---------- Katalog uređaja i ukusa (JEDAN izvor istine) ----------
+   Koriste ga: kviz na početnoj, grid proizvoda i stranica proizvoda.
+   `slug` ukusa je ujedno ime fajla slike: Slike/web/<dev>/<slug>.webp
+   (optimizovani derivati; originali stoje u Slike/<folder klijenta>).
+   VAŽNO: ovde stoje SAMO ukusi za koje postoji slika — ako klijent pošalje
+   nove, dodaj red ovde i ubaci fajl pod tim imenom, ostalo radi samo. */
+const IMG = 'Slike/web';
+const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.webp`;
+const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp`;
 
+const PRODUCTS = {
+  EB1000: {
+    id: 'EB1000', brand: 'Elfbar', cls: 'eb', type: 'jednokratni', puffs: '1000',
+    specs: [['specs.puffs', '1000'], ['specs.flavors', '8'], ['specs.nic', '20 mg/ml'], ['specs.kind', 'specs.kind_disp']],
+    flavors: [
+      { fn: 'Watermelon', slug: 'watermelon', taste: ['slatki', 'osvežavajući'], intensity: 'nežniji' },
+      { fn: 'Strawberry Ice', slug: 'strawberry-ice', taste: ['slatki'], intensity: 'nežniji' },
+      { fn: 'Cherry', slug: 'cherry', taste: ['slatko-kiseli'], intensity: 'snažniji' },
+      { fn: 'Blueberry', slug: 'blueberry', taste: ['slatko-kiseli'], intensity: 'nežniji' },
+      { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', taste: ['kiseli'], intensity: 'snažniji' },
+      { fn: 'Kiwi Passion Fruit Guava', slug: 'kiwi-passion-fruit-guava', taste: ['kiseli', 'tropski'], intensity: 'nežniji' },
+      { fn: 'Pink Lemonade', slug: 'pink-lemonade', taste: ['slatko-kiseli'], intensity: 'snažniji' },
+      { fn: 'Menthol', slug: 'menthol', taste: ['osvežavajući'], intensity: 'snažniji' },
+    ],
+  },
+  BM1000: {
+    id: 'BM1000', brand: 'Lost Mary', cls: 'bm', type: 'jednokratni', puffs: '1000',
+    specs: [['specs.puffs', '1000'], ['specs.flavors', '6'], ['specs.nic', '20 mg/ml'], ['specs.mode', 'Turbo']],
+    flavors: [
+      { fn: 'Watermelon Ice', slug: 'watermelon-ice', taste: ['slatki'], intensity: 'snažniji' },
+      { fn: 'Strawberry Ice', slug: 'strawberry-ice', taste: ['slatki'], intensity: 'nežniji' },
+      { fn: 'Strawberry Kiwi', slug: 'strawberry-kiwi', taste: ['slatko-kiseli'], intensity: 'nežniji' },
+      { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', taste: ['kiseli'], intensity: 'snažniji' },
+      { fn: 'Pineapple Ice', slug: 'pineapple-ice', taste: ['tropski'], intensity: 'snažniji' },
+      { fn: 'Grape', slug: 'grape', taste: ['osvežavajući'], intensity: 'nežniji' },
+    ],
+  },
+  EB6000: {
+    id: 'EB6000', brand: 'Elfbar', cls: 'eb6', type: 'pod', puffs: '6000',
+    specs: [['specs.puffs', '6000'], ['specs.charge', 'Type-C'], ['specs.flavors', '6'], ['specs.colors', '4']],
+    // EB6000 je pod sistem: uređaj dolazi u 4 boje, a pod-ovi u 6 ukusa
+    colors: [
+      { fn: 'Blue', slug: 'blue' }, { fn: 'Black', slug: 'black' },
+      { fn: 'Green', slug: 'green' }, { fn: 'Purple', slug: 'purple' },
+    ],
+    flavors: [
+      { fn: 'Watermelon Ice', slug: 'watermelon-ice', taste: ['slatki'], intensity: 'nežniji' },
+      { fn: 'Strawberry Ice', slug: 'strawberry-ice', taste: ['slatki'], intensity: 'snažniji' },
+      { fn: 'Triple Mango', slug: 'triple-mango', taste: ['tropski'], intensity: 'nežniji' },
+      { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', taste: ['kiseli', 'slatko-kiseli'], intensity: 'snažniji' },
+      { fn: 'Grape', slug: 'grape', taste: ['osvežavajući'], intensity: 'nežniji' },
+      { fn: 'Menthol', slug: 'menthol', taste: ['osvežavajući'], intensity: 'snažniji' },
+    ],
+  },
+};
+const DEVS = ['EB1000', 'BM1000', 'EB6000'];
+// ravna lista za kviz — izvedena iz kataloga, bez duplog održavanja
+const FLAVORS = DEVS.flatMap(d =>
+  PRODUCTS[d].flavors.map(f => ({ ...f, dev: d, puffs: PRODUCTS[d].puffs })));
+// link sa rezultata kviza / grida: uređaj + ukus, sa sidrom na slajder ukusa
+const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
+
+/* ---------- Kviz (index.html) ---------- */
 (function () {
   const backBtn = document.getElementById('backBtn');
   if (!backBtn) return;
@@ -257,14 +287,15 @@ const FLAVORS = [
     m.forEach(f => {
       const a = document.createElement('a');
       a.className = 'rcard';
-      a.href = `/proizvod?ukus=${slug(f.fl)}&dev=${f.dev}`;
-      a.setAttribute('aria-label', t('quiz.open_aria', { fl: f.fl, dev: f.dev }));
-      a.style.setProperty('--acc', accFor(f.fl));
+      // vodi na stranicu uređaja, sidro na slajder ukusa -> tamo se centrira baš ovaj ukus
+      a.href = flavorHref(f.dev, f.slug);
+      a.setAttribute('aria-label', t('quiz.open_aria', { fl: f.fn, dev: f.dev }));
+      a.style.setProperty('--acc', accFor(f.fn));
       const tags = f.taste.map(x => `<span class="t">${t('taste.' + x)}</span>`).join('')
         + `<span class="t">${t('intensity.' + f.intensity)}</span><span class="t">${f.puffs}</span>`;
-      a.innerHTML = `<div class="rimg"><span class="remo" aria-hidden="true">${emoFor(f.fl)}</span><span class="fr">1:1</span></div>
+      a.innerHTML = `<div class="rimg is-shot"><img src="${flavorImg(f.dev, f.slug)}" alt="${f.dev} ${f.fn}" width="700" height="700" loading="eager" decoding="async"></div>
         <div class="rbody">
-          <div class="fl">${f.fl}</div><div class="dev">${f.dev}</div>
+          <div class="fl">${f.fn}</div><div class="dev">${f.dev}</div>
           <div class="tags">${tags}</div>
           <span class="rmore">${t('quiz.open_device')} ${ARROW}</span>
         </div>`;
@@ -286,10 +317,62 @@ const FLAVORS = [
   showStep();
 })();
 
-/* ---------- Slajder ukusa (proizvod.html) — bešavni infinite loop ----------
-   Kartice se pomeraju JEDNA PO JEDNA; kad se dođe do poslednje, traka nastavlja
+/* ---------- Stranica proizvoda (proizvod.html) — sadrzaj po ?dev= ----------
+   Jedna stranica opsluzuje sva tri uredjaja: ?dev=EB1000|BM1000|EB6000.
+   Bez parametra ostaje EB6000 (tako je stranica i ranije radila).          */
+const pdDevice = () => {
+  const q = (new URLSearchParams(location.search).get('dev') || '').toUpperCase();
+  return PRODUCTS[q] ? q : 'EB6000';
+};
+
+(function () {
+  const titleEl = document.getElementById('pdTitle');
+  if (!titleEl) return;
+  const P = PRODUCTS[pdDevice()];
+  const $ = (id) => document.getElementById(id);
+
+  function render() {
+    // naslov je SAMO ime uredjaja — ukus vise ne ulazi u njega, on je u slajderu ispod
+    titleEl.textContent = P.id;
+    $('pdBrand').textContent = P.brand;
+    $('pdCrumbBrand').textContent = P.brand;
+    $('pdCrumbName').textContent = P.id;
+    $('pdDesc').textContent = t('pd.desc.' + P.id);
+    $('pdAbout').textContent = t('specs.about.' + P.id);
+    $('pdTechH').textContent = t('tech.t1.' + P.id);
+    $('pdTechP').textContent = t('tech.t1d.' + P.id);
+    $('pdTechIc').textContent = P.id === 'EB1000' ? '\u{1F4A8}' : '\u{1F50B}';
+    $('flavTitle').textContent = t('flav.title', { dev: P.id });
+    document.title = P.brand + ' ' + P.id + ' — ' + t('pd.meta_puffs', { n: P.puffs }) + ' | Vapologic';
+
+    $('pdHeroWeb').src = deviceImg(P.id, 'web');
+    $('pdHeroWeb').alt = P.brand + ' ' + P.id;
+    $('pdHeroMob').srcset = deviceImg(P.id, 'mob');
+
+    $('pdSpecs').innerHTML = P.specs.map(function (kv) {
+      const v = kv[1].indexOf('specs.') === 0 ? t(kv[1]) : kv[1];
+      return '<div class="spec-cell"><div class="k">' + t(kv[0]) + '</div><div class="v">' + v + '</div></div>';
+    }).join('');
+
+    // boje uredjaja (za sad samo EB6000 — pod sistem)
+    const box = $('pdColors');
+    if (P.colors) {
+      box.hidden = false;
+      $('pdColorsH').textContent = t('pd.colors_title');
+      $('pdColorsRow').innerHTML = P.colors.map(function (c) {
+        return '<figure class="color"><img src="' + flavorImg(P.id, c.slug) + '" alt="' + P.id + ' ' + c.fn +
+          '" width="700" height="700" loading="lazy" decoding="async"><figcaption>' + c.fn + '</figcaption></figure>';
+      }).join('');
+    } else box.hidden = true;
+  }
+  render();
+  document.addEventListener('langchange', render);
+})();
+
+/* ---------- Slajder ukusa (proizvod.html) — besavni infinite loop ----------
+   Kartice se pomeraju JEDNA PO JEDNA; kad se dodje do poslednje, traka nastavlja
    udesno preko klonova pa se tiho (bez tranzicije) resetuje — nema naglog
-   „vraćanja na početak". Broj vidljivih kartica (--per) i dalje dolazi iz CSS-a. */
+   vracanja na pocetak. Broj vidljivih kartica (--per) i dalje dolazi iz CSS-a. */
 (function () {
   const track = document.getElementById('fcar');
   const slider = document.getElementById('fslider');
@@ -299,40 +382,35 @@ const FLAVORS = [
   const prevBtn = document.getElementById('fPrev');
   const nextBtn = document.getElementById('fNext');
 
-  const EB6 = [
-    { fn: 'Watermelon Ice', slug: 'watermelon-ice', emo: '🍉', taste: 'slatki', intensity: 'nežniji', acc: '#ff4d9d' },
-    { fn: 'Triple Mango', slug: 'triple-mango', emo: '🥭', taste: 'tropski', intensity: 'nežniji', acc: '#ffcf5c' },
-    { fn: 'Strawberry Ice', slug: 'strawberry-ice', emo: '🍓', taste: 'slatki', intensity: 'snažniji', acc: '#ff4d9d' },
-    { fn: 'Menthol', slug: 'menthol', emo: '❄️', taste: 'osvežavajući', intensity: 'snažniji', acc: '#38d6ff' },
-    { fn: 'Grape', slug: 'grape', emo: '🍇', taste: 'osvežavajući', intensity: 'nežniji', acc: '#b14bff' },
-    { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', emo: '🫐', taste: 'kiseli', intensity: 'snažniji', acc: '#38d6ff' },
-  ];
+  const P = PRODUCTS[pdDevice()];
+  const LIST = P.flavors;
 
-  const title = document.getElementById('pdTitle');
-  const setTitle = (f) => {
-    if (title && f) title.innerHTML = 'EB6000 <span style="color:var(--muted-2);font-weight:500">·</span> <span class="grad">' + f.fn + '</span>';
-  };
+  /* Slika ukusa + ime, bez opisa i bez linka (nema per-flavor stranice). */
+  const card = (f, clone) =>
+    '<div class="card' + (clone ? ' is-clone' : '') + '" style="--acc:' + accFor(f.fn) + '"' +
+      (clone ? ' aria-hidden="true"' : '') + ' data-slug="' + f.slug + '">' +
+      '<div class="shot is-shot"><span class="brand">' + P.brand + '</span>' +
+      '<img src="' + flavorImg(P.id, f.slug) + '" alt="' + P.id + ' ' + f.fn +
+      '" width="700" height="700" loading="eager" decoding="async"></div>' +
+      '<div class="body"><h3>' + f.fn + '</h3></div></div>';
 
-  /* Slika + ime, bez opisa i bez linka (nema per-flavor stranice). */
-  const card = (f, clone) => `
-    <div class="card${clone ? ' is-clone' : ''}" style="--acc:${f.acc}"${clone ? ' aria-hidden="true"' : ''}>
-      <div class="shot"><span class="brand">Elfbar</span><span class="ratio">1:1</span>
-        <span class="femo" aria-hidden="true">${f.emo}</span></div>
-      <div class="body"><h3>${f.fn}</h3></div>
-    </div>`;
-
-  const N = EB6.length;
+  const N = LIST.length;
   const AUTO_MS = 3800;
   let per = 1, step = 0, pos = 0, animating = false, finTimer = null, autoTimer = null;
 
   const readPer = () => Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--per'), 10) || 1);
   const gapPx = () => parseFloat(getComputedStyle(track).columnGap) || 0;
-  // .pview ima vodoravni padding (da se hover ne seče) -> širina sadržaja je bez njega
+  // .pview ima vodoravni padding (da se hover ne sece) -> sirina sadrzaja je bez njega
   const viewW = () => {
     const cs = getComputedStyle(view);
     return view.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
   };
-  const realIndex = () => ((((pos - per) % N) + N) % N);
+  /* Koliko kartica stoji LEVO od centralne: 1 kod tri po strani, 0 kod jedne/dve. */
+  const off = () => Math.floor((per - 1) / 2);
+  // `pos` je indeks krajnje leve vidljive kartice; "trenutni" ukus je centralni
+  const realIndex = () => ((((pos - per + off()) % N) + N) % N);
+  // pozicija na kojoj kartica `ri` stoji u SREDINI vidljive grupe
+  const centerPos = (ri) => per + ri - off();
 
   function buildDots() {
     dotsEl.innerHTML = '';
@@ -354,29 +432,32 @@ const FLAVORS = [
 
   function place(animate) {
     if (!animate) track.style.transition = 'none';
-    track.style.transform = `translateX(${-pos * step}px)`;
-    if (!animate) { void track.offsetHeight; track.style.transition = ''; }  // zaključaj kadar bez tranzicije
+    track.style.transform = 'translateX(' + (-pos * step) + 'px)';
+    if (!animate) { void track.offsetHeight; track.style.transition = ''; }  // zakljucaj kadar bez tranzicije
     updateDots();
   }
 
-  // prošireni niz: [klonovi poslednjih `per`] + [pravih N] + [klonovi prvih `per`]
+  // prosireni niz: [klonovi poslednjih `per`] + [pravih N] + [klonovi prvih `per`]
+  // `ri` je pravi indeks ukusa koji treba da stoji u sredini
   function build(ri) {
     per = readPer();
-    const head = EB6.slice(N - per).map(f => card(f, true));
-    const body = EB6.map(f => card(f, false));
-    const tail = EB6.slice(0, per).map(f => card(f, true));
+    const head = LIST.slice(N - per).map(f => card(f, true));
+    const body = LIST.map(f => card(f, false));
+    const tail = LIST.slice(0, per).map(f => card(f, true));
     track.innerHTML = head.concat(body, tail).join('');
     buildDots();
     measure();
-    pos = per + ((((ri || 0) % N) + N) % N);
+    pos = centerPos(((((ri || 0) % N) + N) % N));
     place(false);
   }
 
   function afterMove() {
     animating = false;
-    // ušli smo u klon-zonu -> tiho vrati na ekvivalentnu pravu karticu (bez „skoka")
-    if (pos >= per + N) { pos -= N; place(false); }
-    else if (pos < per) { pos += N; place(false); }
+    /* Posle koraka `pos` moze da odluta u klon-zonu. Vracamo ga na kanonsku
+       poziciju ISTOG centralnog ukusa (razlika je uvek umnozak od N, pa je
+       kadar identican) — tiho, bez tranzicije, tako da nema vidljivog skoka. */
+    const canon = centerPos(realIndex());
+    if (canon !== pos) { pos = canon; place(false); }
   }
   function moveTo(newPos) {
     if (animating || newPos === pos) return;
@@ -393,7 +474,7 @@ const FLAVORS = [
   });
 
   const stepBy = (d) => moveTo(pos + d);
-  const userGoTo = (ri) => { restartAuto(); moveTo(per + ri); };
+  const userGoTo = (ri) => { restartAuto(); moveTo(centerPos(ri)); };
 
   function startAuto() { stopAuto(); autoTimer = setInterval(() => stepBy(1), AUTO_MS); }
   function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
@@ -408,7 +489,7 @@ const FLAVORS = [
   slider.addEventListener('focusin', stopAuto);
   slider.addEventListener('focusout', startAuto);
 
-  // prevlačenje prstom
+  // prevlacenje prstom
   let x0 = null;
   view.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; stopAuto(); }, { passive: true });
   view.addEventListener('touchend', (e) => {
@@ -419,8 +500,8 @@ const FLAVORS = [
     x0 = null; startAuto();
   }, { passive: true });
 
-  /* Broj kartica po strani zavisi od širine -> na prelaz breakpointa rebuild-uj
-     klonove čuvajući trenutni ukus; inače samo preračunaj korak i pomeraj. */
+  /* Broj kartica po strani zavisi od sirine -> na prelaz breakpointa rebuild-uj
+     klonove cuvajuci trenutni ukus; inace samo preracunaj korak i pomeraj. */
   let rt, prevPer = readPer();
   const relayout = () => {
     clearTimeout(rt);
@@ -440,12 +521,70 @@ const FLAVORS = [
   window.addEventListener('resize', relayout);
   document.addEventListener('langchange', () => build(realIndex()));
 
-  // init: ?ukus=... postavlja početni ukus i naslov u heroju
+  /* ---- init ----
+     ?ukus=<slug> bira pocetni ukus. Ako uz to stoji i #ukusi (tako linkuju
+     rezultati kviza i kartice proizvoda), stranica se NE otvara naglo dole:
+     krene od vrha, glatko odskroluje do slajdera i tek kad se skrol smiri
+     traka klizi tako da izabrani ukus stane u sredinu. */
   const uk = new URLSearchParams(location.search).get('ukus');
-  const found = uk ? EB6.findIndex(f => f.slug === uk) : -1;
-  build(found >= 0 ? found : 0);
-  setTitle(found >= 0 ? EB6[found] : EB6[0]);
-  startAuto();
+  const target = uk ? LIST.findIndex(f => f.slug === uk) : -1;
+  const deepLink = location.hash === '#ukusi' && target >= 0;
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Glatko do sekcije, pa tek onda pomeranje trake — da se dva pokreta ne
+     preklapaju. Skrol se smirio = 140ms bez scroll dogadjaja (sa gornjom
+     granicom od 1.6s ako pregledac ne posalje zavrsni dogadjaj). */
+  /* Apsolutna Y pozicija na kojoj sekcija seda ispod lepljivog zaglavlja.
+     Odmak nije zakucan u JS-u — cita se iz scroll-margin-top same sekcije. */
+  function landingY(sec) {
+    const gap = parseFloat(getComputedStyle(sec).scrollMarginTop) || 0;
+    return Math.max(0, sec.getBoundingClientRect().top + window.scrollY - gap);
+  }
+
+  function scrollThenCenter(ri) {
+    const sec = document.getElementById('ukusi');
+    let idle, hardStop;
+    const done = () => {
+      clearTimeout(idle); clearTimeout(hardStop);
+      window.removeEventListener('scroll', bump);
+      moveTo(centerPos(ri));
+      // auto-rotacija se NE pali: korisnik je dosao bas na ovaj ukus i on ostaje
+      // u sredini dok ga sam ne pomeri (strelice / tackice / prevlacenje).
+    };
+    const bump = () => { clearTimeout(idle); idle = setTimeout(done, 140); };
+    window.addEventListener('scroll', bump, { passive: true });
+    hardStop = setTimeout(done, 1600);
+    // setTimeout, ne requestAnimationFrame: rAF stoji dok je kartica u pozadini,
+    // pa bi centriranje ostalo da visi do `hardStop`-a.
+    setTimeout(() => {
+      window.scrollTo(0, 0);              // jos jednom, ako je skok stigao posle nas
+      window.scrollTo({ top: landingY(sec), behavior: 'smooth' });
+      bump();                             // ako skrol uopste ne krene, `done` ipak stigne
+    }, 0);
+  }
+
+  if (deepLink) {
+    /* Bez ovoga pregledac po povratku na istu adresu VRACA staru poziciju skrola
+       i to se desi POSLE naseg skrola — stranica zavrsi na pogresnom mestu. */
+    try { history.scrollRestoration = 'manual'; } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+
+  if (deepLink && !calm) {
+    build(0);                             // krece od prvog ukusa, cilj dolazi posle skrola
+    scrollThenCenter(target);
+  } else if (deepLink) {
+    // ugasen pokret: isti ISHOD (ukus u sredini, sekcija na ekranu), samo bez animacije
+    build(target);
+    const sec = document.getElementById('ukusi');
+    const land = () => window.scrollTo({ top: landingY(sec), behavior: 'auto' });
+    land();
+    // jos jednom kad se sve ucita: do tada slike dobiju visinu pa se sekcija pomeri
+    window.addEventListener('load', () => setTimeout(land, 0), { once: true });
+  } else {
+    build(target >= 0 ? target : 0);
+    startAuto();
+  }
 })();
 
 /* ---------- Kontakt forma (kontakt.html) ----------
