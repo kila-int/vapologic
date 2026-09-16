@@ -142,6 +142,42 @@ document.addEventListener('keydown', (e) => {
   const N = slides.children.length;
   let idx = 0, timer;
   const dots = [];
+
+  /* Pozadina se vise ne vozi zajedno sa slajdom. Za svaki slajd pravimo po jedan
+     sloj boje iza trake; oni stoje u mestu i samo se pretapaju, dok tekst i slika
+     i dalje ulaze sa strane. Slojevi se grade iz klasa .s1../.s4 koje vec nose
+     boje u CSS-u, pa markup ostaje cist. */
+  const sliderBox = document.getElementById('slider');
+  const bgs = [];
+  if (sliderBox) {
+    const wrap = document.createElement('div');
+    wrap.className = 'slide-bgs';
+    wrap.setAttribute('aria-hidden', 'true');
+    [...slides.children].forEach((sl, i) => {
+      const b = document.createElement('span');
+      const key = [...sl.classList].find(c => /^s\d+$/.test(c));
+      b.className = 'slide-bg' + (key ? ' ' + key : '');
+      b.style.opacity = i === 0 ? '1' : '0';   // prvi je odmah tu, bez uvodnog treperenja
+      wrap.appendChild(b);
+      bgs.push(b);
+    });
+    sliderBox.prepend(wrap);
+  }
+  /* Novi sloj se PODIZE iznad ostalih i pretapa od 0 do 1; stari ostaje pun
+     ispod njega. Da smo stari istovremeno gasili, na pola prelaza bi se kroz
+     dva poluprovidna sloja videla pozadina stranice — kao kratak blesak. */
+  let bgTop = 1;
+  function setBg(i) {
+    const cur = bgs[i];
+    if (!cur || cur.dataset.on === '1') return;
+    bgs.forEach(b => { b.dataset.on = '0'; });
+    cur.dataset.on = '1';
+    cur.style.zIndex = ++bgTop;
+    cur.style.opacity = '0';
+    void cur.offsetWidth;                      // flush, da pretapanje krene bas od nule
+    cur.style.opacity = '1';
+  }
+
   for (let i = 0; i < N; i++) {
     const b = document.createElement('button');
     b.setAttribute('aria-label', t('hero.slide_n', { n: i + 1 }));
@@ -153,6 +189,7 @@ document.addEventListener('keydown', (e) => {
   function set(i) {
     idx = (i + N) % N;
     slides.style.transform = `translateX(-${idx * 100}%)`;
+    setBg(idx);
     [...dotsWrap.children].forEach((d, k) => d.classList.toggle('on', k === idx));
   }
   window.go = (d) => { set(idx + d); restartAuto(); };
@@ -161,7 +198,7 @@ document.addEventListener('keydown', (e) => {
 
   /* Prevlacenje prstom — na mobilnom nema strelica, pa je swipe glavna kontrola.
      Vertikalni potez se ignorise da ne otimamo skrol stranice. */
-  const sliderEl = document.getElementById('slider');
+  const sliderEl = sliderBox;
   if (sliderEl) {
     let x0 = null, y0 = null;
     sliderEl.addEventListener('touchstart', (e) => {
@@ -176,6 +213,7 @@ document.addEventListener('keydown', (e) => {
     }, { passive: true });
   }
 
+  if (bgs[0]) bgs[0].dataset.on = '1';        // sloj 0 je vec vidljiv, bez pretapanja
   set(0); restartAuto();
 })();
 
