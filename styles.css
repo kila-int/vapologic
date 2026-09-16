@@ -172,9 +172,15 @@ section{padding:72px 0}
 .slider{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
 .slides{display:flex;transition:transform .6s var(--ease)}
 .slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
-.s1{background:radial-gradient(700px 480px at 82% 50%,rgba(56,214,255,.42),transparent 60%),linear-gradient(120deg,#0c2230,#0b0a14)}
-.s2{background:radial-gradient(700px 480px at 82% 50%,rgba(255,77,157,.42),transparent 60%),linear-gradient(120deg,#2a0f1f,#0e0a16)}
-.s3{background:radial-gradient(700px 480px at 82% 50%,rgba(56,214,255,.42),transparent 60%),linear-gradient(120deg,#101a30,#0b0a14)}
+/* Pozadina slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
+   ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: sve
+   cetiri ivice i oba ugla svake slike su jednobojni i isti u -web i -mob
+   varijanti, tako da ravna popuna pogadja tacno u boju.
+   Ako se slika zameni, ocitaj novu boju ivice i promeni je ovde.
+   Namerno bez gradijenta: svaki sjaj oko slike bi vratio vidljiv sav. */
+.s1{background:#102230}   /* EB1000 — tamno tirkizno plava */
+.s2{background:#34202c}   /* BM1000 — tamno sljivasta */
+.s3{background:#1b1e36}   /* EB6000 — tamno indigo */
 .s4{background:radial-gradient(760px 520px at 24% 42%,rgba(177,75,255,.34),transparent 60%),linear-gradient(120deg,#1a1230,#0c0b14)}
 .slide-txt{flex:1 1 auto;min-width:0;max-width:60ch;z-index:2;display:flex;flex-direction:column;align-items:flex-start}
 .slide .pill{margin-bottom:8px}
