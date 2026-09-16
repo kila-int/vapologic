@@ -176,10 +176,10 @@ section{padding:72px 0}
    mestu iza trake i samo se pretapa, dok tekst i slika i dalje ulaze sa strane.
    Slojeve pravi app.js iz klasa .s1../.s4 ispod. */
 .slide-bgs{position:absolute;inset:0;z-index:0}
-/* krace od klizanja trake (.6s) namerno: boja slegne tik pre nego sto
-   slika dodje na svoje mesto, pa se ivica slike nikad ne zatekne nad
-   pogresnom bojom */
-.slide-bg{position:absolute;inset:0;transition:opacity .5s var(--ease)}
+/* Isto trajanje i kriva kao klizanje trake (.6s): boja i sadrzaj napreduju u
+   korak i sleganu zajedno. Krace od toga (probano .5s) jedva da se primeti,
+   duze ostavlja ivicu slike nad jos nepromesanom bojom. */
+.slide-bg{position:absolute;inset:0;transition:opacity .6s var(--ease)}
 /* Boja svakog slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
    ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
    pokriva 99-100% oboda i ista je u -web i -mob varijanti.
@@ -189,7 +189,6 @@ section{padding:72px 0}
 .slide-bg.s2{background:#34202c}   /* BM1000 — tamno sljivasta */
 .slide-bg.s3{background:#1b1e36}   /* EB6000 — tamno indigo */
 .slide-bg.s4{background:radial-gradient(760px 520px at 24% 42%,rgba(177,75,255,.34),transparent 60%),linear-gradient(120deg,#1a1230,#0c0b14)}
-@media(prefers-reduced-motion:reduce){.slide-bg{transition:none}}
 .slide-txt{flex:1 1 auto;min-width:0;max-width:60ch;z-index:2;display:flex;flex-direction:column;align-items:flex-start}
 .slide .pill{margin-bottom:8px}
 .slide h2{font-size:clamp(30px,5.6vw,58px);letter-spacing:-.015em}
