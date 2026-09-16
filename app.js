@@ -143,10 +143,12 @@ document.addEventListener('keydown', (e) => {
   let idx = 0, timer;
   const dots = [];
 
-  /* Pozadina se vise ne vozi zajedno sa slajdom. Za svaki slajd pravimo po jedan
-     sloj boje iza trake; oni stoje u mestu i samo se pretapaju, dok tekst i slika
-     i dalje ulaze sa strane. Slojevi se grade iz klasa .s1../.s4 koje vec nose
-     boje u CSS-u, pa markup ostaje cist. */
+  /* Slajdovi se smenjuju pretapanjem (stoje jedan preko drugog, vidi .slides u
+     CSS-u). Boja pozadine ne moze da ostane na samom slajdu: dva poluprovidna
+     slajda tokom prelaza ne daju punu neprozirnost pa bi se kroz njih videla
+     pozadina stranice. Zato za svaki slajd pravimo poseban sloj boje iza trake;
+     taj stek je uvek pun. Slojevi se grade iz klasa .s1../.s4 koje vec nose boje
+     u CSS-u, pa markup ostaje cist. */
   const sliderBox = document.getElementById('slider');
   const bgs = [];
   if (sliderBox) {
@@ -188,8 +190,8 @@ document.addEventListener('keydown', (e) => {
     dots.forEach((b, i) => b.setAttribute('aria-label', t('hero.slide_n', { n: i + 1 }))));
   function set(i) {
     idx = (i + N) % N;
-    slides.style.transform = `translateX(-${idx * 100}%)`;
     setBg(idx);
+    [...slides.children].forEach((sl, k) => sl.classList.toggle('is-on', k === idx));
     [...dotsWrap.children].forEach((d, k) => d.classList.toggle('on', k === idx));
   }
   window.go = (d) => { set(idx + d); restartAuto(); };

@@ -169,17 +169,25 @@ section{padding:72px 0}
 
 /* ---------- HERO SLIDER ---------- */
 .hero{position:relative;padding-top:28px;padding-bottom:8px}
-.slider{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
-.slides{position:relative;z-index:1;display:flex;transition:transform .6s var(--ease)}
-.slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
-/* Pozadina NE putuje sa slajdom: svaki slajd ima svoj sloj boje koji stoji u
-   mestu iza trake i samo se pretapa, dok tekst i slika i dalje ulaze sa strane.
+/* --hero-fade: jedno trajanje i za boju pozadine i za sadrzaj slajda */
+.slider{--hero-fade:.9s;position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
+/* Svi slajdovi sede u ISTOJ grid celiji, jedan preko drugog, pa se smenjuju
+   pretapanjem umesto klizanjem. Visina slajdera = najvisi slajd, kao i pre. */
+.slides{position:relative;z-index:1;display:grid}
+/* visibility (a ne samo opacity) vadi neaktivan slajd iz tab reda i sa citaca
+   ekrana; kasni za pretapanjem da se sadrzaj ne ugasi pre kraja prelaza */
+.slide{--slide-gap:clamp(20px,4vw,56px);grid-area:1/1;min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--hero-fade) var(--ease),visibility 0s linear var(--hero-fade)}
+/* pointer-events: dok traje pretapanje oba slajda su vidljiva i preklopljena,
+   pa bi dugme sa odlazeceg moglo da presretne klik — hvata samo aktivni */
+.slide.is-on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity var(--hero-fade) var(--ease),visibility 0s}
+/* Boja stoji u zasebnom steku iza slajdova, a ne na samom slajdu. Razlog:
+   dva poluprovidna slajda tokom pretapanja ne daju punu neprozirnost, pa bi
+   se kroz njih videla pozadina stranice. Ovaj stek je uvek pun.
    Slojeve pravi app.js iz klasa .s1../.s4 ispod. */
 .slide-bgs{position:absolute;inset:0;z-index:0}
-/* Isto trajanje i kriva kao klizanje trake (.6s): boja i sadrzaj napreduju u
-   korak i sleganu zajedno. Krace od toga (probano .5s) jedva da se primeti,
-   duze ostavlja ivicu slike nad jos nepromesanom bojom. */
-.slide-bg{position:absolute;inset:0;transition:opacity .6s var(--ease)}
+/* Isto trajanje i kriva kao sadrzaj slajda, da boja i sadrzaj idu u korak. */
+.slide-bg{position:absolute;inset:0;transition:opacity var(--hero-fade) var(--ease)}
 /* Boja svakog slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
    ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
    pokriva 99-100% oboda i ista je u -web i -mob varijanti.
