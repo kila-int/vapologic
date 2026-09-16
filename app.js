@@ -188,6 +188,7 @@ document.addEventListener('keydown', (e) => {
 const IMG = 'Slike/web';
 const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.webp`;
 const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp`;
+const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.webp`;
 
 const PRODUCTS = {
   EB1000: {
@@ -348,6 +349,8 @@ const pdDevice = () => {
     $('pdHeroWeb').src = deviceImg(P.id, 'web');
     $('pdHeroWeb').alt = P.brand + ' ' + P.id;
     $('pdHeroMob').srcset = deviceImg(P.id, 'mob');
+    $('pdPack').src = packImg(P.id);
+    $('pdPack').alt = P.brand + ' ' + P.id + ' — ' + t('pd.pack');
 
     $('pdSpecs').innerHTML = P.specs.map(function (kv) {
       const v = kv[1].indexOf('specs.') === 0 ? t(kv[1]) : kv[1];

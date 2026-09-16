@@ -186,7 +186,7 @@ section{padding:72px 0}
 .ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:center;aspect-ratio:4/3;height:auto;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
 /* Sa pravom fotografijom: nestaje isprekidani placeholder ram i sraf-pozadina,
    slika popunjava kutiju (odnos kutije = odnos fajla 1300x975, pa cover ne sece). */
-.ghost-prod.shot{background:none;border:0;padding:0;overflow:hidden}
+.ghost-prod.shot{display:block;background:none;border:0;padding:0;overflow:hidden}
 .ghost-prod.shot img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
 
 /* Visina hero-a je vezana za ekran: slajder + traka ispod staju u prvi ekran, a
@@ -212,7 +212,9 @@ section{padding:72px 0}
   /* max-width:none ponistava desktop kapu (46%) koja bi sliku sabila */
   .ghost-prod{order:4;display:grid;flex:0 0 auto;align-self:center;width:min(96%,340px);max-width:none;aspect-ratio:3/4;min-height:0;margin:22px 0 0}
   /* .shot je pejzazna (4:3) pa dobija svoj odnos i vise sirine nego uspravni placeholder */
-  .ghost-prod.shot{width:min(100%,460px);aspect-ratio:4/3}
+  /* -mob kljucni vizual je uspravan (3:4), pa se kutija vraca na taj odnos;
+     sirina i dalje nije pola slajda jer je slajd na mobilnom jednokolonski */
+  .ghost-prod.shot{width:min(100%,380px);aspect-ratio:3/4}
   .slide .btn{order:5;margin-top:28px}
 }
 .dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
@@ -550,7 +552,11 @@ section{padding:72px 0}
 .tech .t .ic{font-size:24px;margin-bottom:10px}
 .tech .t h4{font-size:17px;margin-bottom:6px}
 .tech .t p{color:var(--muted);font-size:14px}
-.pack{aspect-ratio:4/3;margin-top:28px}
+/* Slika pakovanja: isti odnos kao fajl (1300x975 = 4:3), pa nema secenja.
+   Ogranicena je i centrirana — placeholder je ranije isao punom sirinom, ali
+   prava svetla fotografija na toj sirini preglasi ostatak sekcije. */
+.pack{display:block;width:100%;max-width:860px;height:auto;aspect-ratio:4/3;object-fit:cover;
+  margin:28px auto 0;border-radius:var(--r-card);border:1px solid var(--hair)}
 
 /* ---------- PRAVE FOTOGRAFIJE U KARTICAMA (.is-shot) ----------
    Iste kutije koje su ranije nosile placeholder (1:1, radial glow po --acc)
