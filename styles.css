@@ -169,8 +169,9 @@ section{padding:72px 0}
 
 /* ---------- HERO SLIDER ---------- */
 .hero{position:relative;padding-top:28px;padding-bottom:8px}
-/* --hero-fade: jedno trajanje i za boju pozadine i za sadrzaj slajda */
-.slider{--hero-fade:.9s;position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
+/* --hero-fade: klizanje trake  ·  --hero-bg-fade: pretapanje boje pozadine.
+   Boja je namerno malo duza, da se sleganje boje oseti i posto sadrzaj stane. */
+.slider{--hero-fade:.9s;--hero-bg-fade:1.2s;position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--hair)}
 .slides{position:relative;z-index:1;display:flex;transition:transform var(--hero-fade) var(--ease)}
 .slide{--slide-gap:clamp(20px,4vw,56px);min-width:100%;display:flex;align-items:center;gap:var(--slide-gap);padding:clamp(30px,5vw,64px);padding-left:clamp(72px,7vw,100px);min-height:clamp(360px,46vw,520px)}
 /* Pozadina NE putuje sa slajdom: stoji u zasebnom steku iza trake i samo se
@@ -179,8 +180,7 @@ section{padding:72px 0}
    prelaza — zato sadrzaj klizi, a pretapa se samo boja.
    Slojeve pravi app.js iz klasa .s1../.s4 ispod. */
 .slide-bgs{position:absolute;inset:0;z-index:0}
-/* Isto trajanje i kriva kao klizanje trake, da boja i sadrzaj idu u korak. */
-.slide-bg{position:absolute;inset:0;transition:opacity var(--hero-fade) var(--ease)}
+.slide-bg{position:absolute;inset:0;transition:opacity var(--hero-bg-fade) var(--ease)}
 /* Boja svakog slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
    ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
    pokriva 99-100% oboda i ista je u -web i -mob varijanti.
