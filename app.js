@@ -1,16 +1,6 @@
 /* ===== Vapologic — zajednički JS (index / proizvod / blog / lokacije) ===== */
 
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-// akcenat (boja okvira/senke) po ukusu — kartice kviza i slajder ukusa
-const FLAVOR_ACC = { watermelon: '#ff4d9d', strawberry: '#ff4d9d', cherry: '#ff4d9d', lemonade: '#ffcf5c',
-  mango: '#ffcf5c', pineapple: '#ffcf5c', grape: '#b14bff', blueberry: '#38d6ff', menthol: '#38d6ff',
-  melon: '#ff4d9d', kiwi: '#38d6ff' };
-const pickBy = (map, name, fallback) => {
-  const n = name.toLowerCase();
-  for (const k in map) if (n.includes(k)) return map[k];
-  return fallback;
-};
-const accFor = (name) => pickBy(FLAVOR_ACC, name, '#b14bff');
 
 /* ============================================================
    i18n — tekstovi se menjaju u i18n.js, ne ovde.
@@ -327,11 +317,10 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
     const g = document.getElementById('rgrid'); g.innerHTML = '';
     m.forEach(f => {
       const a = document.createElement('a');
-      a.className = 'rcard';
+      a.className = 'rcard ' + PRODUCTS[f.dev].cls;   // okvir brenda: Elfbar plavo, Lost Mary roze
       // vodi na stranicu uređaja, sidro na slajder ukusa -> tamo se centrira baš ovaj ukus
       a.href = flavorHref(f.dev, f.slug);
       a.setAttribute('aria-label', t('quiz.open_aria', { fl: f.fn, dev: f.dev }));
-      a.style.setProperty('--acc', accFor(f.fn));
       const tags = f.taste.map(x => `<span class="t">${t('taste.' + x)}</span>`).join('')
         + `<span class="t">${t('intensity.' + f.intensity)}</span><span class="t">${f.puffs}</span>`;
       a.innerHTML = `<div class="rimg is-shot"><img src="${flavorImg(f.dev, f.slug)}" alt="${f.dev} ${f.fn}" width="700" height="700" loading="eager" decoding="async"></div>
@@ -382,7 +371,6 @@ const pdDevice = () => {
     $('pdAbout').textContent = t('specs.about.' + P.id);
     $('pdTechH').textContent = t('tech.t1.' + P.id);
     $('pdTechP').textContent = t('tech.t1d.' + P.id);
-    $('pdTechIc').textContent = P.id === 'EB1000' ? '\u{1F4A8}' : '\u{1F50B}';
     $('flavTitle').textContent = t('flav.title', { dev: P.id });
     document.title = P.brand + ' ' + P.id + ' — ' + t('pd.meta_puffs', { n: P.puffs }) + ' | Vapologic';
 
@@ -430,7 +418,7 @@ const pdDevice = () => {
 
   /* Slika ukusa + ime, bez opisa i bez linka (nema per-flavor stranice). */
   const card = (f, clone) =>
-    '<div class="card' + (clone ? ' is-clone' : '') + '" style="--acc:' + accFor(f.fn) + '"' +
+    '<div class="card ' + P.cls + (clone ? ' is-clone' : '') + '"' +
       (clone ? ' aria-hidden="true"' : '') + ' data-slug="' + f.slug + '">' +
       '<div class="shot is-shot"><span class="brand">' + P.brand + '</span>' +
       '<img src="' + flavorImg(P.id, f.slug) + '" alt="' + P.id + ' ' + f.fn +
@@ -647,29 +635,25 @@ const pdDevice = () => {
 })();
 
 /* ---------- Filter proizvoda + nav deep-link (index.html) ----------
-   Marka (Elfbar/Lost Mary) i Tip (Pod sistem/Jednokratni) su radio grupe —
-   po jedan izbor iz svake. Nav dropdown „Proizvodi" ne vodi na posebnu
-   stranicu: samo pre-selektuje filtere i skroluje na #prods (bez reloada).
-   Za sad 3 uređaja; logika je spremna za veći katalog kad stigne. */
+   Na stranici nema padajućih filtera. Filter se bira iz menija: Lost Mary /
+   Elfbar (marka) ili Pod sistemi / Jednokratni (tip). Na index-u klik samo
+   filtrira i skroluje na #prods (bez reloada); sa drugih stranica stiže kao
+   ?brand=/?type=. Aktivan filter se vidi kao čip sa ×, koji vraća ceo spisak. */
 (function () {
-  const pf = document.getElementById('pf');
   const grid = document.querySelector('#prods .prods');
-  if (!pf || !grid) return;
+  if (!grid) return;
 
   const cards = [...grid.querySelectorAll('.card')];
   const chipsWrap = document.getElementById('pfChips');
   const emptyEl = document.getElementById('pfEmpty');
-  const clearBtn = document.getElementById('pfClear');
-  const drops = [...pf.querySelectorAll('.pf-drop')];
 
   const state = { brand: 'all', type: 'all' };
   const VALID = { brand: ['all', 'lost-mary', 'elfbar'], type: ['all', 'pod', 'jednokratni'] };
 
-  // labela za dugme/čip po grupi+vrednosti (brendovi se ne prevode)
+  // labela čipa po grupi+vrednosti (brendovi se ne prevode; tip kao u meniju)
   const valLabel = (group, val) => {
-    if (val === 'all') return t(group === 'brand' ? 'prods.filter.all_brands' : 'prods.filter.all_types');
     if (group === 'brand') return val === 'elfbar' ? 'Elfbar' : 'Lost Mary';
-    return t(val === 'pod' ? 'prods.filter.pod' : 'prods.filter.disp');
+    return t(val === 'pod' ? 'nav.pod_group' : 'nav.disp_group');
   };
   const chipClass = (group, val) =>
     group === 'brand' ? (val === 'elfbar' ? 'brand-elf' : 'brand-lm') : 'type';
@@ -805,11 +789,7 @@ const pdDevice = () => {
 
   function apply() {
     animateCards();
-    pf.querySelectorAll('.pf-val').forEach(el => { el.textContent = valLabel(el.dataset.val, state[el.dataset.val]); });
-    pf.querySelectorAll('.pf-opt').forEach(o =>
-      o.setAttribute('aria-checked', state[o.dataset.group] === o.dataset.val ? 'true' : 'false'));
     renderChips();
-    if (clearBtn) clearBtn.hidden = !(state.brand !== 'all' || state.type !== 'all');
   }
 
   const scrollToProds = () =>
@@ -821,34 +801,13 @@ const pdDevice = () => {
     apply();
   }
 
-  const closeDrops = () => drops.forEach(d => {
-    d.classList.remove('open');
-    const b = d.querySelector('.pf-btn'); if (b) b.setAttribute('aria-expanded', 'false');
-  });
-
-  drops.forEach(d => {
-    const btn = d.querySelector('.pf-btn');
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = !d.classList.contains('open');
-      closeDrops();
-      d.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-  pf.querySelectorAll('.pf-opt').forEach(o =>
-    o.addEventListener('click', () => { setFilter(o.dataset.group, o.dataset.val); closeDrops(); }));
-  document.addEventListener('click', (e) => { if (!e.target.closest('.pf-drop')) closeDrops(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrops(); });
-
   chipsWrap.addEventListener('click', (e) => {
     const x = e.target.closest('[data-clear]');
     if (x) setFilter(x.dataset.clear, 'all');
   });
-  if (clearBtn) clearBtn.addEventListener('click', () => { state.brand = 'all'; state.type = 'all'; apply(); });
 
-  // nav dropdown „Proizvodi" -> filtriraj + skroluj (bez reloada na index-u)
-  document.querySelectorAll('.prod-menu [data-filter]').forEach(a => {
+  // meni (Lost Mary / Elfbar / Pod sistemi / Jednokratni) -> filtriraj + skroluj (bez reloada na index-u)
+  document.querySelectorAll('.nav [data-filter]').forEach(a => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       state.brand = VALID.brand.includes(a.dataset.brand) ? a.dataset.brand : 'all';

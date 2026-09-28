@@ -27,6 +27,32 @@
 {"@type":"Question","name":"Da li vape proizvodi izazivaju zavisnost?","acceptedAnswer":{"@type":"Answer","text":"Vape proizvodi sadrže nikotin koji izaziva zavisnost."}}
 ]}
 </script>
+<!-- Stilovi samo za ovu varijantu (hero od kraja do kraja). Bazni styles.css se ne dira. -->
+<style>
+  .hero.hero-full{padding:0;padding-inline:0}
+  .hero-full .slider{border-radius:0;border:0;border-bottom:1px solid var(--hair);
+    aspect-ratio:16/9;max-height:calc(100svh - 73px);width:100%}
+  .hero-full .slides{height:100%}
+  .hero-full .slide{position:relative;display:block;min-height:0;height:100%;padding:0}
+  .hero-full .slide-vis{position:absolute;inset:0;display:block}
+  .hero-full .slide-vis img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Zona za dugme: dole levo, poravnato sa marginom sajta */
+  .hero-full .slide-cta{position:absolute;left:0;right:0;bottom:clamp(56px,9%,110px);margin-inline:auto;z-index:2}
+  .hero-full .slide .btn{margin-top:0}
+  .hero-full .dots{bottom:22px}
+  /* Strelice sad stoje preko slike, pa dobijaju poluprovidnu podlogu */
+  .hero-full .arrow{top:50%;background:rgba(15,13,21,.55);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.18)}
+  .hero-full .arrow:hover{background:rgba(15,13,21,.8)}
+  .hero-full .safe-guide{display:none}
+  .show-grid .hero-full .safe-guide{display:block;position:absolute;inset:10%;z-index:4;pointer-events:none;border:1px dashed rgba(255,255,255,.7)}
+  .show-grid .hero-full .safe-guide span{position:absolute;top:6px;left:8px;font-size:11px;letter-spacing:.06em;color:#fff;background:rgba(0,0,0,.5);padding:2px 6px;border-radius:4px}
+  .show-grid .hero-full .slide-cta .btn{outline:2px dashed #ff4d9d;outline-offset:8px}
+  @media(max-width:720px){
+    .hero-full .slider{aspect-ratio:4/5;max-height:none}
+    .hero-full .slide-cta{display:flex;justify-content:center;bottom:52px}
+  }
+</style>
+<script>if(/[?&]grid\b/.test(location.search))document.documentElement.classList.add('show-grid')</script>
 </head>
 <body>
 <header>
@@ -77,19 +103,22 @@
 </header>
 
 <main>
-  <div class="hero wrap">
+  <!-- VARIJANTA: hero od kraja do kraja ekrana, lepi se ispod menija, ceo slajd je vizual.
+       Slike su privremene (postojeci kljucni vizuali) dok dizajneri ne posalju prave:
+       desktop 2880x1620 (16:9), mobilni 1080x1350 (4:5). Naslov je skriven (sr-only)
+       samo zbog Google-a i citaca ekrana; vidljivo je samo dugme u zoni za dugme. -->
+  <div class="hero hero-full">
     <div class="slider" id="slider">
       <div class="slides" id="slides">
-        <div class="slide s1"><div class="slide-txt"><span class="pill">Elfbar · EB1000</span><h2 data-i18n="hero.s1.title">Do hiljadu puffova!</h2><div class="sub" data-i18n="hero.s1.sub">Pun ukus u svakom udahu</div><a class="btn btn-primary" href="/proizvod?dev=EB1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><picture class="ghost-prod shot"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb1000-mob.webp"><img src="Slike/web/uredjaj/eb1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" fetchpriority="high" alt="Elfbar EB1000 — do 1000 puffova"></picture></div>
-        <div class="slide s2"><div class="slide-txt"><span class="pill">Lost Mary · BM1000</span><h2>Turbo Mode</h2><div class="sub" data-i18n="hero.s2.sub">Ukusi u koje se odmah zaljubiš</div><a class="btn btn-primary" href="/proizvod?dev=BM1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><picture class="ghost-prod shot"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/bm1000-mob.webp"><img src="Slike/web/uredjaj/bm1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Lost Mary BM1000 Turbo"></picture></div>
-        <div class="slide s3"><div class="slide-txt"><span class="pill">Elfbar · EB6000</span><h2>EB6000</h2><div class="sub" data-i18n="hero.s3.sub">Do šest hiljada puffova!</div><a class="btn btn-primary" href="/proizvod?dev=EB6000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><picture class="ghost-prod shot"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb6000-mob.webp"><img src="Slike/web/uredjaj/eb6000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Elfbar EB6000 — do 6000 puffova"></picture></div>
-        <div class="slide s4"><div class="slide-txt"><span class="pill" data-i18n="hero.s4.pill">Lokacije</span><h2 data-i18n="hero.s4.title">Preko 1200 lokacija</h2><div class="sub" data-i18n="hero.s4.sub">Pronađite nas širom Srbije</div><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s1"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb1000-mob.webp"><img src="Slike/web/uredjaj/eb1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" fetchpriority="high" alt="Elfbar EB1000 — do 1000 puffova"></picture><div class="slide-cta wrap"><h2 class="sr-only" data-i18n="hero.s1.title">Do hiljadu puffova!</h2><a class="btn btn-primary" href="/proizvod?dev=EB1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s2"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/bm1000-mob.webp"><img src="Slike/web/uredjaj/bm1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Lost Mary BM1000 Turbo"></picture><div class="slide-cta wrap"><h2 class="sr-only">Turbo Mode</h2><a class="btn btn-primary" href="/proizvod?dev=BM1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s3"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb6000-mob.webp"><img src="Slike/web/uredjaj/eb6000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Elfbar EB6000 — do 6000 puffova"></picture><div class="slide-cta wrap"><h2 class="sr-only">EB6000</h2><a class="btn btn-primary" href="/proizvod?dev=EB6000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s4"><div class="slide-cta wrap"><h2 class="sr-only" data-i18n="hero.s4.title">Preko 1200 lokacija</h2><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
       <div class="dots" id="dots" role="tablist" data-i18n-attr="aria-label:hero.slides" aria-label="Slajdovi"></div>
+      <!-- Pomocni okvir sigurne zone za dizajnere; vidi se samo sa ?grid u URL-u -->
+      <div class="safe-guide" aria-hidden="true"><span>sigurna zona</span></div>
     </div>
-    <!-- Strelice stoje VAN slajda: .slider ima overflow:hidden pa bi ih odsekao,
-         zato su deca .hero-a i sede u bocnoj traci (--arrow-lane). Na mobilnom
-         se sklanjaju (kontrola su prevlacenje prstom i tackice). -->
     <button class="arrow prev" onclick="go(-1)" data-i18n-attr="aria-label:hero.prev" aria-label="Prethodni slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <button class="arrow next" onclick="go(1)" data-i18n-attr="aria-label:hero.next" aria-label="Sledeći slajd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>

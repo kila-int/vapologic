@@ -15,6 +15,7 @@
   --candy:linear-gradient(100deg,#ff4d9d 0%,#b14bff 52%,#38d6ff 100%);
   --candy-soft:linear-gradient(100deg,rgba(255,77,157,.16),rgba(177,75,255,.16),rgba(56,214,255,.16));
   --elf:#38d6ff; --lm:#ff4d9d;
+  --shot-bg:#141020;
   --sans:"Satoshi",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"Segoe UI Mono",Consolas,monospace;
   --r-card:20px; --r-inner:14px;
@@ -23,6 +24,27 @@
   /* pun grid: margina 48px (mobilni 20px), sa sigurnosnim limitom za ultra-wide */
   --maxw:1800px; --gutter:clamp(20px,3vw,48px); --prose:64ch;
 }
+/* ---------- PROBNA BELA VERZIJA (?tema=bela) ----------
+   Iste promenljive, svetle vrednosti. Hero slajder i vizuali ostaju tamni:
+   unutar .slider se vraćaju tamne promenljive. Logo je beo PNG, pa se obrće. */
+html[data-tema="bela"]{
+  --bg:#fff; --bg-2:#f6f5f9; --bg-3:#fff;
+  --surface:rgba(20,16,32,.035); --surface-2:rgba(20,16,32,.06);
+  --hair:rgba(20,16,32,.12); --hair-2:rgba(20,16,32,.2);
+  --ink:#15121c; --muted:#5b546a; --muted-2:#7c758b;
+  --shot-bg:#f3f2f6; --shadow-card:0 24px 60px -28px rgba(20,16,32,.25);
+}
+html[data-tema="bela"] .slider{
+  --surface:rgba(255,255,255,.045); --surface-2:rgba(255,255,255,.07);
+  --hair:rgba(255,255,255,.10); --hair-2:rgba(255,255,255,.16);
+  --ink:#f6f3fb; --muted:#aba2be; --muted-2:#8a81a0; color:var(--ink)}
+html[data-tema="bela"] header{background:rgba(255,255,255,.85)}
+html[data-tema="bela"] .logo-img{filter:invert(1)}
+html[data-tema="bela"] .drop .menu,html[data-tema="bela"] .pm-fly{box-shadow:0 20px 40px rgba(20,16,32,.12)}
+html[data-tema="bela"] .btn-ghost .ico{background:var(--surface-2)}
+html[data-tema="bela"] .art-body p{color:var(--ink)}
+html[data-tema="bela"] .agegate{background:rgba(246,245,249,.92)}
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -38,12 +60,6 @@ img{max-width:100%;display:block}
 .sec-title{font-size:clamp(28px,4vw,46px)}
 .lead{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:60ch}
 .grad{background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent}
-
-/* atmosphere */
-.atmos{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
-.orb-1{width:520px;height:520px;top:-160px;right:-120px;background:radial-gradient(circle,rgba(56,214,255,.5),transparent 70%)}
-.orb-2{width:560px;height:560px;top:240px;left:-200px;background:radial-gradient(circle,rgba(255,77,157,.4),transparent 70%)}
 
 .pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:12px;line-height:1;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);background:var(--surface-2)}
 .pbody .pill{align-self:flex-start}
@@ -154,8 +170,12 @@ body.nav-open .nav-toggle .bars::after{top:0;transform:rotate(-45deg)}
   .nav-menu .prod-menu{padding:8px 0 6px}
   .nav-menu .prod-menu .pm-group{margin:0;padding:0;border-top:0}
   /* a.pm-* diže specifičnost iznad `.nav-menu .drop .menu a` (inače gube veličinu/boju) */
-  .nav-menu .drop .menu a.pm-all{font-size:19px;color:var(--ink);font-weight:600;border-left-color:var(--c3)}
-  .nav-menu .drop .menu a.pm-head{font-size:18px;color:var(--ink);font-weight:600;border-left-color:var(--c2)}
+  .nav-menu .drop .menu a.pm-head{display:block;font-size:18px;color:var(--ink);font-weight:600;border-left-color:var(--c2)}
+  .nav-menu .prod-menu .pm-head .caret{display:none}
+  /* podmeni (desktop: desno na hover) je ovde samo uvučen spisak ispod stavke */
+  .nav-menu .pm-fly{position:static;opacity:1;visibility:visible;transform:none;margin:0;padding:0;min-width:0;
+    background:transparent;border:0;border-radius:0;box-shadow:none}
+  .nav-menu .pm-fly::before{display:none}
   .nav-menu .drop .menu a.pm-sub{font-size:15px;color:var(--muted-2);padding-left:30px}
   /* jezik + mreže zakačeni na dno, sa razdelnikom */
   .nav-menu .langpick{margin-top:auto;width:100%;padding-top:24px;border-top:1px solid var(--hair)}
@@ -206,6 +226,7 @@ section{padding:72px 0}
 /* Visina hero-a je vezana za ekran: slajder + traka ispod staju u prvi ekran, a
    sledeca sekcija tek malo izviruje (--peek). Mere (izmereno u browseru):
    header 73px (72 + hairline), .hero padding 28+8, .mq = 34 margine + 70 visine.
+   Traka .mq je izbačena, ali --mq-block namerno ostaje: visina slajdera se ne menja.
    Samo od tableta navise — ispod 720px je slajd stakovan pa bi 100dvh sabio sadrzaj. */
 @media(min-width:721px){
   /* --arrow-lane: bocna traka u kojoj sede strelice, van slajda. Hero je za
@@ -244,67 +265,15 @@ section{padding:72px 0}
    menjaju prevlacenjem prsta i tackicama. Mora IZA baznog .arrow pravila. */
 @media(max-width:720px){.arrow{display:none}}
 
-/* ---------- SOCIAL PROOF: free-form pokretna traka (bez boksova/kartica) ----------
-   Sve teče kao jedna linija: recenzija · broj · logo · … Razdvaja ih tanka
-   hairline linija (::before na svakoj stavci -> razmak uniforman i preko „šava"). */
-.mq{position:relative;overflow:hidden;margin-top:34px;padding:22px 0;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.mq-track{display:flex;width:max-content;animation:mq 60s linear infinite}
-.mq-group{display:flex}
-.mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
-@keyframes mq{to{transform:translateX(-50%)}}
-.mq .it{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap}
-.mq .it::before{content:"";width:1px;height:18px;background:var(--hair-2);margin:0 34px;flex:0 0 auto}
-.it-rev{gap:10px;font-size:15px;color:#d6d2e2}
-.it-rev .stars{color:#ffcf5c;letter-spacing:.08em;font-size:13px}
-.it-rev .q{font-style:italic}
-.it-rev .who{color:var(--muted-2);font-size:13px}
-.it-rev .who::before{content:"— "}
-.it-stat{gap:9px}
-.it-stat b{font-family:var(--mono);font-weight:700;font-size:26px;line-height:1;
-  background:var(--candy);-webkit-background-clip:text;background-clip:text;color:transparent}
-.it-stat span{color:var(--muted);font-size:14px}
-.it-logo{font-weight:800;font-size:16px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted-2);opacity:.75;transition:opacity .25s}
-.mq:hover .it-logo{opacity:.9}
-
 /* ---------- CARD HOVER: statičan neon glow (bez pokretnih linija) ---------- */
 .ring{position:relative}
 
-/* ---------- FILTER PROIZVODA (Marka + Tip, radio) ---------- */
-.pf{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin:26px 0 10px}
-.pf-drop{position:relative}
-.pf-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;
-  background:var(--surface-2);border:1px solid var(--hair-2);color:var(--ink);font-family:var(--sans);
-  font-size:14px;font-weight:500;cursor:pointer;transition:border-color .2s var(--ease),background .2s}
-.pf-btn:hover{border-color:var(--c2)}
-.pf-btn .pf-cap{color:var(--muted);font-weight:500}
-.pf-btn .caret{margin-left:2px;border-color:var(--muted)}
-.pf-drop.open .pf-btn{border-color:var(--c2);background:var(--bg-3)}
-/* filteri su centrirani, pa je i meni centriran ispod svog dugmeta (ne left:0,
-   inace na uskim ekranima izlazi iz kontejnera) */
-.pf-menu{position:absolute;top:calc(100% + 8px);left:50%;z-index:20;min-width:220px;background:var(--bg-3);
-  border:1px solid var(--hair);border-radius:14px;padding:7px;opacity:0;visibility:hidden;
-  transform:translateX(-50%) translateY(6px);
-  transition:.18s var(--ease);box-shadow:0 20px 44px rgba(0,0,0,.55)}
-.pf-drop.open .pf-menu{opacity:1;visibility:visible;transform:translateX(-50%)}
-.pf-opt{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border-radius:9px;background:transparent;
-  border:0;color:var(--muted);font-family:var(--sans);font-size:14.5px;text-align:left;cursor:pointer;transition:.15s}
-.pf-opt:hover{background:var(--surface-2);color:var(--ink)}
-.pf-radio{width:17px;height:17px;flex:none;border-radius:50%;border:2px solid var(--hair-2);position:relative;transition:.15s}
-.pf-opt[aria-checked="true"]{color:var(--ink)}
-.pf-opt[aria-checked="true"] .pf-radio{border-color:var(--c2)}
-.pf-opt[aria-checked="true"] .pf-radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--candy)}
-.pf-clear{margin-left:2px;display:inline-flex;align-items:center;gap:7px;padding:11px 14px;border-radius:12px;
-  background:transparent;border:1px solid transparent;color:var(--muted);font-family:var(--sans);font-size:13.5px;
-  font-weight:500;cursor:pointer;transition:.18s}
-.pf-clear:hover{color:var(--ink);border-color:var(--hair)}
-.pf-clear svg{width:14px;height:14px}
-
-/* aktivni čipovi (V3 — tinta akcenta) */
-/* rezervisana visina reda: čipovi se pojave/nestanu bez pomeranja visine strane */
-.pf-chips{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;min-height:34px;margin:0 0 24px}
+/* ---------- FILTER PROIZVODA ----------
+   Padajući filteri (Marka/Tip) su izbačeni. Filter se sada bira samo iz menija
+   (Lost Mary / Elfbar / Pod sistemi / Jednokratni), a ovde ostaje čip sa × da se
+   vrati ceo spisak. Red ne zauzima mesto dok nema aktivnog čipa. */
+.pf-chips{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;margin:0}
+.pf-chips:has(.chip:not(.pf-chip-out)){margin:-8px 0 24px}
 .pf-chips .pf-chips-lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:2px}
 .chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:500;line-height:1;
   border-radius:999px;padding:7px 9px 7px 13px;white-space:nowrap;color:var(--ink);
@@ -314,7 +283,7 @@ section{padding:72px 0}
 .chip .x{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
   cursor:pointer;transition:.15s;border:0;background:transparent;padding:0;color:inherit}
 .chip .x svg{width:11px;height:11px}
-.chip .x:hover{background:rgba(255,255,255,.12)}
+.chip .x:hover{background:var(--surface-2)}
 .chip.brand-elf{background:color-mix(in srgb,var(--c3) 15%,transparent);border:1px solid color-mix(in srgb,var(--c3) 45%,transparent)}
 .chip.brand-lm{background:color-mix(in srgb,var(--c1) 15%,transparent);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent)}
 .chip.type{background:color-mix(in srgb,var(--c2) 15%,transparent);border:1px solid color-mix(in srgb,var(--c2) 45%,transparent)}
@@ -325,11 +294,22 @@ section{padding:72px 0}
 .pf-empty{color:var(--muted);font-size:15px;padding:22px 0 8px}
 .card[hidden],.pf-empty[hidden]{display:none}
 
-/* nav dropdown „Proizvodi" — grupe sa pod-stavkama */
-.prod-menu{min-width:210px}
-.prod-menu .pm-group{margin-top:4px;padding-top:5px;border-top:1px solid var(--hair)}
-.prod-menu .pm-head{font-weight:600;color:var(--ink)}
-.prod-menu .pm-sub{padding-left:22px;font-size:13px;color:var(--muted-2)}
+/* nav dropdown „Proizvodi": dve stavke (Pod sistemi / Jednokratni), a uređaji
+   se otvaraju desno od stavke na hover (.pm-fly). Na mobilnom je sve jedan
+   uvučen spisak (vidi @media 720px gore). */
+.prod-menu{min-width:190px}
+.prod-menu .pm-group{position:relative}
+.prod-menu .pm-group+.pm-group{margin-top:2px}
+.drop .menu a.pm-head{display:flex;align-items:center;justify-content:space-between;gap:18px;font-weight:600;color:var(--ink)}
+/* .caret je strelica nadole (45deg); -45deg je okreće udesno */
+.prod-menu .pm-head .caret{transform:rotate(-45deg);margin-left:0}
+.pm-fly{position:absolute;left:100%;top:-7px;margin-left:8px;min-width:140px;background:var(--bg-3);border:1px solid var(--hair);
+  border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateX(-6px);transition:.18s var(--ease);
+  box-shadow:0 20px 40px rgba(0,0,0,.5)}
+/* nevidljiv most preko razmaka od 8px, da podmeni ne pobegne dok miš prelazi */
+.pm-fly::before{content:"";position:absolute;top:0;bottom:0;left:-9px;width:9px}
+.pm-group:hover>.pm-fly,.pm-group:focus-within>.pm-fly{opacity:1;visibility:visible;transform:none}
+.prod-menu .pm-sub{font-size:14px}
 
 /* ---------- PRODUCTS GRID ---------- */
 .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
@@ -341,28 +321,33 @@ section{padding:72px 0}
 /* ===== zajednicki skelet kartice: proizvod (home) · ukus (slajder) · rezultat kviza ===== */
 .card,.rcard{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden;
   display:flex;flex-direction:column;color:inherit;text-decoration:none}
-/* slika ide od ivice do ivice, bez sopstvenog okvira */
+/* slika ide od ivice do ivice, bez sopstvenog okvira; bez sjaja iza proizvoda */
 .card .shot,.rcard .rimg{position:relative;border:0;border-bottom:1px solid var(--hair);border-radius:0;margin:0;
-  display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,color-mix(in srgb,var(--acc,var(--c2)) 34%,transparent),transparent 62%),#141020}
+  display:grid;place-items:center;background:var(--shot-bg)}
 .card .body,.rcard .rbody{padding:20px;display:flex;flex-direction:column;gap:9px;flex:1}
+/* ime uređaja (EB1000 / BM1000 / EB6000) centrirano ispod slike */
+.prods .card .body{align-items:center;text-align:center}
 /* oznaka odnosa slike (placeholder) — isto na sve tri */
 .card .ratio,.rcard .fr{position:absolute;top:10px;right:10px;font-family:var(--sans);font-size:10px;color:var(--muted-2);
   background:rgba(0,0,0,.4);border:1px solid var(--hair);padding:2px 6px;border-radius:6px}
 
 .card{transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),opacity .32s var(--ease)}
-.card:hover,.rcard:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
+.card:hover,.rcard:hover{transform:translateY(-6px)}
 .card .shot{aspect-ratio:1/1}
-/* brand okvir: Elfbar plavo/cyan, Lost Mary roze/magenta — vidljiv i bez hovera */
-.card.eb,.card.eb6,.post.eb{--acc:var(--c3);--brd:rgba(56,214,255,.5);--glow:rgba(56,214,255,.45);--glow2:rgba(56,214,255,.32)}
-.card.bm,.post.bm{--acc:var(--c1);--brd:rgba(255,77,157,.55);--glow:rgba(177,75,255,.5);--glow2:rgba(255,61,120,.4)}
-.card.eb,.card.eb6,.card.bm,.post.eb,.post.bm{border-color:var(--brd)}
-.card.eb:hover,.card.eb6:hover,.card.bm:hover,.post.eb:hover,.post.bm:hover{border-color:var(--brd);
+/* Samo okvir brenda, bez obojenog sjaja: Elfbar plavo, Lost Mary roze.
+   Važi za grid proizvoda, slajder ukusa i rezultate kviza. */
+.card.eb,.card.eb6,.rcard.eb,.rcard.eb6,.post.eb{--brd:rgba(56,214,255,.6)}
+.card.bm,.rcard.bm,.post.bm{--brd:rgba(255,77,157,.6)}
+.card.eb,.card.eb6,.card.bm,.rcard.eb,.rcard.eb6,.rcard.bm,.post.eb,.post.bm{border-color:var(--brd)}
+.card.eb:hover,.card.eb6:hover,.card.bm:hover,.rcard.eb:hover,.rcard.eb6:hover,.rcard.bm:hover{border-color:var(--brd);box-shadow:0 0 0 1px var(--brd)}
+/* blog kartice zadržavaju svoj sjaj na hover */
+.post.eb{--glow:rgba(56,214,255,.45);--glow2:rgba(56,214,255,.32)}
+.post.bm{--glow:rgba(177,75,255,.5);--glow2:rgba(255,61,120,.4)}
+.post.eb:hover,.post.bm:hover{border-color:var(--brd);
   box-shadow:0 0 0 1px var(--brd),0 14px 46px -10px var(--glow),0 0 26px -2px var(--glow2)}
-/* kartice ukusa u slajderu: per-flavor boja okvira (izuzetak od brand okvira);
-   nisu klik/link pa nemaju pointer ni podizanje na hover */
-.ptrack>.card{border-color:color-mix(in srgb,var(--acc,var(--c2)) 55%,transparent);cursor:default}
-.ptrack>.card:hover{transform:none;border-color:color-mix(in srgb,var(--acc,var(--c2)) 70%,transparent);
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--acc,var(--c2)) 60%,transparent),0 12px 40px -14px color-mix(in srgb,var(--acc,var(--c2)) 45%,transparent)}
+/* kartice ukusa u slajderu nisu klik/link pa nemaju pointer ni podizanje na hover */
+.ptrack>.card{cursor:default}
+.ptrack>.card:hover{transform:none}
 .card .shot-lbl{font-size:12.5px;color:var(--muted-2);text-align:center;padding:0 16px}
 .card .brand{position:absolute;top:14px;left:14px;font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);z-index:2}
 /* emoji ukusa stoji umesto slike dok klijent ne dostavi fotografije */
@@ -374,10 +359,8 @@ section{padding:72px 0}
 .card .go{margin-top:auto}
 
 /* ---------- QUIZ ---------- */
-.quiz-sec{background:linear-gradient(180deg,transparent,rgba(177,75,255,.05),transparent)}
 /* kviz je forma — ostaje kompaktan i kad je grid pun */
 .quiz{max-width:1200px;margin-inline:auto;background:linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--hair);border-radius:26px;padding:clamp(24px,4vw,46px);position:relative;overflow:hidden}
-.quiz::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 100% 0,rgba(255,77,157,.14),transparent 55%);pointer-events:none}
 .qbar{display:flex;gap:8px;margin-bottom:28px;position:relative}
 .qbar .seg{height:5px;flex:1;border-radius:999px;background:var(--hair)}
 .qbar .seg.on{background:var(--candy)}
@@ -560,7 +543,6 @@ section{padding:72px 0}
 .tech{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
 @media(max-width:760px){.tech{grid-template-columns:1fr}}
 .tech .t{border:1px solid var(--hair);border-radius:16px;padding:22px;background:linear-gradient(180deg,var(--surface),transparent)}
-.tech .t .ic{font-size:24px;margin-bottom:10px}
 .tech .t h4{font-size:17px;margin-bottom:6px}
 .tech .t p{color:var(--muted);font-size:14px}
 /* Slika pakovanja ide punom sirinom sekcije. Odnos kutije je isti kao odnos
@@ -746,7 +728,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .contact-form label{display:flex;align-items:center;gap:5px;font-family:var(--sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
 .contact-form .req{color:var(--c1);font-size:13px}
 /* oznaka za neobavezno polje (telefon) */
-.contact-form .opt-tag{color:var(--muted-2);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.contact-form .opt-tag{color:var(--muted-2);font-size:13px;font-weight:500}
 .contact-form input,.contact-form textarea{background:var(--surface-2);border:1px solid var(--hair);color:var(--ink);border-radius:12px;
   padding:13px 15px;font-size:15px;font-family:inherit;width:100%;transition:border-color .2s}
 .contact-form input:focus,.contact-form textarea:focus{border-color:var(--c2);outline:none}

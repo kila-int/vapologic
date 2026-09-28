@@ -13,14 +13,15 @@
 <meta property="og:url" content="https://vapologic.rs/proizvod">
 <meta name="theme-color" content="#0f0d15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4d9d'/%3E%3Cstop offset='1' stop-color='%2338d6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10 L16 22 L23 10' fill='none' stroke='%23160a1c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=55">
+<script>/* Probna bela verzija: ?tema=bela ukljucuje, ?tema=crna vraca. Izbor se pamti
+   da ostane pri kretanju po stranicama; ide u <head> da ne bi bilo treptaja. */
+(function(){var d=document.documentElement,m=/[?&]tema=(bela|crna)\b/.exec(location.search),v=m&&m[1];try{if(m)localStorage.setItem('vpl_tema',v);v=localStorage.getItem('vpl_tema')}catch(e){}if(v==='bela')d.setAttribute('data-tema','bela')})();</script>
+<link rel="stylesheet" href="styles.css?v=56">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"Elfbar EB6000","brand":{"@type":"Brand","name":"Elfbar"},"description":"Premium jednokratni uređaj do 6000 puffova, Type-C punjenje, 6 ukusa i 4 boje."}
 </script>
 </head>
 <body>
-<div class="atmos" aria-hidden="true"><span class="orb orb-1"></span><span class="orb orb-2"></span></div>
-
 <header>
   <div class="wrap nav">
     <a class="logo" href="/" aria-label="Vapologic — početna"><img class="logo-img" src="vapologic-logo-white.png" width="280" height="160" loading="eager" fetchpriority="high" decoding="async" alt="Vapologic"></a>
@@ -30,18 +31,23 @@
       <div class="drop">
         <button type="button" class="drop-label" aria-haspopup="true"><span data-i18n="nav.products">Proizvodi</span> <i class="caret" aria-hidden="true"></i></button>
         <div class="menu prod-menu">
-          <a href="/?brand=all&amp;type=all#prods" class="pm-all" data-filter data-brand="all" data-type="all" data-i18n="nav.all_products">Svi proizvodi</a>
           <div class="pm-group">
-            <a href="/?type=pod#prods" class="pm-head" data-filter data-brand="all" data-type="pod" data-i18n="nav.pod_group">Pod sistem</a>
-            <a href="/proizvod?dev=EB6000" class="pm-sub">EB6000</a>
+            <a href="/?type=pod#prods" class="pm-head" data-filter data-brand="all" data-type="pod"><span data-i18n="nav.pod_group">Pod sistemi</span><i class="caret" aria-hidden="true"></i></a>
+            <div class="pm-fly">
+              <a href="/proizvod?dev=EB6000" class="pm-sub">EB6000</a>
+            </div>
           </div>
           <div class="pm-group">
-            <a href="/?type=jednokratni#prods" class="pm-head" data-filter data-brand="all" data-type="jednokratni" data-i18n="nav.disp_group">Jednokratni uređaji</a>
-            <a href="/proizvod?dev=EB1000" class="pm-sub">EB1000</a>
-            <a href="/proizvod?dev=BM1000" class="pm-sub">BM1000</a>
+            <a href="/?type=jednokratni#prods" class="pm-head" data-filter data-brand="all" data-type="jednokratni"><span data-i18n="nav.disp_group">Jednokratni</span><i class="caret" aria-hidden="true"></i></a>
+            <div class="pm-fly">
+              <a href="/proizvod?dev=EB1000" class="pm-sub">EB1000</a>
+              <a href="/proizvod?dev=BM1000" class="pm-sub">BM1000</a>
+            </div>
           </div>
         </div>
       </div>
+      <a href="/?brand=lost-mary#prods" data-filter data-brand="lost-mary" data-type="all">Lost Mary</a>
+      <a href="/?brand=elfbar#prods" data-filter data-brand="elfbar" data-type="all">Elfbar</a>
       <a href="/lokacije" data-i18n="nav.locations">Lokacije</a>
       <a href="/blog" data-i18n="nav.blog">Blog</a>
       <a href="/kontakt" data-i18n="nav.contact">Kontakt</a>
@@ -110,7 +116,7 @@
 
   <section id="specs">
     <div class="wrap">
-      <div class="sec-head"><span class="eyebrow" data-i18n="specs.eyebrow">Specifikacije</span><h2 class="sec-title" data-i18n="specs.title">Parametri i tehnologija</h2></div>
+      <div class="sec-head"><h2 class="sec-title" data-i18n="specs.title">Parametri i tehnologija</h2></div>
       <div class="spec-wrap">
         <div class="spec-grid" id="pdSpecs"></div>
         <div class="spec-copy">
@@ -120,9 +126,9 @@
         </div>
       </div>
       <div class="tech">
-        <div class="t"><div class="ic" aria-hidden="true" id="pdTechIc">🔋</div><h4 id="pdTechH">Baterija većeg kapaciteta</h4><p id="pdTechP">Type-C punjenje za dug vek trajanja i do 6000 puffova bez pada intenziteta.</p></div>
-        <div class="t"><div class="ic" aria-hidden="true">🌀</div><h4 data-i18n="tech.t2">Mesh coil tehnologija</h4><p data-i18n="tech.t2d">Ravnomernije isparavanje tečnosti za dosledan, pun ukus tokom cele upotrebe.</p></div>
-        <div class="t"><div class="ic" aria-hidden="true">✋</div><h4 data-i18n="tech.t3">Ergonomski dizajn</h4><p data-i18n="tech.t3d">Kompaktno kućište, mat obrada i jednostavno korišćenje bez dugmića.</p></div>
+        <div class="t"><h4 id="pdTechH">Baterija većeg kapaciteta</h4><p id="pdTechP">Type-C punjenje za dug vek trajanja i do 6000 puffova bez pada intenziteta.</p></div>
+        <div class="t"><h4 data-i18n="tech.t2">Mesh coil tehnologija</h4><p data-i18n="tech.t2d">Ravnomernije isparavanje tečnosti za dosledan, pun ukus tokom cele upotrebe.</p></div>
+        <div class="t"><h4 data-i18n="tech.t3">Ergonomski dizajn</h4><p data-i18n="tech.t3d">Kompaktno kućište, mat obrada i jednostavno korišćenje bez dugmića.</p></div>
       </div>
       <!-- slika pakovanja (uredjaj + kutija + display); src po ?dev= puni app.js -->
       <img class="pack" id="pdPack" src="Slike/web/pakovanje/eb6000.webp" width="1920" height="1440"
@@ -138,7 +144,7 @@
     <div class="fgrid">
       <div class="foot-company">
         <h4 data-i18n="footer.company">Firma</h4>
-        <p class="foot-tagline" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji</p>
+        <p class="foot-tagline" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p>
         <p class="foot-lorem" data-i18n="footer.company_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
         <p class="foot-legal">
@@ -155,7 +161,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=15"></script>
-<script src="app.js?v=36"></script>
+<script src="i18n.js?v=16"></script>
+<script src="app.js?v=37"></script>
 </body>
 </html>
