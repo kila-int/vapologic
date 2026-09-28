@@ -635,10 +635,10 @@ const pdDevice = () => {
 })();
 
 /* ---------- Filter proizvoda + nav deep-link (index.html) ----------
-   Na stranici nema padajućih filtera. Filter se bira iz menija: Lost Mary /
-   Elfbar (marka) ili Pod sistemi / Jednokratni (tip). Na index-u klik samo
-   filtrira i skroluje na #prods (bez reloada); sa drugih stranica stiže kao
-   ?brand=/?type=. Aktivan filter se vidi kao čip sa ×, koji vraća ceo spisak. */
+   Na stranici je samo padajući filter „Marka" (radio). Marka se bira i iz
+   menija (Lost Mary / Elfbar), a tip samo iz menija (Pod sistemi / Jednokratni).
+   Na index-u klik u meniju samo filtrira i skroluje na #prods (bez reloada); sa
+   drugih stranica stiže kao ?brand=/?type=. Aktivan filter se vidi kao čip sa ×. */
 (function () {
   const grid = document.querySelector('#prods .prods');
   if (!grid) return;
@@ -646,13 +646,15 @@ const pdDevice = () => {
   const cards = [...grid.querySelectorAll('.card')];
   const chipsWrap = document.getElementById('pfChips');
   const emptyEl = document.getElementById('pfEmpty');
+  const pf = document.getElementById('pf');
+  const drops = pf ? [...pf.querySelectorAll('.pf-drop')] : [];
 
   const state = { brand: 'all', type: 'all' };
   const VALID = { brand: ['all', 'lost-mary', 'elfbar'], type: ['all', 'pod', 'jednokratni'] };
 
-  // labela čipa po grupi+vrednosti (brendovi se ne prevode; tip kao u meniju)
+  // labela za dugme/čip po grupi+vrednosti (brendovi se ne prevode; tip kao u meniju)
   const valLabel = (group, val) => {
-    if (group === 'brand') return val === 'elfbar' ? 'Elfbar' : 'Lost Mary';
+    if (group === 'brand') return val === 'all' ? t('prods.filter.all_brands') : val === 'elfbar' ? 'Elfbar' : 'Lost Mary';
     return t(val === 'pod' ? 'nav.pod_group' : 'nav.disp_group');
   };
   const chipClass = (group, val) =>
@@ -789,6 +791,11 @@ const pdDevice = () => {
 
   function apply() {
     animateCards();
+    if (pf) {
+      pf.querySelectorAll('.pf-val').forEach(el => { el.textContent = valLabel(el.dataset.val, state[el.dataset.val]); });
+      pf.querySelectorAll('.pf-opt').forEach(o =>
+        o.setAttribute('aria-checked', state[o.dataset.group] === o.dataset.val ? 'true' : 'false'));
+    }
     renderChips();
   }
 
@@ -799,6 +806,28 @@ const pdDevice = () => {
     if (!VALID[group] || !VALID[group].includes(val)) return;
     state[group] = val;
     apply();
+  }
+
+  const closeDrops = () => drops.forEach(d => {
+    d.classList.remove('open');
+    const b = d.querySelector('.pf-btn'); if (b) b.setAttribute('aria-expanded', 'false');
+  });
+
+  drops.forEach(d => {
+    const btn = d.querySelector('.pf-btn');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !d.classList.contains('open');
+      closeDrops();
+      d.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  if (pf) {
+    pf.querySelectorAll('.pf-opt').forEach(o =>
+      o.addEventListener('click', () => { setFilter(o.dataset.group, o.dataset.val); closeDrops(); }));
+    document.addEventListener('click', (e) => { if (!e.target.closest('.pf-drop')) closeDrops(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrops(); });
   }
 
   chipsWrap.addEventListener('click', (e) => {

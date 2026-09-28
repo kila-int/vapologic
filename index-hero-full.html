@@ -16,7 +16,7 @@
 <script>/* Probna bela verzija: ?tema=bela ukljucuje, ?tema=crna vraca. Izbor se pamti
    da ostane pri kretanju po stranicama; ide u <head> da ne bi bilo treptaja. */
 (function(){var d=document.documentElement,m=/[?&]tema=(bela|crna)\b/.exec(location.search),v=m&&m[1];try{if(m)localStorage.setItem('vpl_tema',v);v=localStorage.getItem('vpl_tema')}catch(e){}if(v==='bela')d.setAttribute('data-tema','bela')})();</script>
-<link rel="stylesheet" href="styles.css?v=57">
+<link rel="stylesheet" href="styles.css?v=58">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -128,6 +128,18 @@
       <div class="sec-head center"><h2 class="sec-title" data-i18n="prods.title">Upoznaj uređaje, isprobaj ukuse</h2>
         <p class="lead" data-i18n="prods.lead">Elfbar i Lost Mary proizvode odlikuje prepoznatljiv kvalitet, raskošna lepeza ukusa i moderan dizajn. Otkrij kakva tehnologija stoji iza njih.</p></div>
 
+      <!-- Filter: Marka (radio). Tip se bira iz menija (Pod sistemi / Jednokratni). -->
+      <div class="pf" id="pf" role="group" data-i18n-attr="aria-label:prods.filter.brand">
+        <div class="pf-drop" data-filter-drop="brand">
+          <button type="button" class="pf-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="pf-cap"><span data-i18n="prods.filter.brand">Marka</span>:</span> <span class="pf-val" data-val="brand"></span> <i class="caret" aria-hidden="true"></i></button>
+          <div class="pf-menu" role="radiogroup" data-i18n-attr="aria-label:prods.filter.brand">
+            <button type="button" class="pf-opt" role="radio" aria-checked="true" data-group="brand" data-val="all"><span class="pf-radio" aria-hidden="true"></span><span data-i18n="prods.filter.all_brands">Svi proizvodi</span></button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="brand" data-val="lost-mary"><span class="pf-radio" aria-hidden="true"></span>Lost Mary</button>
+            <button type="button" class="pf-opt" role="radio" aria-checked="false" data-group="brand" data-val="elfbar"><span class="pf-radio" aria-hidden="true"></span>Elfbar</button>
+          </div>
+        </div>
+      </div>
       <div class="pf-chips" id="pfChips" aria-live="polite"></div>
 
       <div class="prods">
@@ -229,7 +241,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=17"></script>
-<script src="app.js?v=37"></script>
+<script src="i18n.js?v=18"></script>
+<script src="app.js?v=38"></script>
 </body>
 </html>
