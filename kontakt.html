@@ -16,7 +16,7 @@
 <script>/* Probna bela verzija: ?tema=bela ukljucuje, ?tema=crna vraca. Izbor se pamti
    da ostane pri kretanju po stranicama; ide u <head> da ne bi bilo treptaja. */
 (function(){var d=document.documentElement,m=/[?&]tema=(bela|crna)\b/.exec(location.search),v=m&&m[1];try{if(m)localStorage.setItem('vpl_tema',v);v=localStorage.getItem('vpl_tema')}catch(e){}if(v==='bela')d.setAttribute('data-tema','bela')})();</script>
-<link rel="stylesheet" href="styles.css?v=56">
+<link rel="stylesheet" href="styles.css?v=57">
 </head>
 <body>
 <header>
@@ -112,7 +112,6 @@
       <div class="foot-company">
         <h4 data-i18n="footer.company">Firma</h4>
         <p class="foot-tagline" data-i18n="footer.tagline">Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.</p>
-        <p class="foot-lorem" data-i18n="footer.company_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <!-- PLACEHOLDER pravni podaci — zameniti pravim kad ih klijent pošalje -->
         <p class="foot-legal">
           <span data-i18n="footer.legal_name">Vapologic d.o.o.</span>
@@ -128,7 +127,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=16"></script>
+<script src="i18n.js?v=17"></script>
 <script src="app.js?v=37"></script>
 </body>
 </html>
