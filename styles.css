@@ -569,9 +569,8 @@ section{padding:72px 0}
 .tech .t h4{font-size:17px;margin-bottom:6px}
 .tech .t p{color:var(--muted);font-size:14px}
 /* Slika pakovanja ide punom sirinom sekcije. Odnos kutije je isti kao odnos
-   fajla (4:3), pa `cover` nista ne isece. Izvor je 1920px sirok — .wrap ide do
-   1704 CSS px, tako da ostaje ostra i na najsirem ekranu. */
-.pack{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;
+   fajla (5:2, 2000x800 od dizajnera), pa `cover` nista ne isece. */
+.pack{display:block;width:100%;height:auto;aspect-ratio:5/2;object-fit:cover;
   margin-top:28px;border-radius:var(--r-card);border:1px solid var(--hair)}
 
 /* ---------- PRAVE FOTOGRAFIJE U KARTICAMA (.is-shot) ----------

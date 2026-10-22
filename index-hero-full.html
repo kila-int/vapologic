@@ -16,7 +16,7 @@
 <script>/* Probna bela verzija: ?tema=bela ukljucuje, ?tema=crna vraca. Izbor se pamti
    da ostane pri kretanju po stranicama; ide u <head> da ne bi bilo treptaja. */
 (function(){var d=document.documentElement,m=/[?&]tema=(bela|crna)\b/.exec(location.search),v=m&&m[1];try{if(m)localStorage.setItem('vpl_tema',v);v=localStorage.getItem('vpl_tema')}catch(e){}if(v==='bela')d.setAttribute('data-tema','bela')})();</script>
-<link rel="stylesheet" href="styles.css?v=58">
+<link rel="stylesheet" href="styles.css?v=59">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vapologic","url":"https://vapologic.rs/","description":"Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.","areaServed":"RS"}
 </script>
@@ -43,23 +43,25 @@
   html[data-tema="bela"] .hero-over header:not(.is-solid) .logo-img{filter:none}
 
   .hero.hero-full{padding:0;padding-inline:0}
-  /* 12:5 (2.4:1): na uobičajenim ekranima ceo slajd staje u prvi ekran, pa se
-     vizual ne seče. max-height hvata samo ultrawide monitore. */
-  .hero-full .slider{border-radius:0;border:0;aspect-ratio:12/5;max-height:100svh;width:100%}
+  /* 5:2 = odnos vizuala koje su poslali dizajneri (2000x800): ceo slajd staje u
+     prvi ekran i vizual se ne seče. max-height hvata samo ultrawide monitore. */
+  .hero-full .slider{border-radius:0;border:0;aspect-ratio:5/2;max-height:100svh;width:100%}
   /* blago zatamnjenje pri vrhu, da meni ostane čitljiv preko svetlih vizuala */
-  .hero-full .slider::after{content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:2;pointer-events:none;
-    background:linear-gradient(rgba(10,8,14,.55),rgba(10,8,14,0))}
+  .hero-full .slider::after{content:"";position:absolute;left:0;right:0;top:0;height:160px;z-index:2;pointer-events:none;
+    background:linear-gradient(rgba(10,8,14,.6),rgba(10,8,14,0))}
   .hero-full .slides{height:100%}
   .hero-full .slide{position:relative;display:block;min-height:0;height:100%;padding:0}
   .hero-full .slide-vis{position:absolute;inset:0;display:block}
   .hero-full .slide-vis img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Zona za dugme: dole levo, poravnato sa marginom sajta */
-  .hero-full .slide-cta{position:absolute;left:0;right:0;bottom:clamp(48px,9%,110px);margin-inline:auto;z-index:3}
+  /* Zona za dugme: dole levo, poravnato sa levom ivicom teksta na vizualu (~6.4% širine),
+     ispod ikonica sa opisom */
+  .hero-full .slide-cta{position:absolute;left:6.4%;bottom:clamp(40px,8%,110px);z-index:3}
   .hero-full .slide .btn{margin-top:0}
   .hero-full .dots{bottom:22px}
-  /* Strelice stoje preko slike, pa dobijaju poluprovidnu podlogu */
-  .hero-full .arrow{top:50%;background:rgba(15,13,21,.55);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.18);color:#fff}
+  /* Strelice su dole desno, da ne ulaze u tekst na vizualu (levo, na sredini visine) */
+  .hero-full .arrow{top:auto;bottom:clamp(45px,calc(8% + 5px),115px);transform:none;background:rgba(15,13,21,.55);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.18);color:#fff}
   .hero-full .arrow:hover{background:rgba(15,13,21,.8)}
+  .hero-full .arrow.prev{left:auto;right:calc(var(--gutter) + 52px)}
 
   /* ?grid: pomoćne linije za dizajnere (zona menija, sigurna zona, zona dugmeta) */
   .hero-full .safe-guide,.hero-full .menu-guide{display:none}
@@ -71,10 +73,14 @@
   .show-grid .hero-full .safe-guide span{top:6px}
   .show-grid .hero-full .menu-guide span{bottom:4px;right:8px;left:auto}
   .show-grid .hero-full .slide-cta .btn{outline:2px dashed #ff4d9d;outline-offset:8px}
+  /* Telefon: mobilni vizuali imaju naslov sasvim gore, pa meni NE ide preko slike —
+     ostaje iznad slajdera sa svojom pozadinom (script ispod mu drži .is-solid). */
   @media(max-width:720px){
-    .hero-full .slider{aspect-ratio:4/5;max-height:none}
-    .hero-full .slide-cta{display:flex;justify-content:center;bottom:52px}
-    .show-grid .hero-full .safe-guide{inset:max(8%,88px) 8% 8%}
+    .hero-over header{position:sticky}
+    .hero-full .slider::after,.show-grid .hero-full .menu-guide{display:none}
+    .hero-full .slider{aspect-ratio:455/550;max-height:none}
+    .hero-full .slide-cta{left:0;right:0;display:flex;justify-content:center;bottom:44px}
+    .show-grid .hero-full .safe-guide{inset:8%}
   }
 </style>
 <script>if(/[?&]grid\b/.test(location.search))document.documentElement.classList.add('show-grid')</script>
@@ -129,16 +135,16 @@
 
 <main>
   <!-- VARIJANTA: hero od kraja do kraja ekrana, spojen sa menijem, ceo slajd je vizual.
-       Slike su privremene (postojeci kljucni vizuali) dok dizajneri ne posalju prave:
-       desktop 2880x1200 (12:5), mobilni 1080x1350 (4:5). Naslov je skriven (sr-only)
+       Vizuali dizajnera: desktop 2000x800 (5:2), mobilni 455x550 — Slike/web/hero/.
+       Redosled prati numeraciju dizajnera (1 BM1000, 2 EB1000, 3 EB6000, lokacije). Naslov je skriven (sr-only)
        samo zbog Google-a i citaca ekrana; vidljivo je samo dugme u zoni za dugme. -->
   <div class="hero hero-full">
     <div class="slider" id="slider">
       <div class="slides" id="slides">
-        <div class="slide s1"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb1000-mob.webp"><img src="Slike/web/uredjaj/eb1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" fetchpriority="high" alt="Elfbar EB1000 — do 1000 puffova"></picture><div class="slide-cta wrap"><h2 class="sr-only" data-i18n="hero.s1.title">Do hiljadu puffova!</h2><a class="btn btn-primary" href="/proizvod?dev=EB1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
-        <div class="slide s2"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/bm1000-mob.webp"><img src="Slike/web/uredjaj/bm1000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Lost Mary BM1000 Turbo"></picture><div class="slide-cta wrap"><h2 class="sr-only">Turbo Mode</h2><a class="btn btn-primary" href="/proizvod?dev=BM1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
-        <div class="slide s3"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/uredjaj/eb6000-mob.webp"><img src="Slike/web/uredjaj/eb6000-web.webp" width="1600" height="1199" loading="eager" decoding="async" alt="Elfbar EB6000 — do 6000 puffova"></picture><div class="slide-cta wrap"><h2 class="sr-only">EB6000</h2><a class="btn btn-primary" href="/proizvod?dev=EB6000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
-        <div class="slide s4"><div class="slide-cta wrap"><h2 class="sr-only" data-i18n="hero.s4.title">Preko 1200 lokacija</h2><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s1"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/hero/bm1000-mob.webp" width="455" height="550"><img src="Slike/web/hero/bm1000-web.webp" width="2000" height="800" loading="eager" decoding="async" fetchpriority="high" alt="Lost Mary BM1000 Turbo — do 1000 puffova"></picture><div class="slide-cta"><h2 class="sr-only">Lost Mary BM1000 Turbo</h2><a class="btn btn-primary" href="/proizvod?dev=BM1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s2"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/hero/eb1000-mob.webp" width="455" height="550"><img src="Slike/web/hero/eb1000-web.webp" width="2000" height="800" loading="eager" decoding="async" alt="Elfbar EB1000 — 1000 puffova"></picture><div class="slide-cta"><h2 class="sr-only" data-i18n="hero.s1.title">Do hiljadu puffova!</h2><a class="btn btn-primary" href="/proizvod?dev=EB1000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s3"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/hero/eb6000-mob.webp" width="455" height="550"><img src="Slike/web/hero/eb6000-web.webp" width="2000" height="800" loading="eager" decoding="async" alt="Elfbar EB6000 — 6000 puffova"></picture><div class="slide-cta"><h2 class="sr-only">EB6000</h2><a class="btn btn-primary" href="/proizvod?dev=EB6000"><span data-i18n="hero.cta">Pogledaj proizvod</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
+        <div class="slide s4"><picture class="slide-vis"><source media="(max-width:720px)" srcset="Slike/web/hero/lokacije-mob.webp" width="455" height="550"><img src="Slike/web/hero/lokacije-web.webp" width="2000" height="800" loading="eager" decoding="async" alt="Preko 1200 lokacija širom Srbije"></picture><div class="slide-cta"><h2 class="sr-only" data-i18n="hero.s4.title">Preko 1200 lokacija</h2><a class="btn btn-primary" href="/lokacije"><span data-i18n="hero.cta_loc">Pronađi najbližu</span> <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div>
       </div>
       <div class="dots" id="dots" role="tablist" data-i18n-attr="aria-label:hero.slides" aria-label="Slajdovi"></div>
       <!-- Pomocni okvir sigurne zone za dizajnere; vidi se samo sa ?grid u URL-u -->
@@ -271,11 +277,12 @@
 <script src="app.js?v=38"></script>
 <script>
 /* Meni je providan dok je preko slajdera; dobija pozadinu kad slajder prođe ispod
-   njega ili kad je otvoren meni na telefonu. */
+   njega, kad je otvoren meni ili na telefonu (tamo meni stoji iznad slajdera). */
 (function(){
   var h=document.querySelector('header'), s=document.getElementById('slider');
   if(!h||!s) return;
-  function u(){ h.classList.toggle('is-solid', scrollY > s.offsetHeight - h.offsetHeight - 1 || document.body.classList.contains('nav-open')); }
+  var mob=matchMedia('(max-width:720px)');
+  function u(){ h.classList.toggle('is-solid', mob.matches || scrollY > s.offsetHeight - h.offsetHeight - 1 || document.body.classList.contains('nav-open')); }
   addEventListener('scroll', u, {passive:true}); addEventListener('resize', u);
   new MutationObserver(u).observe(document.body, {attributes:true, attributeFilter:['class']});
   u();
