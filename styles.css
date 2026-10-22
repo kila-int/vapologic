@@ -24,27 +24,6 @@
   /* pun grid: margina 48px (mobilni 20px), sa sigurnosnim limitom za ultra-wide */
   --maxw:1800px; --gutter:clamp(20px,3vw,48px); --prose:64ch;
 }
-/* ---------- PROBNA BELA VERZIJA (?tema=bela) ----------
-   Iste promenljive, svetle vrednosti. Hero slajder i vizuali ostaju tamni:
-   unutar .slider se vraćaju tamne promenljive. Logo je beo PNG, pa se obrće. */
-html[data-tema="bela"]{
-  --bg:#fff; --bg-2:#f6f5f9; --bg-3:#fff;
-  --surface:rgba(20,16,32,.035); --surface-2:rgba(20,16,32,.06);
-  --hair:rgba(20,16,32,.12); --hair-2:rgba(20,16,32,.2);
-  --ink:#15121c; --muted:#5b546a; --muted-2:#7c758b;
-  --shot-bg:#f3f2f6; --shadow-card:0 24px 60px -28px rgba(20,16,32,.25);
-}
-html[data-tema="bela"] .slider{
-  --surface:rgba(255,255,255,.045); --surface-2:rgba(255,255,255,.07);
-  --hair:rgba(255,255,255,.10); --hair-2:rgba(255,255,255,.16);
-  --ink:#f6f3fb; --muted:#aba2be; --muted-2:#8a81a0; color:var(--ink)}
-html[data-tema="bela"] header{background:rgba(255,255,255,.85)}
-html[data-tema="bela"] .logo-img{filter:invert(1)}
-html[data-tema="bela"] .drop .menu,html[data-tema="bela"] .pm-fly{box-shadow:0 20px 40px rgba(20,16,32,.12)}
-html[data-tema="bela"] .btn-ghost .ico{background:var(--surface-2)}
-html[data-tema="bela"] .art-body p{color:var(--ink)}
-html[data-tema="bela"] .agegate{background:rgba(246,245,249,.92)}
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
