@@ -219,7 +219,7 @@ document.addEventListener('keydown', (e) => {
    nove, dodaj red ovde i ubaci fajl pod tim imenom, ostalo radi samo. */
 const IMG = 'Slike/web';
 const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.webp`;
-const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp`;
+const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp?v=2`;   // ?v= kad se slike zamene
 const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.webp`;
 
 const PRODUCTS = {
