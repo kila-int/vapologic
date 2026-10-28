@@ -442,6 +442,9 @@ section{padding:72px 0}
 .post:hover{transform:translateY(-6px);border-color:rgba(255,77,157,.55);box-shadow:0 0 0 1px rgba(255,77,157,.4),0 14px 46px -10px rgba(177,75,255,.5),0 0 26px -2px rgba(255,61,120,.4)}
 /* placeholder unutar kartice ide bez dashed okvira (okvir daje sama kartica) */
 .post .thumb{aspect-ratio:3/2;border-radius:var(--r-card) var(--r-card) 0 0;border:0;border-bottom:1px solid var(--hair)}
+.post .thumb{overflow:hidden}
+.post .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s var(--ease)}
+.post:hover .thumb img{transform:scale(1.04)}
 .post .pbody{padding:22px;display:flex;flex-direction:column;gap:9px}
 .post h3{font-size:19px;line-height:1.22}
 .post p{color:var(--muted);font-size:14px}
@@ -616,6 +619,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .art-meta{font-family:var(--sans);color:var(--muted-2);font-size:13px;display:flex;gap:12px;flex-wrap:wrap}
 .art-cover{max-width:1040px;margin:32px auto 0;padding:0 22px}
 .art-cover .ph{aspect-ratio:2/1}
+.art-cover img{width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;display:block;border-radius:var(--r-card);border:1px solid var(--hair)}
 .art-body{max-width:var(--prose);margin-inline:auto;padding:38px 22px 10px}
 .art-body p{color:#d6d2e2;font-size:17.5px;line-height:1.78;margin-bottom:22px}
 .art-body h2{font-size:27px;margin:36px 0 14px}
