@@ -623,8 +623,6 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .art-body{max-width:var(--prose);margin-inline:auto;padding:38px 22px 10px}
 .art-body p{color:#d6d2e2;font-size:17.5px;line-height:1.78;margin-bottom:22px}
 .art-body h2{font-size:27px;margin:36px 0 14px}
-.art-body .figure{margin:32px 0}
-.art-body .figure .ph{aspect-ratio:3/2}
 .art-body .cap{font-family:var(--sans);color:var(--muted-2);font-size:12px;text-align:center;margin-top:8px}
 .art-share{max-width:var(--prose);margin:12px auto 0;padding:20px 22px;border-top:1px solid var(--hair);display:flex;gap:12px;align-items:center;color:var(--muted);font-size:14px;flex-wrap:wrap}
 .art-more{border-top:1px solid var(--hair);margin-top:34px}
