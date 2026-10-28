@@ -4,4 +4,5 @@
   <url><loc>https://vapologic.rs/proizvod</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://vapologic.rs/lokacije</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://vapologic.rs/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://vapologic.rs/politika-privatnosti</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
