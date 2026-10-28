@@ -10,7 +10,8 @@ const LANGS = ['sr', 'en', 'ru'];
 let LANG = (() => {
   const q = new URLSearchParams(location.search).get('lang');
   if (q && LANGS.includes(q)) return q;
-  const s = localStorage.getItem('vpl_lang');
+  let s = null;
+  try { s = localStorage.getItem('vpl_lang'); } catch (e) {}
   if (s && LANGS.includes(s)) return s;
   return 'sr';
 })();
@@ -96,7 +97,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- AGE GATE (sve stranice) ---------- */
 (function () {
-  if (localStorage.getItem('vpl_age18') === '1') return;
+  try { if (localStorage.getItem('vpl_age18') === '1') return; } catch (e) {}
   const el = document.createElement('div');
   el.className = 'agegate';
   el.innerHTML = `<div class="agecard" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
@@ -114,7 +115,8 @@ document.addEventListener('keydown', (e) => {
     document.documentElement.style.overflow = 'hidden';
     el.querySelector('#ageYes').focus();
     el.querySelector('#ageYes').onclick = () => {
-      localStorage.setItem('vpl_age18', '1'); el.remove(); document.documentElement.style.overflow = '';
+      try { localStorage.setItem('vpl_age18', '1'); } catch (e) {}
+      el.remove(); document.documentElement.style.overflow = '';
     };
     el.querySelector('#ageNo').onclick = () => {
       document.body.innerHTML = `<div class="age-blocked">${t('age.blocked')}</div>`;
@@ -278,7 +280,6 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
   if (!backBtn) return;
   let step = 0;
   const answers = { taste: null, intensity: null, puffs: null };
-  const stepKeys = ['taste', 'intensity', 'puffs'];
   // slatki i slatko-kiseli se tretiraju kao ista grupa ukusa
   const TASTE_GROUPS = { 'slatki': ['slatki', 'slatko-kiseli'], 'slatko-kiseli': ['slatki', 'slatko-kiseli'] };
   const tasteGroup = (t) => TASTE_GROUPS[t] || [t];
@@ -295,7 +296,6 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
     document.querySelectorAll('.qbar .seg').forEach((s, k) => s.classList.toggle('on', k <= step));
     backBtn.style.visibility = step === 0 ? 'hidden' : 'visible';
   }
-  window.next = () => { if (step < 2) { step++; showStep(); } else { finish(); } };
   window.back = () => { if (step > 0) { step--; showStep(); } };
   function finish() {
     document.querySelectorAll('.qstep').forEach(s => s.classList.remove('on'));
@@ -308,7 +308,6 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
     let bezJacine = false;
     if (m.length === 0) { bezJacine = true; m = FLAVORS.filter(f => matchTaste(f) && f.puffs === answers.puffs); }
     if (m.length === 0) { m = FLAVORS.filter(f => matchTaste(f)); }
-    document.getElementById('empty').style.display = 'none';
     const izbor = bezJacine
       ? `${t('taste.' + answers.taste)} · ${answers.puffs} ${t('quiz.puffs_label')}`
       : `${t('taste.' + answers.taste)} · ${t('intensity.' + answers.intensity)} · ${answers.puffs} ${t('quiz.puffs_label')}`;
@@ -622,9 +621,8 @@ const pdDevice = () => {
 })();
 
 /* ---------- Kontakt forma (kontakt.html) ----------
-   Za sada je PRIKAZNA: ne šalje nigde. Kad izaberemo integraciju
-   (FormSubmit / Formspree / Webflow forms), poruke idu na
-   petrovic.lazar2409@gmail.com.                                     */
+   Za sada je PRIKAZNA: ne šalje nigde. Slanje se povezuje kad se
+   izabere hosting/servis za forme (FormSubmit / Formspree / sl.).  */
 (function () {
   const form = document.getElementById('contactForm');
   if (!form) return;
