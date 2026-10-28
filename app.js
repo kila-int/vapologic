@@ -223,7 +223,7 @@ const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.webp`;
 const PRODUCTS = {
   EB1000: {
     id: 'EB1000', brand: 'Elfbar', cls: 'eb', type: 'jednokratni', puffs: '1000',
-    specs: [['specs.puffs', '1000'], ['specs.flavors', '8'], ['specs.nic', '20 mg/ml'], ['specs.kind', 'specs.kind_disp']],
+    specs: [['specs.puffs', '1000'], ['specs.size', '16 × 90,7 mm'], ['specs.nic', '20 mg/ml'], ['specs.mode', 'Turbo']],
     flavors: [
       { fn: 'Watermelon', slug: 'watermelon', taste: ['slatki', 'osvežavajući'], intensity: 'nežniji' },
       { fn: 'Strawberry Ice', slug: 'strawberry-ice', taste: ['slatki'], intensity: 'nežniji' },
@@ -237,7 +237,7 @@ const PRODUCTS = {
   },
   BM1000: {
     id: 'BM1000', brand: 'Lost Mary', cls: 'bm', type: 'jednokratni', puffs: '1000',
-    specs: [['specs.puffs', '1000'], ['specs.flavors', '6'], ['specs.nic', '20 mg/ml'], ['specs.mode', 'Turbo']],
+    specs: [['specs.puffs', '1000'], ['specs.size', '65 × 36 × 17,4 mm'], ['specs.nic', '20 mg/ml'], ['specs.mode', 'Turbo']],
     flavors: [
       { fn: 'Watermelon Ice', slug: 'watermelon-ice', taste: ['slatki'], intensity: 'snažniji' },
       { fn: 'Strawberry Ice', slug: 'strawberry-ice', taste: ['slatki'], intensity: 'nežniji' },
@@ -249,7 +249,7 @@ const PRODUCTS = {
   },
   EB6000: {
     id: 'EB6000', brand: 'Elfbar', cls: 'eb6', type: 'pod', puffs: '6000',
-    specs: [['specs.puffs', '6000'], ['specs.charge', 'Type-C'], ['specs.flavors', '6'], ['specs.colors', '4']],
+    specs: [['specs.puffs', '6000'], ['specs.charge', 'Type-C'], ['specs.size', '101 × 44 × 22 mm'], ['specs.nic', '20 mg/ml']],
     // EB6000 je pod sistem: uređaj dolazi u 4 boje, a pod-ovi u 6 ukusa
     colors: [
       { fn: 'Blue', slug: 'blue' }, { fn: 'Black', slug: 'black' },
@@ -369,8 +369,10 @@ const pdDevice = () => {
     $('pdCrumbName').textContent = P.id;
     $('pdDesc').textContent = t('pd.desc.' + P.id);
     $('pdAbout').textContent = t('specs.about.' + P.id);
+    $('pdAbout2').textContent = t('specs.about2.' + P.id);
     $('pdTechH').textContent = t('tech.t1.' + P.id);
     $('pdTechP').textContent = t('tech.t1d.' + P.id);
+    $('pdTech3H').textContent = t('tech.t3.' + P.id);
     $('flavTitle').textContent = t('flav.title', { dev: P.id });
     document.title = P.brand + ' ' + P.id + ' — ' + t('pd.meta_puffs', { n: P.puffs }) + ' | Vapologic';
 
@@ -382,7 +384,8 @@ const pdDevice = () => {
 
     $('pdSpecs').innerHTML = P.specs.map(function (kv) {
       const v = kv[1].indexOf('specs.') === 0 ? t(kv[1]) : kv[1];
-      return '<div class="spec-cell"><div class="k">' + t(kv[0]) + '</div><div class="v">' + v + '</div></div>';
+      // dugacke vrednosti (dimenzije) dobijaju manji font da stanu u celiju
+      return '<div class="spec-cell"><div class="k">' + t(kv[0]) + '</div><div class="v' + (v.length > 10 ? ' v-long' : '') + '">' + v + '</div></div>';
     }).join('');
 
     // boje uredjaja (za sad samo EB6000 — pod sistem)
