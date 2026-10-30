@@ -15,6 +15,12 @@ if (mapEl) {
   const MAPTILER_KEY = 'xCboGTDaRsqFuVgneleh'; // javni client ključ — ograničiti na domen u MapTiler dashboardu
   maptilersdk.config.apiKey = MAPTILER_KEY;
 
+  /* Sve sto ide u innerHTML / Popup.setHTML a ne pisemo mi (upit iz polja ili iz
+     linka ?q=, odgovor geokodera, adrese iz tabele klijenta) prolazi kroz esc().
+     Bez ovoga link /lokacije?q=<img onerror=...> izvrsava tudji kod na nasem domenu. */
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
   const CITIES = {
     'beograd': [44.8125, 20.4612], 'novi sad': [45.2671, 19.8335], 'nis': [43.3209, 21.8958],
     'niš': [43.3209, 21.8958], 'kragujevac': [44.0128, 20.9114], 'subotica': [46.1000, 19.6650],
@@ -26,11 +32,10 @@ if (mapEl) {
     'šabac': [44.7489, 19.6906],
   };
 
-  /* Test lokacije se učitavaju iz `lokacije-podaci.json` — 255 tačaka čije su
-     adrese dobijene reverse geocodingom BAŠ te koordinate, pa ulica u tekstu
-     stvarno postoji na mestu gde stoji pin. Fajl pravi `tools/peci-lokacije.ps1`
-     (jednokratno, ~255 zahteva); sajt ga posle samo čita i ne troši kvotu.
-     Kad klijent pošalje pravu bazu (Excel/CSV), menja se samo ovaj JSON. */
+  /* Prava prodajna mesta se učitavaju iz `lokacije-podaci.json`. Fajl pravi
+     `tools/excel-lokacije.py` iz Excel tabele klijenta (geokodiranje adresa ide
+     jednom, preko keša); sajt ga posle samo čita i ne troši kvotu. Unosi sa
+     "approx": true imaju pin na naselju, jer geokoder nije našao ulicu. */
   let LOCATIONS = [];
   const buildFC = () => ({
     type: 'FeatureCollection',
@@ -176,7 +181,7 @@ if (mapEl) {
       const p = e.features[0].properties;
       selectLoc(p.id);
       new maptilersdk.Popup().setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(`<b>${p.name || (t(p.typeKey) + ' — ' + p.city)}</b><br>${p.addr}`).addTo(map);
+        .setHTML(`<b>${esc(p.name || (t(p.typeKey) + ' — ' + p.city))}</b><br>${esc(p.addr)}`).addTo(map);
     });
     ['clusters', 'points'].forEach(id => {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
@@ -269,7 +274,7 @@ if (mapEl) {
       const item = document.createElement('div');
       item.className = 'locitem' + (l.featured ? ' is-featured' : ''); item.tabIndex = 0;
       const tag = l.featured ? `<span class="loc-tag">${t('loc.featured_tag')}</span>` : '';
-      item.innerHTML = `${tag}<div class="ln">${locName(l)}</div><div class="la">${l.addr}</div><div class="ld">${t('loc.km_from_you', { d: l.d.toFixed(1) })}</div>`;
+      item.innerHTML = `${tag}<div class="ln">${esc(locName(l))}</div><div class="la">${esc(l.addr)}</div><div class="ld">${t('loc.km_from_you', { d: l.d.toFixed(1) })}</div>`;
 
       const dir = document.createElement('a');
       dir.className = 'dirlink';
@@ -284,7 +289,7 @@ if (mapEl) {
         resultsEl.querySelectorAll('.locitem.is-sel').forEach(el => el.classList.remove('is-sel'));
         item.classList.add('is-sel');
         map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
-        new maptilersdk.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${locName(l)}</b><br>${l.addr}`).addTo(map);
+        new maptilersdk.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${esc(locName(l))}</b><br>${esc(l.addr)}`).addTo(map);
       };
       item.onclick = focus;
       item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
@@ -314,7 +319,7 @@ if (mapEl) {
     selectLoc(null);
     if (refMarker) refMarker.remove();
     refMarker = new maptilersdk.Marker({ color: '#b14bff' }).setLngLat([refLng, refLat])
-      .setPopup(new maptilersdk.Popup().setHTML(`<b>${label}</b>`)).addTo(map);
+      .setPopup(new maptilersdk.Popup().setHTML(`<b>${esc(label)}</b>`)).addTo(map);
 
     if (!near.length) { map.easeTo({ center: [refLng, refLat], zoom: 8 }); return; }
 
@@ -578,7 +583,7 @@ if (mapEl) {
     hits.forEach(h => {
       const item = document.createElement('div');
       item.className = 'locitem'; item.tabIndex = 0;
-      item.innerHTML = `<div class="ln">${h.label}</div>`;
+      item.innerHTML = `<div class="ln">${esc(h.label)}</div>`;
       const go = () => pickHit(h);
       item.onclick = go;
       item.onkeydown = (e) => { if (e.key === 'Enter') go(); };
@@ -613,7 +618,7 @@ if (mapEl) {
       // geokoder nije našao ništa -> probaj lokalnu tabelu pre nego što odustaneš
       const fb = cityFallback(q);
       if (fb) { pickHit(fb); return; }
-      resultsEl.innerHTML = `<div class="locempty">${t('loc.not_found', { q })}</div>`;
+      resultsEl.innerHTML = `<div class="locempty">${t('loc.not_found', { q: esc(q) })}</div>`;
     } catch (err) {
       if (my !== seq) return;
       // geokoder nedostupan -> lokalna tabela gradova kao rezerva
