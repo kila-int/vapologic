@@ -529,6 +529,9 @@ section{padding:72px 0}
    ne isece. Sekcija nema donji padding da slika legne pravo na footer. */
 .pack{display:block;width:100%;height:auto;aspect-ratio:5/2;object-fit:cover;margin-top:48px}
 #specs:has(.pack){padding-bottom:0}
+/* pakovanje legne pravo na footer, bez razmaka (samo na stranici proizvoda) */
+main:has(.pack){padding-bottom:0}
+main:has(.pack)+footer{margin-top:0}
 
 /* ---------- PRAVE FOTOGRAFIJE U KARTICAMA (.is-shot) ----------
    Iste kutije koje su ranije nosile placeholder (1:1, radial glow po --acc)
