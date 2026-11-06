@@ -114,24 +114,24 @@
   "typeKey": "loctype.gas",
   "city": "11000 Savski Venac- Beograd",
   "addr": "Andre Nikolića bb, 11000 Savski Venac- Beograd",
-  "lat": 44.788612,
-  "lng": 20.437405
+  "lat": 44.788309,
+  "lng": 20.440703
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11000 Savski Venac- Beograd",
   "addr": "Bulevar Oslobođenja 40, 11000 Savski Venac- Beograd",
-  "lat": 44.787096,
-  "lng": 20.46516
+  "lat": 44.786837,
+  "lng": 20.465318
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11000 Stari Grad- Beograd",
   "addr": "Venizelosova bb, 11000 Stari Grad- Beograd",
-  "lat": 44.819454,
-  "lng": 20.47457
+  "lat": 44.820203,
+  "lng": 20.467039
  },
  {
   "name": "NIS Petrol",
@@ -147,15 +147,15 @@
   "typeKey": "loctype.gas",
   "city": "11000 Zvezdara- Beograd",
   "addr": "Autoput Niš-Beograd bb, 11000 Zvezdara- Beograd",
-  "lat": 44.770179,
-  "lng": 20.521501
+  "lat": 44.765031,
+  "lng": 20.527069
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11000 Zvezdara- Beograd",
   "addr": "Mihaila Bulgakova 2, 11000 Zvezdara- Beograd",
-  "lat": 44.785801,
+  "lat": 44.7858,
   "lng": 20.536888
  },
  {
@@ -163,8 +163,8 @@
   "typeKey": "loctype.gas",
   "city": "11010 Beograd",
   "addr": "Bulevar Oslobođenja 333, 11010 Beograd",
-  "lat": 44.760664,
-  "lng": 20.480992
+  "lat": 44.760514,
+  "lng": 20.481141
  },
  {
   "name": "NIS Petrol",
@@ -179,24 +179,24 @@
   "typeKey": "loctype.gas",
   "city": "11030 Čukarica- Beograd",
   "addr": "Požeška 85, 11030 Čukarica- Beograd",
-  "lat": 44.773379,
-  "lng": 20.414154
+  "lat": 44.774371,
+  "lng": 20.413985
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11030 Čukarica- Beograd",
   "addr": "Radnička 2, 11030 Čukarica- Beograd",
-  "lat": 44.786783,
-  "lng": 20.416084
+  "lat": 44.786113,
+  "lng": 20.41504
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11040 Savski Venac- Beograd",
   "addr": "Bulevar Franše D' Eperea bb, 11040 Savski Venac- Beograd",
-  "lat": 44.791571,
-  "lng": 20.46677
+  "lat": 44.786837,
+  "lng": 20.465318
  },
  {
   "name": "NIS Petrol",
@@ -219,24 +219,24 @@
   "typeKey": "loctype.gas",
   "city": "11060 Beograd",
   "addr": "Sutjeska 8 Broj 87, 11060 Beograd",
-  "lat": 44.847063,
-  "lng": 20.47861
+  "lat": 44.852784,
+  "lng": 20.474098
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11060 Palilula- Beograd",
   "addr": "Bulevar Despota Stefana bb, 11060 Palilula- Beograd",
-  "lat": 44.81746,
-  "lng": 20.48318
+  "lat": 44.816855,
+  "lng": 20.477301
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11070 Beograd",
   "addr": "Bulevar Arsenija Čarnojevića 30a, 11070 Beograd",
-  "lat": 44.809589,
-  "lng": 20.42711
+  "lat": 44.809499,
+  "lng": 20.427155
  },
  {
   "name": "NIS Petrol",
@@ -252,8 +252,8 @@
   "typeKey": "loctype.gas",
   "city": "11070 Novi Beograd- Beograd",
   "addr": "Džona Kenedija 10, 11070 Novi Beograd- Beograd",
-  "lat": 44.834833,
-  "lng": 20.416359
+  "lat": 44.833679,
+  "lng": 20.410961
  },
  {
   "name": "NIS Petrol",
@@ -276,25 +276,24 @@
   "typeKey": "loctype.gas",
   "city": "11080 Zemun- Beograd",
   "addr": "Autoput Bgd-Zagreb Izlaz, 11080 Zemun- Beograd",
-  "lat": 44.863042,
-  "lng": 20.36885,
-  "approx": true
+  "lat": 44.852654,
+  "lng": 20.373656
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11080 Zemun- Beograd",
   "addr": "Tošin Bunar 165, 11080 Zemun- Beograd",
-  "lat": 44.814652,
-  "lng": 20.39425
+  "lat": 44.814602,
+  "lng": 20.394021
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11080 Zemun-Beograd",
   "addr": "Autoput za Novi Sad 2đ, 11080 Zemun-Beograd",
-  "lat": 44.851742,
-  "lng": 20.373187
+  "lat": 44.852654,
+  "lng": 20.373656
  },
  {
   "name": "NIS Petrol",
@@ -309,32 +308,32 @@
   "typeKey": "loctype.gas",
   "city": "11211 Borča",
   "addr": "Ivana Milutinovića bb, 11211 Borča",
-  "lat": 44.875575,
-  "lng": 20.46297
+  "lat": 44.872887,
+  "lng": 20.458774
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11271 Surčin- Beograd",
   "addr": "Aerodrom Beograd 48, 11271 Surčin- Beograd",
-  "lat": 44.8177,
-  "lng": 20.288371
+  "lat": 44.817609,
+  "lng": 20.288559
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11300 Smederevo",
   "addr": "Goranska bb, 11300 Smederevo",
-  "lat": 44.659915,
-  "lng": 20.88912
+  "lat": 44.66358,
+  "lng": 20.90824
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11300 Smederevo",
   "addr": "Vojvode Stepe bb, 11300 Smederevo",
-  "lat": 44.656334,
-  "lng": 20.928445
+  "lat": 44.653248,
+  "lng": 20.92711
  },
  {
   "name": "NIS Petrol",
@@ -350,17 +349,16 @@
   "typeKey": "loctype.gas",
   "city": "11400 Mladenovac",
   "addr": "Kralja Petra i 7, 11400 Mladenovac",
-  "lat": 44.443256,
-  "lng": 20.69119
+  "lat": 44.451445,
+  "lng": 20.683284
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "11450 Sopot",
   "addr": "Autoput Niš - Beograd, 11450 Sopot",
-  "lat": 44.519933,
-  "lng": 20.575354,
-  "approx": true
+  "lat": 44.522279,
+  "lng": 20.576306
  },
  {
   "name": "NIS Petrol",
@@ -375,8 +373,8 @@
   "typeKey": "loctype.gas",
   "city": "11500 Obrenovac- Beograd",
   "addr": "Cara Lazara 1, 11500 Obrenovac- Beograd",
-  "lat": 44.649706,
-  "lng": 20.191816
+  "lat": 44.650292,
+  "lng": 20.193246
  },
  {
   "name": "NIS Petrol",
@@ -384,7 +382,7 @@
   "city": "11550 Lazarevac",
   "addr": "Dula Karaklajića 27 A, 11550 Lazarevac",
   "lat": 44.381228,
-  "lng": 20.257816
+  "lng": 20.257817
  },
  {
   "name": "NIS Petrol",
@@ -423,8 +421,8 @@
   "typeKey": "loctype.gas",
   "city": "12320 Žagubica",
   "addr": "Trg Jovana Šerbanovića bb, 12320 Žagubica",
-  "lat": 44.197404,
-  "lng": 21.787216
+  "lat": 44.197187,
+  "lng": 21.787291
  },
  {
   "name": "NIS Petrol",
@@ -447,32 +445,32 @@
   "typeKey": "loctype.gas",
   "city": "14224 Lajkovac",
   "addr": "Vojvode Mišića 2, 14224 Lajkovac",
-  "lat": 44.370985,
-  "lng": 20.167529
+  "lat": 44.370958,
+  "lng": 20.167602
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "15300 Loznica",
   "addr": "Luke Stevića bb, 15300 Loznica",
-  "lat": 44.535268,
-  "lng": 19.223994
+  "lat": 44.537233,
+  "lng": 19.223744
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "16000 Leskovac",
   "addr": "Ul. Stanoja Glavaša bb, 16000 Leskovac",
-  "lat": 42.991065,
-  "lng": 21.928899
+  "lat": 42.993726,
+  "lng": 21.93143
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "17500 Vranje",
   "addr": "Proleterskih Brigada 1a, 17500 Vranje",
-  "lat": 42.544479,
-  "lng": 21.899463
+  "lat": 42.544508,
+  "lng": 21.899166
  },
  {
   "name": "NIS Petrol",
@@ -487,8 +485,8 @@
   "typeKey": "loctype.gas",
   "city": "18000 Niš",
   "addr": "Bulevar Cara Konstantina bb, 18000 Niš",
-  "lat": 43.305418,
-  "lng": 21.951665
+  "lat": 43.310072,
+  "lng": 21.935201
  },
  {
   "name": "NIS Petrol",
@@ -529,8 +527,8 @@
   "typeKey": "loctype.gas",
   "city": "19210 Bor",
   "addr": "Nikole Pasica Br 56, 19210 Bor",
-  "lat": 44.074028,
-  "lng": 22.101074
+  "lat": 44.06769,
+  "lng": 22.099224
  },
  {
   "name": "NIS Petrol",
@@ -538,39 +536,40 @@
   "city": "19220 Donji Milanovac",
   "addr": "Kralja Petra 63, 19220 Donji Milanovac",
   "lat": 44.464864,
-  "lng": 22.149628
+  "lng": 22.149629
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "19250 Majdanpek",
   "addr": "Zmaj Jovina 3, 19250 Majdanpek",
-  "lat": 44.42316,
-  "lng": 21.947774
+  "lat": 44.422728,
+  "lng": 21.947077
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "19300 Negotin",
   "addr": "Zaječarski Put bb, 19300 Negotin",
-  "lat": 44.244769,
-  "lng": 22.541024
+  "lat": 44.225875,
+  "lng": 22.530776,
+  "approx": true
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "21000 Novi Sad",
   "addr": "Braće Ribnikara bb, 21000 Novi Sad",
-  "lat": 45.248002,
-  "lng": 19.835157
+  "lat": 45.249087,
+  "lng": 19.832591
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "21000 Novi Sad",
   "addr": "Bulevar Cara Lazara bb, 21000 Novi Sad",
-  "lat": 45.242991,
-  "lng": 19.838437
+  "lat": 45.242939,
+  "lng": 19.839455
  },
  {
   "name": "NIS Petrol",
@@ -578,7 +577,7 @@
   "city": "21000 Novi Sad",
   "addr": "Futoški Put 93/d, 21000 Novi Sad",
   "lat": 45.244,
-  "lng": 19.794097
+  "lng": 19.794098
  },
  {
   "name": "NIS Petrol",
@@ -593,25 +592,24 @@
   "typeKey": "loctype.gas",
   "city": "21000 Novi Sad",
   "addr": "Maksima Gorkog 1, 21000 Novi Sad",
-  "lat": 45.248542,
-  "lng": 19.840782
+  "lat": 45.242939,
+  "lng": 19.839455
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "21234 Bački Jarak",
   "addr": "Novosadski Put bb, 21234 Bački Jarak",
-  "lat": 45.37034,
-  "lng": 19.871923,
-  "approx": true
+  "lat": 45.364023,
+  "lng": 19.867333
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "21238 Čurug",
   "addr": "Svetozara Miletića bb, 21238 Čurug",
-  "lat": 45.468114,
-  "lng": 20.054927
+  "lat": 45.468655,
+  "lng": 20.054282
  },
  {
   "name": "NIS Petrol",
@@ -626,9 +624,8 @@
   "typeKey": "loctype.gas",
   "city": "21300 Beočin",
   "addr": "Kamenički Put bb, 21300 Beočin",
-  "lat": 45.207477,
-  "lng": 19.725506,
-  "approx": true
+  "lat": 45.208675,
+  "lng": 19.732148
  },
  {
   "name": "NIS Petrol",
@@ -643,17 +640,16 @@
   "typeKey": "loctype.gas",
   "city": "22244 Adaševci",
   "addr": "Auto-Put Bg-Zg, 22244 Adaševci",
-  "lat": 45.041413,
-  "lng": 19.263319,
-  "approx": true
+  "lat": 45.041358,
+  "lng": 19.263641
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "22300 Stara Pazova",
   "addr": "Novosadska bb, 22300 Stara Pazova",
-  "lat": 44.9993,
-  "lng": 20.143253
+  "lat": 44.996319,
+  "lng": 20.154085
  },
  {
   "name": "NIS Petrol",
@@ -669,50 +665,48 @@
   "typeKey": "loctype.gas",
   "city": "22314 Krnješevci-Stara Pazova",
   "addr": "Auto-Put Bg-Zg, 22314 Krnješevci-Stara Pazova",
-  "lat": 44.887823,
-  "lng": 20.138032,
-  "approx": true
+  "lat": 44.878905,
+  "lng": 20.122134
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "22400 Ruma",
   "addr": "Vladimira Nazora bb, 22400 Ruma",
-  "lat": 44.997946,
-  "lng": 19.815698
+  "lat": 45.001435,
+  "lng": 19.815593
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "22410 Pećinci",
   "addr": "Auto-Put Zg-Bg, 22410 Pećinci",
-  "lat": 44.908416,
-  "lng": 19.964758,
-  "approx": true
+  "lat": 44.919776,
+  "lng": 19.961305
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "23000 Zrenjanin",
   "addr": "Beogradska 72, 23000 Zrenjanin",
-  "lat": 45.348314,
-  "lng": 20.423033
+  "lat": 45.348431,
+  "lng": 20.422894
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "23000 Zrenjanin",
   "addr": "Brigadira Ristića bb, 23000 Zrenjanin",
-  "lat": 45.382529,
-  "lng": 20.380148
+  "lat": 45.382272,
+  "lng": 20.384093
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "23000 Zrenjanin",
   "addr": "Bul. Milutina Milankovića 17k, 23000 Zrenjanin",
-  "lat": 45.382909,
-  "lng": 20.395619
+  "lat": 45.382899,
+  "lng": 20.395627
  },
  {
   "name": "NIS Petrol",
@@ -735,16 +729,16 @@
   "typeKey": "loctype.gas",
   "city": "24000 Subotica",
   "addr": "Puškinov Trg bb, 24000 Subotica",
-  "lat": 46.096221,
-  "lng": 19.671068
+  "lat": 46.096642,
+  "lng": 19.670781
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "24000 Subotica",
   "addr": "Somborski Put bb, 24000 Subotica",
-  "lat": 46.093536,
-  "lng": 19.651769
+  "lat": 46.089535,
+  "lng": 19.644986
  },
  {
   "name": "NIS Petrol",
@@ -752,7 +746,7 @@
   "city": "24000 Subotica",
   "addr": "Tolminska 1v, 24000 Subotica",
   "lat": 46.065311,
-  "lng": 19.681566
+  "lng": 19.681567
  },
  {
   "name": "NIS Petrol",
@@ -767,16 +761,16 @@
   "typeKey": "loctype.gas",
   "city": "24300 Bačka Topola",
   "addr": "Vašarište bb, 24300 Bačka Topola",
-  "lat": 45.808234,
-  "lng": 19.638303
+  "lat": 45.808341,
+  "lng": 19.63916
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "24400 Senta",
   "addr": "Novosadski Put bb, 24400 Senta",
-  "lat": 45.913063,
-  "lng": 20.083724
+  "lat": 45.914902,
+  "lng": 20.083598
  },
  {
   "name": "NIS Petrol",
@@ -791,8 +785,8 @@
   "typeKey": "loctype.gas",
   "city": "24413 Palić",
   "addr": "Splitska Aleja bb, 24413 Palić",
-  "lat": 46.099462,
-  "lng": 19.762239
+  "lat": 46.102432,
+  "lng": 19.761949
  },
  {
   "name": "NIS Petrol",
@@ -808,23 +802,23 @@
   "city": "24420 Kanjiža",
   "addr": "Subotički Put 55, 24420 Kanjiža",
   "lat": 46.072359,
-  "lng": 20.055452
+  "lng": 20.055453
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "25000 Sombor",
   "addr": "Filipa Kljajića bb, 25000 Sombor",
-  "lat": 45.766582,
-  "lng": 19.130583
+  "lat": 45.766746,
+  "lng": 19.134745
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "25000 Sombor",
   "addr": "Konjovićeva bb, 25000 Sombor",
-  "lat": 45.780512,
-  "lng": 19.118273
+  "lat": 45.783757,
+  "lng": 19.118882
  },
  {
   "name": "NIS Petrol",
@@ -847,40 +841,41 @@
   "typeKey": "loctype.gas",
   "city": "26210 Kovačica",
   "addr": "Jna bb, 26210 Kovačica",
-  "lat": 45.105743,
-  "lng": 20.620708
+  "lat": 45.113365,
+  "lng": 20.618292
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "26300 Vršac",
   "addr": "2. Oktobar 113, 26300 Vršac",
-  "lat": 45.106642,
-  "lng": 21.280086
+  "lat": 45.115104,
+  "lng": 21.298154,
+  "approx": true
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "26300 Vršac",
   "addr": "Miloša Obilića 1, 26300 Vršac",
-  "lat": 45.123458,
-  "lng": 21.295843
+  "lat": 45.12819,
+  "lng": 21.288177
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "26360 Plandište",
   "addr": "Hajduk Veljka 2p, 26360 Plandište",
-  "lat": 45.230717,
-  "lng": 21.11887
+  "lat": 45.237268,
+  "lng": 21.114709
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "31 320 Nova Varoš",
   "addr": "Magistralni Put Bb., 31 320 Nova Varoš",
-  "lat": 43.458661,
-  "lng": 19.808073
+  "lat": 43.459623,
+  "lng": 19.819509
  },
  {
   "name": "NIS Petrol",
@@ -895,16 +890,16 @@
   "typeKey": "loctype.gas",
   "city": "31205 Sevojno",
   "addr": "Prvomajska bb, 31205 Sevojno",
-  "lat": 43.837949,
-  "lng": 19.885715
+  "lat": 43.835901,
+  "lng": 19.882427
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "31230 Arilje",
   "addr": "Stevana Čolovića 21, 31230 Arilje",
-  "lat": 43.758125,
-  "lng": 20.09259
+  "lat": 43.757768,
+  "lng": 20.093045
  },
  {
   "name": "NIS Petrol",
@@ -935,16 +930,16 @@
   "typeKey": "loctype.gas",
   "city": "32000 Čačak",
   "addr": "Bulevar Vojvode Putnika 2a, 32000 Čačak",
-  "lat": 43.89602,
-  "lng": 20.353042
+  "lat": 43.895818,
+  "lng": 20.353006
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "32000 Čačak",
   "addr": "Svetog Save bb, 32000 Čačak",
-  "lat": 43.890119,
-  "lng": 20.343645
+  "lat": 43.890152,
+  "lng": 20.343187
  },
  {
   "name": "NIS Petrol",
@@ -975,56 +970,56 @@
   "typeKey": "loctype.gas",
   "city": "32250 Ivanjica",
   "addr": "Milinka Kušića bb, 32250 Ivanjica",
-  "lat": 43.588862,
-  "lng": 20.222889
+  "lat": 43.588675,
+  "lng": 20.224212
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34000 Kragujevac",
   "addr": "Atinska br. 4, 34000 Kragujevac",
-  "lat": 44.025402,
-  "lng": 20.906104
+  "lat": 44.027316,
+  "lng": 20.9122
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34000 Kragujevac",
   "addr": "Kraljevački Bataljon, 34000 Kragujevac",
-  "lat": 44.008031,
-  "lng": 20.871656
+  "lat": 43.998349,
+  "lng": 20.88358
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34000 Kragujevac",
   "addr": "Lepenički Bulevar b.b., 34000 Kragujevac",
-  "lat": 44.018244,
-  "lng": 20.929357
+  "lat": 44.018787,
+  "lng": 20.930163
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34000 Kragujevac",
   "addr": "Miodraga Vlajića Šuke b.b., 34000 Kragujevac",
-  "lat": 44.024527,
-  "lng": 20.928381
+  "lat": 44.018892,
+  "lng": 20.929626
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34300 Aranđelovac",
   "addr": "Zanatlijska b.b., 34300 Aranđelovac",
-  "lat": 44.302977,
-  "lng": 20.584727
+  "lat": 44.301324,
+  "lng": 20.575123
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "34310 Topola",
   "addr": "Bulevar Vožda Karađorđa 90, 34310 Topola",
-  "lat": 44.268125,
-  "lng": 20.692414
+  "lat": 44.257392,
+  "lng": 20.682235
  },
  {
   "name": "NIS Petrol",
@@ -1040,8 +1035,8 @@
   "typeKey": "loctype.gas",
   "city": "36000 Kraljevo",
   "addr": "Olge Jovičić - Rite bb, 36000 Kraljevo",
-  "lat": 43.726374,
-  "lng": 20.68557
+  "lat": 43.727809,
+  "lng": 20.688554
  },
  {
   "name": "NIS Petrol",
@@ -1065,17 +1060,16 @@
   "typeKey": "loctype.gas",
   "city": "36300 Novi Pazar",
   "addr": "S. Kovačevića bb, 36300 Novi Pazar",
-  "lat": 43.146994,
-  "lng": 20.527621
+  "lat": 43.146587,
+  "lng": 20.527912
  },
  {
   "name": "NIS Petrol",
   "typeKey": "loctype.gas",
   "city": "37000 Kruševac",
   "addr": "Blagoja Parovića bb, 37000 Kruševac",
-  "lat": 43.570875,
-  "lng": 21.331179,
-  "approx": true
+  "lat": 43.570164,
+  "lng": 21.3378
  },
  {
   "typeKey": "loctype.store",
@@ -1197,8 +1191,8 @@
   "typeKey": "loctype.gas",
   "city": "Arandelovac",
   "addr": "Ilije Garašanina 29a, Arandelovac",
-  "lat": 44.313852,
-  "lng": 20.547669
+  "lat": 44.314156,
+  "lng": 20.547415
  },
  {
   "typeKey": "loctype.store",
@@ -1228,8 +1222,8 @@
   "typeKey": "loctype.gas",
   "city": "Backi Petrovac",
   "addr": "Lenjinova 63a, Backi Petrovac",
-  "lat": 45.353867,
-  "lng": 19.586602
+  "lat": 45.353866,
+  "lng": 19.586603
  },
  {
   "typeKey": "loctype.store",
@@ -1350,8 +1344,8 @@
   "typeKey": "loctype.gas",
   "city": "Batajnica",
   "addr": "Široki Put 95, Autoput Batajnica-Novi Sad Batajnica, 11273, Batajnica",
-  "lat": 44.920287,
-  "lng": 20.30508
+  "lat": 44.920332,
+  "lng": 20.305013
  },
  {
   "typeKey": "loctype.store",
@@ -1416,15 +1410,16 @@
   "typeKey": "loctype.gas",
   "city": "Becej",
   "addr": "Petrovoselski Put 1, Becej",
-  "lat": 45.621786,
-  "lng": 20.035874
+  "lat": 45.621803,
+  "lng": 20.035902
  },
  {
   "typeKey": "loctype.store",
   "city": "Bela Crkva",
   "addr": "Gradska Pijaca 1, Bela Crkva",
-  "lat": 44.897542,
-  "lng": 21.423628
+  "lat": 44.900124,
+  "lng": 21.423004,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -1437,8 +1432,8 @@
   "typeKey": "loctype.store",
   "city": "Bela Crkva",
   "addr": "Prvog Oktobra 16, Bela Crkva",
-  "lat": 44.878918,
-  "lng": 21.474284
+  "lat": 44.924414,
+  "lng": 21.475362
  },
  {
   "typeKey": "loctype.store",
@@ -1458,8 +1453,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Beograd",
   "addr": "10. Oktobra 3, Moštanica, Beograd",
-  "lat": 44.664758,
-  "lng": 20.35315
+  "lat": 44.817813,
+  "lng": 20.456897,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -1511,8 +1507,8 @@
   "typeKey": "loctype.store",
   "city": "Beograd",
   "addr": "21.avgusta 53, Grocka, Beograd",
-  "lat": 44.725717,
-  "lng": 20.420249
+  "lat": 44.611335,
+  "lng": 20.74669
  },
  {
   "typeKey": "loctype.store",
@@ -1597,7 +1593,7 @@
   "city": "Beograd",
   "addr": "Banatska 82, Beograd",
   "lat": 44.858794,
-  "lng": 20.37787
+  "lng": 20.377859
  },
  {
   "typeKey": "loctype.kiosk",
@@ -1643,15 +1639,17 @@
   "typeKey": "loctype.kiosk",
   "city": "Beograd",
   "addr": "Bas Unutra 1, Beograd",
-  "lat": 44.717261,
-  "lng": 20.422431
+  "lat": 44.817813,
+  "lng": 20.456897,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
   "city": "Beograd",
   "addr": "Bas Unutra 2, Beograd",
-  "lat": 44.717261,
-  "lng": 20.422431
+  "lat": 44.817813,
+  "lng": 20.456897,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -1713,15 +1711,15 @@
   "typeKey": "loctype.mini",
   "city": "Beograd",
   "addr": "Blok Sutjeska 250e Kotez, Beograd",
-  "lat": 44.760012,
-  "lng": 20.537341
+  "lat": 44.851115,
+  "lng": 20.464805
  },
  {
   "typeKey": "loctype.store",
   "city": "Beograd",
   "addr": "Blok Sutjeska 250e, Beograd",
-  "lat": 44.847063,
-  "lng": 20.47861
+  "lat": 44.850042,
+  "lng": 20.478395
  },
  {
   "typeKey": "loctype.store",
@@ -1828,8 +1826,8 @@
   "typeKey": "loctype.store",
   "city": "Beograd",
   "addr": "Bul.revolucije 51, Grocka, Beograd",
-  "lat": 44.725487,
-  "lng": 20.420335
+  "lat": 44.631194,
+  "lng": 20.705192
  },
  {
   "name": "Lukoil",
@@ -2604,8 +2602,8 @@
   "typeKey": "loctype.mini",
   "city": "Beograd",
   "addr": "Marsala Tita 39(slanci), Beograd",
-  "lat": 44.808339,
-  "lng": 20.570757
+  "lat": 44.687645,
+  "lng": 20.663337
  },
  {
   "typeKey": "loctype.store",
@@ -2830,8 +2828,9 @@
   "typeKey": "loctype.mini",
   "city": "Beograd",
   "addr": "Nova 2 Br.72 Pinosava, Beograd",
-  "lat": 44.803019,
-  "lng": 20.397177
+  "lat": 44.817813,
+  "lng": 20.456897,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -2966,8 +2965,8 @@
   "typeKey": "loctype.gas",
   "city": "Beograd",
   "addr": "Patrijarha Dimitrija 14p Beograd, 11090, Beograd",
-  "lat": 44.740328,
-  "lng": 20.439056
+  "lat": 44.740279,
+  "lng": 20.439057
  },
  {
   "typeKey": "loctype.store",
@@ -3156,8 +3155,9 @@
   "typeKey": "loctype.mini",
   "city": "Beograd",
   "addr": "Skender Begova 53(stari Grad), Beograd",
-  "lat": 44.817579,
-  "lng": 20.453356
+  "lat": 44.817813,
+  "lng": 20.456897,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -3709,8 +3709,8 @@
   "typeKey": "loctype.gas",
   "city": "Beograd",
   "addr": "Zaplanjska 34, Beograd",
-  "lat": 44.774131,
-  "lng": 20.491703
+  "lat": 44.77421,
+  "lng": 20.491506
  },
  {
   "typeKey": "loctype.store",
@@ -3745,8 +3745,8 @@
   "typeKey": "loctype.gas",
   "city": "Beograd",
   "addr": "Zemunski Put 16, Beograd",
-  "lat": 44.812777,
-  "lng": 20.438209
+  "lat": 44.812742,
+  "lng": 20.43817
  },
  {
   "typeKey": "loctype.kiosk",
@@ -3794,8 +3794,8 @@
   "typeKey": "loctype.kiosk",
   "city": "Beograd",
   "addr": "Đorđa Stanojevića 16, Beograd",
-  "lat": 44.884575,
-  "lng": 20.48521
+  "lat": 44.810611,
+  "lng": 20.399017
  },
  {
   "typeKey": "loctype.kiosk",
@@ -3822,8 +3822,9 @@
   "typeKey": "loctype.store",
   "city": "Beograd",
   "addr": "Željka Milojevića 4, Kaluđerica, Beograd",
-  "lat": 44.759527,
-  "lng": 20.561617
+  "lat": 44.75578,
+  "lng": 20.557942,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -3893,8 +3894,8 @@
   "typeKey": "loctype.gas",
   "city": "Bezdan",
   "addr": "Somborski Put 49b, Bezdan",
-  "lat": 45.845909,
-  "lng": 18.933591
+  "lat": 45.845869,
+  "lng": 18.933621
  },
  {
   "typeKey": "loctype.store",
@@ -3950,8 +3951,8 @@
   "typeKey": "loctype.gas",
   "city": "Bogatic",
   "addr": "Radnička 54, Bogatic",
-  "lat": 44.824376,
-  "lng": 19.482526
+  "lat": 44.824358,
+  "lng": 19.48259
  },
  {
   "typeKey": "loctype.store",
@@ -3972,15 +3973,16 @@
   "typeKey": "loctype.gas",
   "city": "Brodarevo",
   "addr": "Bratstvo Jedinstvo 96, Brodarevo",
-  "lat": 43.227166,
-  "lng": 19.719778
+  "lat": 43.227173,
+  "lng": 19.719821
  },
  {
   "typeKey": "loctype.vape",
   "city": "Bujanovac",
   "addr": "Karadjordjev Trg bb, Bujanovac",
-  "lat": 42.460964,
-  "lng": 21.76622
+  "lat": 42.459846,
+  "lng": 21.767127,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -3994,8 +3996,8 @@
   "typeKey": "loctype.gas",
   "city": "Cacak",
   "addr": "Bulevar Oslobođenja 1, Cacak",
-  "lat": 43.883579,
-  "lng": 20.357046
+  "lat": 43.883648,
+  "lng": 20.357049
  },
  {
   "typeKey": "loctype.store",
@@ -4052,16 +4054,17 @@
   "typeKey": "loctype.store",
   "city": "Despotovac",
   "addr": "Šesti Avgust 22, Resavica, Despotovac",
-  "lat": 44.042078,
-  "lng": 21.588263
+  "lat": 44.039525,
+  "lng": 21.581226,
+  "approx": true
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Dobanovci",
   "addr": "Autoput 295, Dobanovci",
-  "lat": 44.849698,
-  "lng": 20.186784
+  "lat": 44.849738,
+  "lng": 20.186854
  },
  {
   "name": "Lukoil",
@@ -4091,7 +4094,7 @@
   "city": "Gložan",
   "addr": "Masarikova 1d, Gložan",
   "lat": 45.271985,
-  "lng": 19.57932
+  "lng": 19.579321
  },
  {
   "typeKey": "loctype.mini",
@@ -4119,8 +4122,8 @@
   "typeKey": "loctype.gas",
   "city": "Indija",
   "addr": "Kralja Petra Prvog 182, Indija",
-  "lat": 45.011144,
-  "lng": 20.320776
+  "lat": 45.019332,
+  "lng": 20.333647
  },
  {
   "typeKey": "loctype.mini",
@@ -4163,8 +4166,8 @@
   "typeKey": "loctype.gas",
   "city": "Irig",
   "addr": "Rumski Drum 3, Irig",
-  "lat": 45.0819,
-  "lng": 19.855654
+  "lat": 45.08183,
+  "lng": 19.85566
  },
  {
   "typeKey": "loctype.store",
@@ -4270,8 +4273,9 @@
   "typeKey": "loctype.store",
   "city": "Kelebija",
   "addr": "Putnicki Prelaz, Kelebija",
-  "lat": 46.166008,
-  "lng": 19.56146
+  "lat": 46.152349,
+  "lng": 19.577605,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -4305,8 +4309,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Kikinda",
   "addr": "\"osnovna Škola\"kralja Petra Prvog bb (ispred Oš \"jovan Popović\"), Kikinda",
-  "lat": 45.834906,
-  "lng": 20.472934
+  "lat": 45.830007,
+  "lng": 20.465305,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -4413,8 +4418,8 @@
   "typeKey": "loctype.gas",
   "city": "Knic",
   "addr": "Danice i Koste Šamanović 87, Knic",
-  "lat": 43.93585,
-  "lng": 20.779935
+  "lat": 43.935889,
+  "lng": 20.779925
  },
  {
   "typeKey": "loctype.store",
@@ -4498,8 +4503,8 @@
   "typeKey": "loctype.gas",
   "city": "Kovin",
   "addr": "Nemanjina 87, Kovin",
-  "lat": 44.752866,
-  "lng": 20.96835
+  "lat": 44.752872,
+  "lng": 20.968287
  },
  {
   "typeKey": "loctype.store",
@@ -4555,8 +4560,8 @@
   "typeKey": "loctype.gas",
   "city": "Kragujevac",
   "addr": "Jagodinska 11, Kragujevac",
-  "lat": 43.998006,
-  "lng": 20.917856
+  "lat": 43.998072,
+  "lng": 20.917823
  },
  {
   "typeKey": "loctype.store",
@@ -4633,8 +4638,8 @@
   "typeKey": "loctype.gas",
   "city": "Kragujevac",
   "addr": "Save Kovačevića bb Kragujevac, 34000, Kragujevac",
-  "lat": 44.032604,
-  "lng": 20.931979
+  "lat": 44.023739,
+  "lng": 20.928216
  },
  {
   "typeKey": "loctype.store",
@@ -4795,8 +4800,8 @@
   "typeKey": "loctype.gas",
   "city": "Lacarak",
   "addr": "1. Novembra 132, Lacarak",
-  "lat": 44.991385,
-  "lng": 19.573773
+  "lat": 44.991328,
+  "lng": 19.573831
  },
  {
   "typeKey": "loctype.store",
@@ -4859,8 +4864,8 @@
   "typeKey": "loctype.store",
   "city": "Lazarevac",
   "addr": "Dr.đorđe Kovačević 10 A, Lazarevac",
-  "lat": 44.372788,
-  "lng": 20.259132
+  "lat": 44.382006,
+  "lng": 20.275863
  },
  {
   "typeKey": "loctype.store",
@@ -4917,8 +4922,8 @@
   "typeKey": "loctype.gas",
   "city": "Leskovac",
   "addr": "28. Marta 2d, Leskovac",
-  "lat": 42.998159,
-  "lng": 21.95449
+  "lat": 42.998094,
+  "lng": 21.954392
  },
  {
   "name": "Shell",
@@ -4985,8 +4990,8 @@
   "typeKey": "loctype.gas",
   "city": "Loznica",
   "addr": "Karađorđeva 23, Loznica",
-  "lat": 44.435517,
-  "lng": 19.234726
+  "lat": 44.528319,
+  "lng": 19.22185
  },
  {
   "typeKey": "loctype.store",
@@ -5143,16 +5148,16 @@
   "typeKey": "loctype.gas",
   "city": "Mihajlovac (kod Smedereva)",
   "addr": "Smederevska 1a, Mihajlovac (kod Smedereva)",
-  "lat": 44.55236,
-  "lng": 20.984022
+  "lat": 44.552383,
+  "lng": 20.984165
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Mihajlovac (kod Smedereva)",
   "addr": "Smederevska 9b, Mihajlovac (kod Smedereva)",
-  "lat": 44.54953,
-  "lng": 20.986326
+  "lat": 44.54952,
+  "lng": 20.986244
  },
  {
   "typeKey": "loctype.store",
@@ -5302,8 +5307,8 @@
   "typeKey": "loctype.gas",
   "city": "Nis",
   "addr": "Jovana Ristića bb, Nis",
-  "lat": 43.317386,
-  "lng": 21.887041
+  "lat": 43.316595,
+  "lng": 21.883907
  },
  {
   "typeKey": "loctype.store",
@@ -5341,7 +5346,7 @@
   "city": "Niš",
   "addr": "Dragiše Cvetkovića 63a, Niš",
   "lat": 43.319194,
-  "lng": 21.914398
+  "lng": 21.914399
  },
  {
   "typeKey": "loctype.store",
@@ -5391,8 +5396,8 @@
   "typeKey": "loctype.gas",
   "city": "Niš",
   "addr": "Obilićev Venac bb Niš, 18000, Niš",
-  "lat": 43.31597,
-  "lng": 21.889224
+  "lat": 43.315895,
+  "lng": 21.884341
  },
  {
   "typeKey": "loctype.store",
@@ -5480,8 +5485,8 @@
   "typeKey": "loctype.gas",
   "city": "Novi Banovci",
   "addr": "Patrijarha Pavla 31, Novi Banovci",
-  "lat": 44.96979,
-  "lng": 20.281174
+  "lat": 44.969777,
+  "lng": 20.281254
  },
  {
   "typeKey": "loctype.kiosk",
@@ -5517,7 +5522,7 @@
   "city": "Novi Beograd",
   "addr": "Jurija Gagarina 40b Gagarin, 11070, Novi Beograd",
   "lat": 44.802668,
-  "lng": 20.382823
+  "lng": 20.382824
  },
  {
   "typeKey": "loctype.kiosk",
@@ -5636,8 +5641,8 @@
   "typeKey": "loctype.gas",
   "city": "Novi Pazar",
   "addr": "Kej Skopskih Žrtava 148, Novi Pazar",
-  "lat": 43.124183,
-  "lng": 20.500411
+  "lat": 43.124169,
+  "lng": 20.500435
  },
  {
   "typeKey": "loctype.store",
@@ -5779,8 +5784,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Novi Sad",
   "addr": "Bul.slobodana Jovanovica 26, Novi Sad",
-  "lat": 45.249093,
-  "lng": 19.77096
+  "lat": 45.255134,
+  "lng": 19.845175,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -5866,16 +5872,16 @@
   "typeKey": "loctype.gas",
   "city": "Novi Sad",
   "addr": "Bulevar Patrijarha Pavla bb Novi Sad 1, 21000, Novi Sad",
-  "lat": 45.241047,
-  "lng": 19.808157
+  "lat": 45.240318,
+  "lng": 19.812738
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Novi Sad",
   "addr": "Bulevar Vojvode Stepe 4, Novi Sad",
-  "lat": 45.2594,
-  "lng": 19.805608
+  "lat": 45.259474,
+  "lng": 19.805787
  },
  {
   "typeKey": "loctype.kiosk",
@@ -6025,16 +6031,16 @@
   "typeKey": "loctype.gas",
   "city": "Novi Sad",
   "addr": "Temerinska 90 Novi Sad 2, 21000, Novi Sad",
-  "lat": 45.272799,
-  "lng": 19.84118
+  "lat": 45.270933,
+  "lng": 19.84243
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Novi Sad",
   "addr": "Temerinski Put 38, Novi Sad",
-  "lat": 45.300696,
-  "lng": 19.831119
+  "lat": 45.300599,
+  "lng": 19.831091
  },
  {
   "typeKey": "loctype.store",
@@ -6087,15 +6093,17 @@
   "typeKey": "loctype.kiosk",
   "city": "Novi Sad",
   "addr": "Ugao Bulevara Oslobodjenja Futoske bb Preko Puta Futoške Pijace, Novi Sad",
-  "lat": 45.251839,
-  "lng": 19.836979
+  "lat": 45.255134,
+  "lng": 19.845175,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
   "city": "Novi Sad",
   "addr": "Ugao Futoške Hejduk Veljka - Klinički Centar, Novi Sad",
-  "lat": 45.302362,
-  "lng": 19.921604
+  "lat": 45.255134,
+  "lng": 19.845175,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -6165,8 +6173,8 @@
   "typeKey": "loctype.gas",
   "city": "Novi Sad",
   "addr": "Venizelosova 32, Novi Sad",
-  "lat": 45.267123,
-  "lng": 19.849006
+  "lat": 45.267167,
+  "lng": 19.849005
  },
  {
   "typeKey": "loctype.store",
@@ -6837,8 +6845,8 @@
   "typeKey": "loctype.gas",
   "city": "Požarevac",
   "addr": "Bože Dimitrijevića 50, Požarevac",
-  "lat": 44.625788,
-  "lng": 21.190536
+  "lat": 44.625807,
+  "lng": 21.190483
  },
  {
   "typeKey": "loctype.store",
@@ -6887,8 +6895,8 @@
   "typeKey": "loctype.gas",
   "city": "Požega",
   "addr": "Knjaza Miloša 54, Požega",
-  "lat": 43.847395,
-  "lng": 20.044668
+  "lat": 43.847396,
+  "lng": 20.044632
  },
  {
   "typeKey": "loctype.store",
@@ -6923,8 +6931,8 @@
   "typeKey": "loctype.gas",
   "city": "Prijepolje",
   "addr": "Novovaroška 3, Prijepolje",
-  "lat": 43.396266,
-  "lng": 19.642333
+  "lat": 43.39624,
+  "lng": 19.642307
  },
  {
   "typeKey": "loctype.store",
@@ -7067,8 +7075,8 @@
   "typeKey": "loctype.gas",
   "city": "Ruma",
   "addr": "Železnička 85, Ruma",
-  "lat": 45.001176,
-  "lng": 19.82333
+  "lat": 45.001111,
+  "lng": 19.823335
  },
  {
   "typeKey": "loctype.store",
@@ -7139,8 +7147,8 @@
   "typeKey": "loctype.gas",
   "city": "Smederevo",
   "addr": "16. Oktobra 86, Smederevo",
-  "lat": 44.655905,
-  "lng": 20.937713
+  "lat": 44.65594,
+  "lng": 20.937787
  },
  {
   "typeKey": "loctype.store",
@@ -7181,8 +7189,8 @@
   "typeKey": "loctype.store",
   "city": "Smederevo",
   "addr": "Karađorđeva 12, Smederevo",
-  "lat": 44.664943,
-  "lng": 20.924431
+  "lat": 44.664261,
+  "lng": 20.927256
  },
  {
   "typeKey": "loctype.kiosk",
@@ -7354,8 +7362,8 @@
   "typeKey": "loctype.gas",
   "city": "Sombor",
   "addr": "Filipa Kljajića 40a, Sombor",
-  "lat": 45.766356,
-  "lng": 19.129404
+  "lat": 45.766355,
+  "lng": 19.129377
  },
  {
   "typeKey": "loctype.store",
@@ -7619,8 +7627,8 @@
   "typeKey": "loctype.gas",
   "city": "Stara Pazova",
   "addr": "Karađorđeva 141, Stara Pazova",
-  "lat": 44.974774,
-  "lng": 20.171004
+  "lat": 44.958274,
+  "lng": 20.198207
  },
  {
   "typeKey": "loctype.store",
@@ -8018,8 +8026,9 @@
   "typeKey": "loctype.store",
   "city": "Ub",
   "addr": "Stublenica Ub, Ub",
-  "lat": 44.457865,
-  "lng": 20.123786
+  "lat": 44.456191,
+  "lng": 20.073995,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -8067,8 +8076,8 @@
   "typeKey": "loctype.store",
   "city": "Valjevo",
   "addr": "Divčibare Crni Vrh B.b, Divčibare, Valjevo",
-  "lat": 44.101099,
-  "lng": 19.995134
+  "lat": 44.098394,
+  "lng": 19.985635
  },
  {
   "typeKey": "loctype.store",
@@ -8127,15 +8136,15 @@
   "city": "Valjevo",
   "addr": "Vladike Nikolaja 25b, Valjevo",
   "lat": 44.274566,
-  "lng": 19.889007
+  "lng": 19.889008
  },
  {
   "name": "Shell",
   "typeKey": "loctype.gas",
   "city": "Valjevo",
   "addr": "Vladike Nikolaja bb Valjevo, 14000, Valjevo",
-  "lat": 44.274808,
-  "lng": 19.908016
+  "lat": 44.278059,
+  "lng": 19.919013
  },
  {
   "typeKey": "loctype.store",
@@ -8270,7 +8279,7 @@
   "typeKey": "loctype.gas",
   "city": "Vranje",
   "addr": "Bulevar Nikole Tesle 11, Vranje",
-  "lat": 42.54721,
+  "lat": 42.547196,
   "lng": 21.909033
  },
  {
@@ -8313,8 +8322,9 @@
   "typeKey": "loctype.store",
   "city": "Vrnjačka Banja",
   "addr": "Rudjinci bb, Vrnjačka Banja",
-  "lat": 43.639023,
-  "lng": 20.925992
+  "lat": 43.622178,
+  "lng": 20.892935,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -8391,8 +8401,8 @@
   "typeKey": "loctype.gas",
   "city": "Zajecar",
   "addr": "29. Novembra 19, Zajecar",
-  "lat": 43.900659,
-  "lng": 22.260337
+  "lat": 43.900741,
+  "lng": 22.260417
  },
  {
   "typeKey": "loctype.store",
@@ -8435,24 +8445,24 @@
   "typeKey": "loctype.gas",
   "city": "Zemun",
   "addr": "Aleksandra Dubčeka 5b, Zemun",
-  "lat": 44.837399,
-  "lng": 20.411067
+  "lat": 44.838265,
+  "lng": 20.411623
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Zemun",
   "addr": "Cara Dušana 1, Zemun",
-  "lat": 44.846816,
-  "lng": 20.407294
+  "lat": 44.846676,
+  "lng": 20.407518
  },
  {
   "name": "Lukoil",
   "typeKey": "loctype.gas",
   "city": "Zemun",
   "addr": "Prvomajska 118i, Zemun",
-  "lat": 44.843019,
-  "lng": 20.378877
+  "lat": 44.842967,
+  "lng": 20.378898
  },
  {
   "typeKey": "loctype.store",
@@ -8466,8 +8476,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Zrenjanin",
   "addr": "\"autobuska 1\"beogradska bb (na Glavnoj Autobuskoj Stanici), Zrenjanin",
-  "lat": 45.372709,
-  "lng": 20.414173
+  "lat": 45.380269,
+  "lng": 20.390761,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -8518,8 +8529,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Zrenjanin",
   "addr": "\"hitna Pomoć\"narodne Omladine bb (preko Puta Hitne Pomoći), Zrenjanin",
-  "lat": 45.377841,
-  "lng": 20.388119
+  "lat": 45.380269,
+  "lng": 20.390761,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -8549,8 +8561,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Zrenjanin",
   "addr": "\"lesnina\"koče Kolarova bb (kod Male Pošte), Zrenjanin",
-  "lat": 45.377262,
-  "lng": 20.398934
+  "lat": 45.380269,
+  "lng": 20.390761,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -8610,8 +8623,9 @@
   "typeKey": "loctype.kiosk",
   "city": "Zrenjanin",
   "addr": "\"vuk 2\"bul.m.milankovića (preko Puta Higijenskog Zavoda), Zrenjanin",
-  "lat": 45.380142,
-  "lng": 20.388428
+  "lat": 45.380269,
+  "lng": 20.390761,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",
@@ -8796,8 +8810,9 @@
   "typeKey": "loctype.store",
   "city": "Zrenjanin",
   "addr": "Ugao T.ostojica i Novosadske, Zrenjanin",
-  "lat": 45.381277,
-  "lng": 20.375875
+  "lat": 45.380269,
+  "lng": 20.390761,
+  "approx": true
  },
  {
   "typeKey": "loctype.store",
@@ -8962,8 +8977,9 @@
   "typeKey": "loctype.gas",
   "city": "Šid",
   "addr": "Autoput E-70 na Relaciji Adaševci - Kuzmin Šid, 22251, Šid",
-  "lat": 45.046904,
-  "lng": 19.224908
+  "lat": 45.128107,
+  "lng": 19.226407,
+  "approx": true
  },
  {
   "typeKey": "loctype.kiosk",

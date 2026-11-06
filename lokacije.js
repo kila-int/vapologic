@@ -180,8 +180,8 @@ if (mapEl) {
     map.on('click', 'points', (e) => {
       const p = e.features[0].properties;
       selectLoc(p.id);
-      new maptilersdk.Popup().setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(`<b>${esc(p.name || (t(p.typeKey) + ' — ' + p.city))}</b><br>${esc(p.addr)}`).addTo(map);
+      showPopup(e.features[0].geometry.coordinates,
+        `<b>${esc(p.name || (t(p.typeKey) + ' — ' + p.city))}</b><br>${esc(p.addr)}`);
     });
     ['clusters', 'points'].forEach(id => {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
@@ -192,6 +192,13 @@ if (mapEl) {
     replayPending();
   });
 
+  /* Jedan popup za sve lokacije: klik na novu (na mapi ili u listi) gasi prethodni.
+     Ranije je svaki klik pravio novi Popup, pa su se gomilali jedan preko drugog. */
+  let locPopup = null;
+  const showPopup = (lngLat, html) => {
+    if (locPopup) locPopup.remove();
+    locPopup = new maptilersdk.Popup().setLngLat(lngLat).setHTML(html).addTo(map);
+  };
   function selectLoc(id) {
     if (!mapReady) return;
     map.setFilter('points-selected', ['==', ['get', 'id'], id == null ? -1 : Number(id)]);
@@ -289,7 +296,7 @@ if (mapEl) {
         resultsEl.querySelectorAll('.locitem.is-sel').forEach(el => el.classList.remove('is-sel'));
         item.classList.add('is-sel');
         map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
-        new maptilersdk.Popup().setLngLat([l.lng, l.lat]).setHTML(`<b>${esc(locName(l))}</b><br>${esc(l.addr)}`).addTo(map);
+        showPopup([l.lng, l.lat], `<b>${esc(locName(l))}</b><br>${esc(l.addr)}`);
       };
       item.onclick = focus;
       item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
