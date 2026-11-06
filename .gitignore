@@ -10,3 +10,4 @@ Verzije/
 tools/geo-cache.json
 tools/lokacije-priblizne.txt
 tools/osm-pumpe.json
+__pycache__/
