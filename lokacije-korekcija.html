@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><!-- interni alat: ne ide u meni ni u pretragu -->
+<title>Korekcija lokacija — Vapologic</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff4d9d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@maptiler/sdk@4.1.0/dist/maptiler-sdk.css">
+<link rel="stylesheet" href="styles.css?v=67">
+<style>
+  /* Interni alat — namerno svedeno, ali u istom dizajn-sistemu kao sajt */
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .kx-top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 18px;
+    border-bottom: 1px solid var(--hair); background: var(--bg-2); }
+  .kx-top h1 { font-size: 18px; letter-spacing: -.005em; margin-right: auto; }
+  .kx-top h1 small { display: block; font: 500 12px var(--mono); color: var(--muted-2); letter-spacing: .04em; margin-top: 3px; }
+  .kx-prog { font: 500 13px var(--mono); color: var(--muted); }
+  .kx-prog b { color: var(--ink); }
+  .kx-unsent { font: 500 12px var(--mono); color: #ffcf5c; }
+  .kx-top .btn { padding: 10px 16px; font-size: 14px; }
+  .kx { flex: 1; min-height: 0; display: grid; grid-template-columns: 400px 1fr; }
+  .kx-side { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--hair); background: var(--bg); }
+  .kx-tabs { display: flex; gap: 6px; padding: 14px 16px 0; }
+  .kx-tab { flex: 1; padding: 8px 6px; border: 1px solid var(--hair); border-radius: 10px; background: var(--surface);
+    color: var(--muted); font: 600 13px var(--sans); cursor: pointer; }
+  .kx-tab[aria-pressed="true"] { border-color: var(--c1); color: var(--ink); background: var(--surface-2); }
+  .kx-tab span { font: 500 11px var(--mono); color: var(--muted-2); margin-left: 4px; }
+  .kx-search { margin: 10px 16px 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--hair);
+    background: var(--surface-2); color: var(--ink); font: 14px var(--sans); }
+  .kx-card { margin: 12px 16px 0; padding: 16px; border: 1px solid var(--hair); border-radius: 14px; background: var(--bg-2); }
+  .kx-chip { display: inline-block; font: 600 11px var(--mono); letter-spacing: .05em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px; border: 1px solid var(--hair); color: var(--muted); }
+  .kx-chip.approx { color: #ffcf5c; border-color: rgba(255,207,92,.4); }
+  .kx-chip.done { color: #6be3a4; border-color: rgba(107,227,164,.4); }
+  .kx-chip.local { color: var(--c3); border-color: rgba(56,214,255,.4); }
+  .kx-name { font-weight: 800; font-size: 17px; margin-top: 10px; }
+  .kx-addr { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .kx-coords { font: 12px var(--mono); color: var(--muted-2); margin-top: 8px; }
+  .kx-coords .moved { color: var(--c3); }
+  .kx-gmap { display: inline-block; margin-top: 8px; font: 600 13px var(--sans); color: var(--c3); border-bottom: 1px solid currentColor; }
+  .kx-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .kx-actions .btn { padding: 11px 12px; font-size: 13.5px; }
+  .kx-actions .wide { grid-column: 1 / -1; }
+  .kx-nav { display: flex; justify-content: space-between; margin-top: 10px; }
+  .kx-link { background: none; border: 0; color: var(--muted); font: 600 13px var(--sans); cursor: pointer; padding: 4px 0; }
+  .kx-link:hover { color: var(--ink); }
+  .kx-link:disabled { opacity: .35; cursor: default; }
+  .kx-help { margin: 10px 16px 0; font-size: 12.5px; color: var(--muted-2); line-height: 1.5; }
+  .kx-help kbd { font: 11px var(--mono); padding: 1px 5px; border: 1px solid var(--hair-2); border-radius: 4px; color: var(--muted); }
+  .kx-list { flex: 1; min-height: 0; overflow: auto; margin-top: 12px; border-top: 1px solid var(--hair); }
+  .kx-item { display: flex; gap: 10px; align-items: flex-start; width: 100%; text-align: left; padding: 10px 16px;
+    border: 0; border-bottom: 1px solid var(--hair); background: none; color: var(--ink); cursor: pointer; font: 13.5px var(--sans); }
+  .kx-item:hover { background: var(--surface); }
+  .kx-item[aria-current="true"] { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--c1); }
+  .kx-dot { flex: none; width: 8px; height: 8px; border-radius: 99px; margin-top: 6px; background: var(--hair-2); }
+  .kx-dot.approx { background: #ffcf5c; } .kx-dot.done { background: #6be3a4; } .kx-dot.local { background: var(--c3); }
+  .kx-item small { display: block; color: var(--muted-2); font-size: 12px; }
+  .kx-empty { padding: 20px 16px; color: var(--muted-2); font-size: 14px; }
+  #kxmap { position: relative; min-height: 0; }
+  .kx-orig { width: 14px; height: 14px; border-radius: 99px; border: 2px solid #fff; background: rgba(255,255,255,.35);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.35); }
+  .kx-toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 0; padding: 10px 16px; border-radius: 10px;
+    background: var(--bg-3); border: 1px solid var(--hair); font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 50; }
+  .kx-toast.on { opacity: 1; }
+  @media (max-width: 860px) {
+    body { overflow: auto; height: auto; }
+    .kx { grid-template-columns: 1fr; grid-template-rows: 55vh auto; }
+    #kxmap { order: -1; }
+    .kx-side { border-right: 0; }
+    .kx-list { max-height: 50vh; }
+  }
+</style>
+</head>
+<body>
+<header class="kx-top">
+  <h1>Korekcija lokacija <small>Prevuci pin na pravo mesto · satelitski snimak</small></h1>
+  <span class="kx-prog" id="kxProg"></span>
+  <span class="kx-unsent" id="kxUnsent" hidden></span>
+  <label class="btn btn-ghost" for="kxImport">Uvezi fajl</label>
+  <input type="file" id="kxImport" accept="application/json,.json" hidden>
+  <button class="btn btn-primary" type="button" id="kxExport">Preuzmi ispravke</button>
+</header>
+
+<main class="kx">
+  <aside class="kx-side">
+    <div class="kx-tabs" role="group" aria-label="Filter">
+      <button class="kx-tab" type="button" data-f="approx" aria-pressed="true">Približne<span id="cApprox"></span></button>
+      <button class="kx-tab" type="button" data-f="all" aria-pressed="false">Sve<span id="cAll"></span></button>
+      <button class="kx-tab" type="button" data-f="done" aria-pressed="false">Pregledane<span id="cDone"></span></button>
+    </div>
+    <input class="kx-search" id="kxSearch" type="search" placeholder="Traži ulicu, grad, brend…" autocomplete="off" spellcheck="false">
+
+    <section class="kx-card" id="kxCard" hidden>
+      <span class="kx-chip" id="kxStatus"></span>
+      <div class="kx-name" id="kxName"></div>
+      <div class="kx-addr" id="kxAddr"></div>
+      <div class="kx-coords" id="kxCoords"></div>
+      <a class="kx-gmap" id="kxGmap" target="_blank" rel="noopener">Proveri adresu na Google mapama ↗</a>
+      <div class="kx-actions">
+        <button class="btn btn-primary wide" type="button" id="kxSave">Sačuvaj poziciju i dalje</button>
+        <button class="btn btn-ghost" type="button" id="kxOk">Tačno je, dalje</button>
+        <button class="btn btn-ghost" type="button" id="kxReset">Poništi</button>
+      </div>
+      <div class="kx-nav">
+        <button class="kx-link" type="button" id="kxPrev">← Prethodna</button>
+        <button class="kx-link" type="button" id="kxNext">Sledeća →</button>
+      </div>
+    </section>
+
+    <p class="kx-help">Prevuci ružičasti pin ili klikni na mapu tamo gde je prodajno mesto. Beli krug je prvobitna pozicija.
+      Prečice: <kbd>Enter</kbd> sačuvaj · <kbd>T</kbd> tačno je · <kbd>←</kbd> <kbd>→</kbd> listanje.
+      Napredak se čuva u ovom pregledaču — kad završiš, klikni <b>Preuzmi ispravke</b> i pošalji fajl.</p>
+
+    <div class="kx-list" id="kxList" role="list"></div>
+  </aside>
+  <div id="kxmap" role="application" aria-label="Mapa za korekciju lokacije"></div>
+</main>
+<div class="kx-toast" id="kxToast" role="status"></div>
+
+<script type="module" src="lokacije-korekcija.js?v=2"></script>
+</body>
+</html>

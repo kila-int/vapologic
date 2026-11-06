@@ -9,15 +9,23 @@ Koraci:
   3. geokodira adrese preko MapTiler-a (isti kljuc kao na sajtu); rezultati se cuvaju u
      tools/geo-cache.json, pa ponovno pokretanje ne trosi kvotu — samo nove adrese idu na API
   4. upisuje lokacije-podaci.json; unosi koje geokoder nije nasao do adrese dobijaju "approx": true
-     (pin stoji na naselju/opstini) i spisak ide u tools/lokacije-pribliзne.txt za rucnu proveru
+     (pin stoji na naselju/opstini) i spisak ide u tools/lokacije-priblizne.txt za rucnu proveru
+  5. primenjuje RUCNE ISPRAVKE iz tools/lokacije-ispravke.json (pravi ih stranica /lokacije-korekcija);
+     one uvek imaju poslednju rec i prezivljavaju svako sledece osvezavanje Excela
+
+Ispravke poslate sa stranice za korekciju (preuzet fajl), bez ponovnog citanja Excela:
+    python tools/excel-lokacije.py --samo-ispravke "C:/Downloads/lokacije-ispravke.json"
+Ili uz novi Excel:
+    python tools/excel-lokacije.py "TOTAL PM.xlsx" --ispravke "C:/Downloads/lokacije-ispravke.json"
 """
-import difflib, json, math, os, re, sys, time, unicodedata, urllib.parse, urllib.request
+import difflib, hashlib, json, math, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 import openpyxl
 
 KEY = 'xCboGTDaRsqFuVgneleh'
 CACHE = 'tools/geo-cache.json'
 OUT = 'lokacije-podaci.json'
 REPORT = 'tools/lokacije-priblizne.txt'
+ISPRAVKE = 'tools/lokacije-ispravke.json'   # rucne ispravke pinova (IDE u git)
 PUMPE = 'tools/osm-pumpe.json'   # benzinske stanice iz OpenStreetMap-a (kes, ne ide u git)
 
 CYR = dict(zip('АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШабвгдђежзијклљмнњопрстћуфхцчџш',
@@ -249,12 +257,63 @@ def nominatim(q, cache, center):
     time.sleep(1.1)
     return res
 
-def main(xlsx):
+
+def loc_id(key):
+    """Stabilan ID lokacije iz normalizovane adrese (istog kljuca po kome se uklanjaju duplikati),
+    pa ne zavisi od redosleda redova u Excelu. Rucna ispravka je vezana za ovaj ID."""
+    return hashlib.sha1('|'.join(key).encode('utf-8')).hexdigest()[:10]
+
+def load_ispravke(path=ISPRAVKE):
+    return json.load(open(path, encoding='utf-8')) if os.path.exists(path) else {}
+
+def merge_ispravke(extra_path):
+    """Spaja preuzeti fajl sa stranice za korekciju u tools/lokacije-ispravke.json.
+    Ako je isti pin ispravljan vise puta (npr. dve osobe), vazi novija ispravka."""
+    base, extra = load_ispravke(), load_ispravke(extra_path)
+    if not extra:
+        print('fajl sa ispravkama je prazan ili ne postoji:', extra_path); return base
+    novih = izmenjenih = 0
+    for k, v in extra.items():
+        if not isinstance(v, dict) or 'lat' not in v or 'lng' not in v: continue
+        if not (41.8 < v['lat'] < 46.3 and 18.8 < v['lng'] < 23.1):
+            print('preskacem ispravku van Srbije:', k, v); continue
+        if k not in base: novih += 1
+        elif v.get('ts', 0) > base[k].get('ts', 0): izmenjenih += 1
+        else: continue
+        base[k] = v
+    json.dump(dict(sorted(base.items())), open(ISPRAVKE, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print(f'ispravke: {novih} novih, {izmenjenih} izmenjenih, ukupno {len(base)} -> {ISPRAVKE}')
+    return base
+
+def apply_ispravke(locs, isp):
+    """Rucna ispravka ima poslednju rec: pin ide tacno tamo, a lokacija vise nije 'priblizna'
+    (i kad je samo potvrdjeno da je pin vec tacan - 'ok': true)."""
+    by_id, n = {l['id']: l for l in locs}, 0
+    for k, v in isp.items():
+        l = by_id.get(k)
+        if not l: continue
+        l['lat'], l['lng'] = round(v['lat'], 6), round(v['lng'], 6)
+        l.pop('approx', None); n += 1
+    stale = [k for k in isp if k not in by_id]
+    return n, stale
+
+def samo_ispravke(extra_path):
+    """Primeni ispravke direktno na lokacije-podaci.json, bez ponovnog geokodiranja Excela."""
+    isp = merge_ispravke(extra_path) if extra_path else load_ispravke()
+    locs = json.load(open(OUT, encoding='utf-8'))
+    if not all('id' in l for l in locs):
+        sys.exit('lokacije-podaci.json nema ID-jeve - pokreni prvo alat nad Excelom')
+    n, stale = apply_ispravke(locs, isp)
+    json.dump(locs, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print(f'primenjeno ispravki: {n} | ispravke za lokacije kojih vise nema u bazi: {len(stale)}')
+
+def main(xlsx, extra=None):
     rows = list(openpyxl.load_workbook(xlsx, read_only=True, data_only=True).worksheets[0].iter_rows(values_only=True))
     hdr, rows = rows[0], rows[1:]
     cache = json.load(open(CACHE, encoding='utf-8')) if os.path.exists(CACHE) else {}
     seen, out, skipped, approx = set(), [], [], []
     pumpe, snapped, unsnapped = load_pumpe(), [], []
+    isp = merge_ispravke(extra) if extra else load_ispravke()
     for r in rows:
         source, client, name, addr, city, channel, distributor = [str(x or '').strip() for x in r[:7]]
         # Excel ima mesano pismo: latinica sa skrivenim cirilicnim slovima (а, е, о, ј...).
@@ -280,16 +339,18 @@ def main(xlsx):
                 g, level, exact = {**g, 'lat': s['lat'], 'lng': s['lng']}, 'pumpa', True
             else:
                 unsnapped.append(f'{brand} | {a}, {place}')
-        loc = {'typeKey': typ(channel, source, name), 'city': main_city,
+        loc = {'id': loc_id(key), 'typeKey': typ(channel, source, name), 'city': main_city,
                'addr': f'{title(a)}, {sub + ", " if sub else ""}{main_city}',
                'lat': round(g['lat'], 6), 'lng': round(g['lng'], 6)}
-        if brand: loc = {'name': brand, **loc}
+        if brand: loc = {'id': loc['id'], 'name': brand, **{k: v for k, v in loc.items() if k != 'id'}}
         if brand == 'Galaxy Code': loc['featured'] = True
         if not exact:
             loc['approx'] = True
             approx.append(f"{name} | {addr} | {city}  ->  {lat(g['name'])}")
         out.append(loc)
         json.dump(cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
+    assert len({l['id'] for l in out}) == len(out), 'duplikat ID-ja lokacije'
+    n_isp, stale = apply_ispravke(out, isp)
     out.sort(key=lambda l: (not l.get('featured'), l['city'], l['addr']))
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     with open(REPORT, 'w', encoding='utf-8') as f:
@@ -300,6 +361,15 @@ def main(xlsx):
         f.write(f'\n\nBrendirane pumpe BEZ para u OSM-u (ostale na adresi): {len(unsnapped)}\n' + '\n'.join(unsnapped))
     print(f'redova {len(rows)} | upisano {len(out)} | tacna adresa {len(out) - len(approx)} | priblizno {len(approx)} | izostavljeno {len(skipped)}')
     print(f'pumpe zalepljene za OSM: {len(snapped)} | brendirane bez para: {len(unsnapped)}')
+    print(f'rucne ispravke primenjene: {n_isp} | ispravke za lokacije kojih vise nema u Excelu: {len(stale)}')
+    print(f'pribliznih posle ispravki: {sum(1 for l in out if l.get("approx"))}')
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    a = sys.argv[1:]
+    if a and a[0] == '--samo-ispravke':
+        samo_ispravke(a[1] if len(a) > 1 else None)
+    elif a:
+        extra = a[a.index('--ispravke') + 1] if '--ispravke' in a else None
+        main(a[0], extra)
+    else:
+        sys.exit(__doc__)
