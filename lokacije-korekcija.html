@@ -64,6 +64,18 @@
   .kx-toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 0; padding: 10px 16px; border-radius: 10px;
     background: var(--bg-3); border: 1px solid var(--hair); font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 50; }
   .kx-toast.on { opacity: 1; }
+  /* zakljucano: dok lozinka nije uneta, alat se ne prikazuje (a ni ne ucitava — vidi skript dole) */
+  body.locked > .kx-top, body.locked > .kx { visibility: hidden; }
+  .kx-gate { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: var(--bg); }
+  .kx-gate form { width: min(380px, 100%); padding: 28px; border: 1px solid var(--hair); border-radius: 20px; background: var(--bg-2);
+    display: flex; flex-direction: column; gap: 12px; }
+  .kx-gate h1 { font-size: 22px; }
+  .kx-gate p { color: var(--muted); font-size: 14px; }
+  .kx-gate input { padding: 13px 15px; border-radius: 12px; border: 1px solid var(--hair); background: var(--surface-2);
+    color: var(--ink); font: 15px var(--sans); }
+  .kx-gate input[aria-invalid="true"] { border-color: var(--c1); }
+  .kx-gate .err { color: var(--c1); font-size: 13.5px; min-height: 1.2em; }
+  .kx-gate .btn { width: 100%; }
   @media (max-width: 860px) {
     body { overflow: auto; height: auto; }
     .kx { grid-template-columns: 1fr; grid-template-rows: 55vh auto; }
@@ -73,7 +85,18 @@
   }
 </style>
 </head>
-<body>
+<body class="locked">
+<div class="kx-gate" id="kxGate">
+  <form id="kxGateForm" autocomplete="on">
+    <h1>Korekcija lokacija</h1>
+    <p>Interni alat Vapologic. Unesi lozinku za pristup.</p>
+    <input type="text" name="username" value="vapologic" autocomplete="username" hidden>
+    <input type="password" id="kxPw" name="password" autocomplete="current-password" placeholder="Lozinka" required aria-describedby="kxErr">
+    <div class="err" id="kxErr" role="alert"></div>
+    <button class="btn btn-primary" type="submit">Uđi</button>
+  </form>
+</div>
+
 <header class="kx-top">
   <h1>Korekcija lokacija <small>Prevuci pin na pravo mesto · satelitski snimak</small></h1>
   <span class="kx-prog" id="kxProg"></span>
@@ -119,6 +142,43 @@
 </main>
 <div class="kx-toast" id="kxToast" role="status"></div>
 
-<script type="module" src="lokacije-korekcija.js?v=2"></script>
+<script type="module">
+  /* Lozinka. Sajt je staticki (nema server), pa se proverava u pregledacu: u kodu je samo
+     SHA-256 otisak, ne sama lozinka. Ovo drzi slucajne posetioce napolju, ali nije prava zastita —
+     neko vest moze da je zaobidje kroz alatke pregledaca. Prihvatljivo, jer stranica ne menja
+     sajt, a lokacije su ionako javne (cita ih javna mapa).
+     Promena lozinke: printf '%s' 'nova-lozinka' | sha256sum  -> zameni HASH. */
+  const HASH = '636bca69405d87c1cc7d4991f4db21096c63cd4b476cb5c6493e84c949238cbb';
+  const KEY = 'vpl_korekcija_pristup';
+
+  const sha256 = async (s) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))]
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+
+  function unlock() {
+    document.getElementById('kxGate').remove();
+    document.body.classList.remove('locked');
+    // alat (mapa + baza) se ucitava tek sada — pre prijave se ne trosi ni MapTiler kvota
+    import('./lokacije-korekcija.js?v=2');
+  }
+
+  let saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === HASH) unlock();     // isti pregledac ne pita ponovo (napredak se i onako cuva ovde)
+  else {
+    const form = document.getElementById('kxGateForm'), pw = document.getElementById('kxPw'), err = document.getElementById('kxErr');
+    pw.focus();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (await sha256(pw.value) === HASH) {
+        try { localStorage.setItem(KEY, HASH); } catch (e) {}
+        unlock();
+      } else {
+        pw.setAttribute('aria-invalid', 'true'); err.textContent = 'Pogrešna lozinka.';
+        pw.select();
+      }
+    });
+    pw.addEventListener('input', () => { pw.removeAttribute('aria-invalid'); err.textContent = ''; });
+  }
+</script>
 </body>
 </html>
