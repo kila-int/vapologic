@@ -38,7 +38,6 @@ img{max-width:100%;display:block}
 .lead{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:60ch}
 
 .pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:12px;line-height:1;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);background:var(--surface-2)}
-.pbody .pill{align-self:flex-start}
 .note{font-size:13px;color:var(--muted-2);border-left:2px solid var(--c2);padding:4px 0 4px 12px;margin-top:12px}
 
 
@@ -343,6 +342,13 @@ section{padding:72px 0}
 /* imena ukusa centrirana ispod slike */
 .ptrack>.card .body{align-items:center;text-align:center}
 .card .brand{position:absolute;top:14px;left:14px;font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);z-index:2}
+/* kartice proizvoda na pocetnoj: brend krupnije, model ispod sitnije (gore levo), cena dole */
+.prods .card .brand{top:16px;left:18px;display:flex;flex-direction:column;gap:3px;color:var(--ink)}
+.prods .card .brand-name{font-size:15px;font-weight:700;letter-spacing:.14em}
+.prods .card .brand-model{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--muted);line-height:1.2}
+.prods .card .price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:0;color:var(--ink)}
+.prods .card .price s{font-size:15px;color:var(--muted-2)}
+.prods .card .price strong{font-size:24px;font-weight:900;letter-spacing:-.005em}
 .card h3{font-size:24px}
 .card p{color:var(--muted);font-size:14.5px}
 .card .go{margin-top:auto}
@@ -406,7 +412,7 @@ section{padding:72px 0}
 .faq-sec{max-width:920px;margin-inline:auto}
 .faq{border:1px solid var(--hair);border-radius:14px;background:var(--surface);margin-bottom:10px;overflow:hidden}
 .faq-q{width:100%;text-align:left;background:transparent;border:0;color:var(--ink);font-family:inherit;cursor:pointer;padding:19px 22px;font-weight:700;font-size:16px;display:flex;justify-content:space-between;gap:14px;align-items:center}
-.faq-q .plus{color:var(--c1);font-size:22px;line-height:1;flex-shrink:0;transition:transform .3s var(--ease)}
+.faq-q .plus{color:var(--c3);font-size:22px;line-height:1;flex-shrink:0;transition:transform .3s var(--ease)}
 .faq.open .faq-q .plus{transform:rotate(45deg)}
 .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
 .faq.open .faq-a{grid-template-rows:1fr}
@@ -512,7 +518,8 @@ section{padding:72px 0}
 .spec-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}
 @media(max-width:860px){.spec-wrap{grid-template-columns:1fr}}
 .spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.spec-cell{background:var(--surface);border:1px solid var(--hair);border-radius:16px;padding:20px}
+/* ista boja kao polja u kontakt formi (surface-2 preko bg-2 panela) */
+.spec-cell{background:linear-gradient(var(--surface-2),var(--surface-2)),var(--bg-2);border:1px solid var(--hair);border-radius:16px;padding:20px}
 .spec-cell .k{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
 .spec-cell .v{font-family:var(--mono);font-size:24px;font-weight:700;margin-top:6px}
 /* dimenzije (npr. 65 × 36 × 17,4 mm) su duze od ostalih vrednosti */
@@ -761,12 +768,10 @@ footer{border-top:1px solid var(--hair);background:var(--bg-2);padding:52px 0 32
   .fgrid>.foot-company{grid-column:1 / -1}
 }
 @media(max-width:560px){.fgrid{grid-template-columns:1fr;gap:30px}}
-.foot-company{display:flex;flex-direction:column;gap:12px}
-/* h4 nosi svoju donju marginu; u flex koloni bi se sabrala sa gap-om */
-.foot-company h4{margin-bottom:0}
-.foot-tagline{color:var(--muted);font-size:14px;max-width:46ch}
-.foot-legal{color:var(--muted-2);font-size:14px;line-height:1.7}
-.foot-legal span{display:block}
+/* Sve tri kolone imaju isti font, boju i prored: svaki red (tekst firme, podatak,
+   link) je 14px sa istim vertikalnim razmakom kao linkovi u Info/Pravno. */
+.foot-tagline,.foot-legal span{display:block;color:var(--muted);font-size:14px;line-height:1.6;padding:5px 0;max-width:46ch}
+.foot-legal{margin:0}
 footer h4{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin:0 0 14px}
 footer a{display:block;color:var(--muted);font-size:14px;padding:5px 0;cursor:pointer}
 footer a:hover{color:var(--ink)}

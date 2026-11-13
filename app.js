@@ -117,6 +117,7 @@ document.addEventListener('keydown', (e) => {
     el.querySelector('#ageYes').onclick = () => {
       try { localStorage.setItem('vpl_age18', '1'); } catch (e) {}
       el.remove(); document.documentElement.style.overflow = '';
+      document.dispatchEvent(new Event('agegate:ok'));   // npr. skok na filtrirane proizvode tek sada
     };
     el.querySelector('#ageNo').onclick = () => {
       document.body.innerHTML = `<div class="age-blocked">${t('age.blocked')}</div>`;
@@ -800,8 +801,14 @@ const pdDevice = () => {
     renderChips();
   }
 
-  const scrollToProds = () =>
-    document.getElementById('prods').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  /* Poziciju racunamo sami (visina headera + razmak): scrollIntoView uz zalepljen
+     header i scroll-margin ume da promasi na telefonu (posebno iOS Safari). */
+  const scrollToProds = () => {
+    const hdr = document.querySelector('header');
+    const off = (hdr ? hdr.getBoundingClientRect().height : 0) + 16;
+    const top = document.getElementById('prods').getBoundingClientRect().top + window.scrollY - off;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  };
 
   function setFilter(group, val) {
     if (!VALID[group] || !VALID[group].includes(val)) return;
@@ -843,12 +850,15 @@ const pdDevice = () => {
       state.brand = VALID.brand.includes(a.dataset.brand) ? a.dataset.brand : 'all';
       state.type = VALID.type.includes(a.dataset.type) ? a.dataset.type : 'all';
       apply();
-      if (document.body.classList.contains('nav-open')) {
+      const wasOpen = document.body.classList.contains('nav-open');
+      if (wasOpen) {
         document.body.classList.remove('nav-open');
         const nb = document.querySelector('.nav-toggle');
         if (nb) nb.setAttribute('aria-expanded', 'false');
       }
-      scrollToProds();
+      // na telefonu: skok tek kad se meni preko celog ekrana zatvori (animacija .28s),
+      // inace telefon prekine skrol dok se stranica jos „otkljucava"
+      setTimeout(scrollToProds, wasOpen ? 320 : 0);
     });
   });
 
@@ -861,7 +871,14 @@ const pdDevice = () => {
   apply();
   document.addEventListener('langchange', apply);
 
-  if ((qb && qb !== 'all') || (qt && qt !== 'all')) setTimeout(scrollToProds, 60);
+  /* Dolazak sa druge stranice (?brand= / ?type=): skok tek kad se strana ucita
+     (slike i fontovi pomeraju visinu), a ako je otvorena provera godina — posle potvrde. */
+  if ((qb && qb !== 'all') || (qt && qt !== 'all')) {
+    const go = () => setTimeout(scrollToProds, 60);
+    const whenLoaded = () => (document.readyState === 'complete' ? go() : window.addEventListener('load', go, { once: true }));
+    if (document.querySelector('.agegate')) document.addEventListener('agegate:ok', whenLoaded, { once: true });
+    else whenLoaded();
+  }
 })();
 
 /* ---------- Lokacije (lokacije.html) ----------

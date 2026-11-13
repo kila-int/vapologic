@@ -178,10 +178,10 @@ if (mapEl) {
         .then(z => map.easeTo({ center: f[0].geometry.coordinates, zoom: z }));
     });
     map.on('click', 'points', (e) => {
+      // klik na pin vodi direktno na Google Maps
       const p = e.features[0].properties;
       selectLoc(p.id);
-      showPopup(e.features[0].geometry.coordinates,
-        `<b>${esc(p.name || (t(p.typeKey) + ' — ' + p.city))}</b><br>${esc(p.addr)}`);
+      openGmaps(p);
     });
     ['clusters', 'points'].forEach(id => {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
@@ -192,13 +192,11 @@ if (mapEl) {
     replayPending();
   });
 
-  /* Jedan popup za sve lokacije: klik na novu (na mapi ili u listi) gasi prethodni.
-     Ranije je svaki klik pravio novi Popup, pa su se gomilali jedan preko drugog. */
-  let locPopup = null;
-  const showPopup = (lngLat, html) => {
-    if (locPopup) locPopup.remove();
-    locPopup = new maptilersdk.Popup().setLngLat(lngLat).setHTML(html).addTo(map);
-  };
+  /* Google Maps pretraga po adresi (ne po nasim koordinatama): Google ima
+     tacniju bazu adresa, pa i priblizni pin vodi na pravo mesto. */
+  const gmapsUrl = (l) => 'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent((l.name ? l.name + ', ' : '') + l.addr + ', Srbija');
+  const openGmaps = (l) => window.open(gmapsUrl(l), '_blank', 'noopener');
   function selectLoc(id) {
     if (!mapReady) return;
     map.setFilter('points-selected', ['==', ['get', 'id'], id == null ? -1 : Number(id)]);
@@ -291,12 +289,13 @@ if (mapEl) {
       dir.onclick = (e) => e.stopPropagation();
       item.appendChild(dir);
 
+      // klik na lokaciju u listi: oznaci je na mapi i otvori je u Google Maps
       const focus = () => {
         selectLoc(l.id);
         resultsEl.querySelectorAll('.locitem.is-sel').forEach(el => el.classList.remove('is-sel'));
         item.classList.add('is-sel');
-        map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
-        showPopup([l.lng, l.lat], `<b>${esc(locName(l))}</b><br>${esc(l.addr)}`);
+        if (mapReady) map.flyTo({ center: [l.lng, l.lat], zoom: 13 });
+        openGmaps(l);
       };
       item.onclick = focus;
       item.onkeydown = (e) => { if (e.key === 'Enter') focus(); };
