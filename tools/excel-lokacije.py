@@ -26,6 +26,7 @@ CACHE = 'tools/geo-cache.json'
 OUT = 'lokacije-podaci.json'
 REPORT = 'tools/lokacije-priblizne.txt'
 ISPRAVKE = 'tools/lokacije-ispravke.json'   # rucne ispravke pinova (IDE u git)
+PODESAVANJA = 'tools/lokacije-podesavanja.json'   # rucno ime / izdvojeno / prva po ID-ju (IDE u git)
 PUMPE = 'tools/osm-pumpe.json'   # benzinske stanice iz OpenStreetMap-a (kes, ne ide u git)
 
 CYR = dict(zip('АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШабвгдђежзијклљмнњопрстћуфхцчџш',
@@ -297,6 +298,29 @@ def apply_ispravke(locs, isp):
     stale = [k for k in isp if k not in by_id]
     return n, stale
 
+def apply_podesavanja(locs):
+    """Rucna podesavanja koja Excel ne nosi, po ID-ju lokacije: ime (npr. 'TC Galerija'),
+    'featured' (bedz „Najveci izbor", ide pre ostalih) i 'top' (prva, ispred svih izdvojenih).
+    Kao i ispravke pinova, prezivljavaju svako osvezavanje Excela."""
+    pod = json.load(open(PODESAVANJA, encoding='utf-8')) if os.path.exists(PODESAVANJA) else {}
+    by_id, n = {l['id']: l for l in locs}, 0
+    for k, v in pod.items():
+        l = by_id.get(k)
+        if not l: print('PODESAVANJE za lokaciju koje vise nema u bazi:', k, v.get('_napomena', '')); continue
+        if v.get('name'): l['name'] = v['name']
+        for f in ('featured', 'top'):
+            if f in v:
+                if v[f]: l[f] = True
+                else: l.pop(f, None)
+        n += 1
+    # ID i ime idu na pocetak unosa radi citljivosti baze
+    for i, l in enumerate(locs):
+        locs[i] = {**{k: l[k] for k in ('id', 'name') if k in l}, **l}
+    return n
+
+def sort_locs(locs):
+    locs.sort(key=lambda l: (not l.get('top'), not l.get('featured'), l['city'], l['addr']))
+
 def samo_ispravke(extra_path):
     """Primeni ispravke direktno na lokacije-podaci.json, bez ponovnog geokodiranja Excela."""
     isp = merge_ispravke(extra_path) if extra_path else load_ispravke()
@@ -304,8 +328,10 @@ def samo_ispravke(extra_path):
     if not all('id' in l for l in locs):
         sys.exit('lokacije-podaci.json nema ID-jeve - pokreni prvo alat nad Excelom')
     n, stale = apply_ispravke(locs, isp)
+    n_pod = apply_podesavanja(locs)
+    sort_locs(locs)
     json.dump(locs, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    print(f'primenjeno ispravki: {n} | ispravke za lokacije kojih vise nema u bazi: {len(stale)}')
+    print(f'primenjeno ispravki: {n} | ispravke za lokacije kojih vise nema u bazi: {len(stale)} | podesavanja: {n_pod}')
 
 def main(xlsx, extra=None):
     rows = list(openpyxl.load_workbook(xlsx, read_only=True, data_only=True).worksheets[0].iter_rows(values_only=True))
@@ -351,7 +377,8 @@ def main(xlsx, extra=None):
         json.dump(cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
     assert len({l['id'] for l in out}) == len(out), 'duplikat ID-ja lokacije'
     n_isp, stale = apply_ispravke(out, isp)
-    out.sort(key=lambda l: (not l.get('featured'), l['city'], l['addr']))
+    apply_podesavanja(out)
+    sort_locs(out)
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     with open(REPORT, 'w', encoding='utf-8') as f:
         f.write(f'Pribliznih lokacija (pin na naselju/opstini, ne na adresi): {len(approx)}\n\n' + '\n'.join(approx))

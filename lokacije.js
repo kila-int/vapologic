@@ -243,8 +243,9 @@ if (mapEl) {
     // uzmi prvi radijus u kome ima rezultata (ako nigde nema, ostaje najveći)
     const all = LOCATIONS.map((l, i) => ({ ...l, id: i, d: haversine(refLat, refLng, l.lat, l.lng) }));
     const km = RADII.find(r => all.some(l => l.d <= r)) || RADII[RADII.length - 1];
-    // izdvojene prodavnice (najveći izbor) idu prve, pa ostatak po blizini
-    const near = all.filter(l => l.d <= km).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.d - b.d);
+    // „prva" (top, npr. TC Galerija) ispred svega, pa izdvojene (najveći izbor), pa ostatak po blizini
+    const near = all.filter(l => l.d <= km).sort((a, b) =>
+      (b.top ? 1 : 0) - (a.top ? 1 : 0) || (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.d - b.d);
 
     if (mapReady) drawOnMap(refLat, refLng, label, accuracyM, km, near);
     else pending = [refLat, refLng, label, accuracyM];

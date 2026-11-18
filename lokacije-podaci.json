@@ -1,5 +1,16 @@
 [
  {
+  "id": "3bf363cf96",
+  "name": "TC Galerija",
+  "typeKey": "loctype.kiosk",
+  "city": "Beograd",
+  "addr": "Bulevar Vudroa Vilsona 12, Beograd",
+  "lat": 44.803751,
+  "lng": 20.448862,
+  "featured": true,
+  "top": true
+ },
+ {
   "id": "4ac599d4ad",
   "name": "Galaxy Code",
   "typeKey": "loctype.vape",
@@ -2177,14 +2188,6 @@
   "addr": "Bulevar Umetnosti 3, Novi Beograd, Beograd",
   "lat": 44.821162,
   "lng": 20.417972
- },
- {
-  "id": "3bf363cf96",
-  "typeKey": "loctype.kiosk",
-  "city": "Beograd",
-  "addr": "Bulevar Vudroa Vilsona 12, Beograd",
-  "lat": 44.803751,
-  "lng": 20.448862
  },
  {
   "id": "adad1a1777",
