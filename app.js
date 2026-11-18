@@ -214,14 +214,14 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- Katalog uređaja i ukusa (JEDAN izvor istine) ----------
    Koriste ga: kviz na početnoj, grid proizvoda i stranica proizvoda.
-   `slug` ukusa je ujedno ime fajla slike: Slike/web/<dev>/<slug>.webp
+   `slug` ukusa je ujedno ime fajla slike: Slike/web/<dev>/<slug>.avif
    (optimizovani derivati; originali stoje u Slike/<folder klijenta>).
    VAŽNO: ovde stoje SAMO ukusi za koje postoji slika — ako klijent pošalje
    nove, dodaj red ovde i ubaci fajl pod tim imenom, ostalo radi samo. */
 const IMG = 'Slike/web';
-const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.webp`;
-const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp?v=2`;   // ?v= kad se slike zamene
-const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.webp`;
+const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.avif`;
+const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.avif`;
+const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.avif`;
 
 const PRODUCTS = {
   EB1000: {
@@ -248,6 +248,8 @@ const PRODUCTS = {
       { fn: 'Blueberry Sour Raspberry', slug: 'blueberry-sour-raspberry', taste: ['kiseli'], intensity: 'snažniji' },
       { fn: 'Pineapple Ice', slug: 'pineapple-ice', taste: ['tropski'], intensity: 'snažniji' },
       { fn: 'Grape', slug: 'grape', taste: ['osvežavajući'], intensity: 'nežniji' },
+      { fn: 'Triple Mango', slug: 'triple-mango', taste: ['tropski'], intensity: 'nežniji' },
+      { fn: 'Triple Melon', slug: 'triple-melon', taste: ['slatki', 'osvežavajući'], intensity: 'snažniji' },
     ],
   },
   EB6000: {
