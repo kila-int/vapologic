@@ -220,7 +220,7 @@ document.addEventListener('keydown', (e) => {
    nove, dodaj red ovde i ubaci fajl pod tim imenom, ostalo radi samo. */
 const IMG = 'Slike/web';
 const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.avif`;
-const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.avif`;
+const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.avif?v=2`;   // ?v= podici kad se slike zamene
 const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.avif`;
 
 const PRODUCTS = {
