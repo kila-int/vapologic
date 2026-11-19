@@ -1,5 +1,5 @@
 /* ============================================================
-   VAPOLOGIC — PREVODI (SR / EN / RU)
+   VAPOLOGIC - PREVODI (SR / EN / RU)
    ------------------------------------------------------------
    OVO JE JEDINO MESTO GDE SE MENJAJU TEKSTOVI.
 
@@ -11,7 +11,7 @@
    Kako se koristi u JS-u:  t('loc.show_all', { n: 12 })
    Promenljive u tekstu se pišu u vitičastim zagradama: {n}, {km}, {d}…
 
-   VAŽNO: ključevi (levo) se NIKAD ne menjaju — menja se samo tekst (desno).
+   VAŽNO: ključevi (levo) se NIKAD ne menjaju - menja se samo tekst (desno).
    Ako neki pojam treba drugačije da se prevede, ispravi ga ovde i primeniće
    se svuda na sajtu.
    ============================================================ */
@@ -19,7 +19,7 @@
 window.I18N = {
 
   /* Pojmovi koji se NIKAD ne prevode (brend i modeli).
-     Lista je informativna — služi kao dogovor za buduće prevode. */
+     Lista je informativna - služi kao dogovor za buduće prevode. */
   glossary: ['Vapologic', 'Elfbar', 'Lost Mary', 'EB1000', 'BM1000', 'EB6000', 'Type-C', 'Turbo Mode'],
 
   langs: { sr: 'SR', en: 'EN', ru: 'RU' },
@@ -107,13 +107,13 @@ window.I18N = {
     'loc.geo_approx': 'Lokacija je približna (±{km} km).',
     'loc.results_empty': 'Rezultati pretrage će se prikazati ovde.',
     'loc.map_app_aria': 'Interaktivna mapa lokacija',
-    'loc.found': '{n} lokacija u krugu od {km} km — najbliža {d} km:',
+    'loc.found': '{n} lokacija u krugu od {km} km - najbliža {d} km:',
     'loc.none': 'Nema lokacija u krugu od {km} km.',
     'loc.show_all': 'Prikaži sve ({n})',
     'loc.km_from_you': '{d} km od tebe',
     'loc.my_location': 'Moja lokacija',
     'loc.data_failed': 'Baza lokacija nije učitana. Osvežite stranicu.',
-    'loc.did_you_mean': 'Više rezultata — izaberi tačan:',
+    'loc.did_you_mean': 'Više rezultata - izaberi tačan:',
     'loc.recent': 'Skorašnje pretrage',
     'loc.clear': 'Obriši',
     'loc.directions': 'Putanja',
@@ -132,7 +132,7 @@ window.I18N = {
     'faq.q2': 'Koji ukus traje najduže?',
     'faq.a2': 'Trajanje zavisi od navika korišćenja, ne od ukusa.',
     'faq.q3': 'Gde mogu kupiti Lost Mary i Elfbar proizvode?',
-    'faq.a3': 'Na preko 1200 lokacija širom Srbije — na najbližem kiosku, benzinskoj stanici ili u maloj trgovini.',
+    'faq.a3': 'Na preko 1200 lokacija širom Srbije - na najbližem kiosku, benzinskoj stanici ili u maloj trgovini.',
     'faq.q4': 'Da li vape proizvodi izazivaju zavisnost?',
     'faq.a4': 'Vape proizvodi sadrže nikotin koji izaziva zavisnost.',
     'faq.q5': 'Da li mogu imati negativan uticaj na zdravlje?',
@@ -159,7 +159,7 @@ window.I18N = {
     'art.share': 'Podeli:',
     'art.more_title': 'Nastavi da čitaš',
     'art.more_p1': 'Dizajn kao deo identiteta: kako je estetika oblikovala Lost Mary',
-    'art.more_p2': 'Upoznaj EB6000 — do 6000 puffova',
+    'art.more_p2': 'Upoznaj EB6000 - do 6000 puffova',
     'common.view': 'Pogledaj',
     'pd.cta_buy': 'Gde da kupim',
     'pd.cta_more': 'Detaljnije informacije',
@@ -178,7 +178,7 @@ window.I18N = {
     'tech.t3d': 'Kompaktno kućište, mat obrada i jednostavno korišćenje.',
 
     /* --- po uredjaju: EB1000 / BM1000 / EB6000 --- */
-    'pd.desc.EB1000': 'Jednokratni Elfbar do 1000 puffova. Bez punjenja i bez podešavanja — otvoriš i koristiš.',
+    'pd.desc.EB1000': 'Jednokratni Elfbar do 1000 puffova. Bez punjenja i bez podešavanja - otvoriš i koristiš.',
     'pd.desc.BM1000': 'Lost Mary BM1000 Turbo do 1000 puffova. Turbo režim i displej sa nivoom tečnosti.',
     'pd.desc.EB6000': 'Pod sistem do 6000 puffova. Type-C punjenje, zamenljiv pod i displej sa nivoom baterije.',
     'specs.about.EB1000': 'EB1000 je jedan od globalno najprodavanijih uređaja iz Elfbar linije. Kompaktan je, spreman za upotrebu odmah i dolazi u osam različitih ukusa.',
@@ -192,9 +192,9 @@ window.I18N = {
     'tech.t3.BM1000': 'Kompaktan dizajn',
     'tech.t3.EB6000': 'Ergonomski dizajn',
     'tech.t1.EB1000': 'Spreman za upotrebu',
-    'tech.t1d.EB1000': 'Bez punjenja i podešavanja — do 1000 puffova ODMAH!',
+    'tech.t1d.EB1000': 'Bez punjenja i podešavanja - do 1000 puffova ODMAH!',
     'tech.t1.BM1000': 'Turbo režim',
-    'tech.t1d.BM1000': 'Dva režima rada i displej sa nivoom tečnosti — jači udah kad ti zatreba.',
+    'tech.t1d.BM1000': 'Dva režima rada i displej sa nivoom tečnosti - jači udah kad ti zatreba.',
     'tech.t1.EB6000': 'Baterija većeg kapaciteta',
     'tech.t1d.EB6000': 'Type-C punjenje za dug vek trajanja i do 6000 puffova bez pada intenziteta.',
     'specs.nic': 'Nikotin',
@@ -209,7 +209,7 @@ window.I18N = {
     'contact.question': 'Pitanje',
     'contact.question_help': 'Ovde možete uneti vaše pitanje za nas',
     'contact.send': 'Pošalji',
-    'contact.demo': 'Forma je za sada prikazna — povezivanje sa mejlom radimo u sledećem koraku.',
+    'contact.demo': 'Forma je za sada prikazna - povezivanje sa mejlom radimo u sledećem koraku.',
     'contact.optional': '(opciono)',
 
     'footer.tagline': 'Zvanični distributer Elfbar i Lost Mary proizvoda u Srbiji.',
@@ -228,7 +228,7 @@ window.I18N = {
     'age.yes': 'Imam 18+',
     'age.no': 'Nemam 18',
     'age.warn': 'Proizvodi sadrže nikotin koji izaziva zavisnost.',
-    'age.blocked': 'Žao nam je — sajt je dostupan samo punoletnim osobama.',
+    'age.blocked': 'Žao nam je - sajt je dostupan samo punoletnim osobama.',
   },
 
   /* ==================== ENGLISH ==================== */
@@ -314,13 +314,13 @@ window.I18N = {
     'loc.geo_approx': 'This position is approximate (±{km} km).',
     'loc.results_empty': 'Search results will appear here.',
     'loc.map_app_aria': 'Interactive map of locations',
-    'loc.found': '{n} locations within {km} km — nearest {d} km:',
+    'loc.found': '{n} locations within {km} km - nearest {d} km:',
     'loc.none': 'No locations within {km} km.',
     'loc.show_all': 'Show all ({n})',
     'loc.km_from_you': '{d} km from you',
     'loc.my_location': 'My location',
     'loc.data_failed': 'The location database failed to load. Please refresh.',
-    'loc.did_you_mean': 'Several matches — pick the right one:',
+    'loc.did_you_mean': 'Several matches - pick the right one:',
     'loc.recent': 'Recent searches',
     'loc.clear': 'Clear',
     'loc.directions': 'Directions',
@@ -335,11 +335,11 @@ window.I18N = {
     'loc.featured_tag': 'Widest selection',
     'faq.title': 'Frequently asked questions',
     'faq.q1': 'Are Elfbar and Lost Mary globally recognized brands?',
-    'faq.a1': 'Yes — they are among the largest global brands in the vape market, known for their flavors and innovation. In Europe, Germany and the United Kingdom lead in consumption, where the company holds a dominant position.',
+    'faq.a1': 'Yes - they are among the largest global brands in the vape market, known for their flavors and innovation. In Europe, Germany and the United Kingdom lead in consumption, where the company holds a dominant position.',
     'faq.q2': 'Which flavor lasts the longest?',
     'faq.a2': 'Longevity depends on usage habits, not on the flavor.',
     'faq.q3': 'Where can I buy Lost Mary and Elfbar products?',
-    'faq.a3': 'At over 1200 locations across Serbia — at your nearest kiosk, gas station or small store.',
+    'faq.a3': 'At over 1200 locations across Serbia - at your nearest kiosk, gas station or small store.',
     'faq.q4': 'Are vape products addictive?',
     'faq.a4': 'Vape products contain nicotine, which is addictive.',
     'faq.q5': 'Can they have negative health effects?',
@@ -365,7 +365,7 @@ window.I18N = {
     'art.share': 'Share:',
     'art.more_title': 'Keep reading',
     'art.more_p1': 'Design as part of identity: how aesthetics shaped Lost Mary',
-    'art.more_p2': 'Meet the EB6000 — up to 6000 puffs',
+    'art.more_p2': 'Meet the EB6000 - up to 6000 puffs',
     'common.view': 'View',
     'pd.cta_buy': 'Where to buy',
     'pd.cta_more': 'More details',
@@ -384,7 +384,7 @@ window.I18N = {
     'tech.t3d': 'A compact body, matte finish and simple operation.',
 
     /* --- po uredjaju: EB1000 / BM1000 / EB6000 --- */
-    'pd.desc.EB1000': 'A single-use Elfbar with up to 1000 puffs. No charging and no setup — open it and use it.',
+    'pd.desc.EB1000': 'A single-use Elfbar with up to 1000 puffs. No charging and no setup - open it and use it.',
     'pd.desc.BM1000': 'Lost Mary BM1000 Turbo with up to 1000 puffs. Turbo mode and an e-liquid level display.',
     'pd.desc.EB6000': 'A pod system with up to 6000 puffs. Type-C charging, a replaceable pod and a battery level display.',
     'specs.about.EB1000': 'The EB1000 is one of the best-selling devices worldwide from the Elfbar line. It is compact, ready to use right away and comes in eight different flavors.',
@@ -398,9 +398,9 @@ window.I18N = {
     'tech.t3.BM1000': 'Compact design',
     'tech.t3.EB6000': 'Ergonomic design',
     'tech.t1.EB1000': 'Ready to use',
-    'tech.t1d.EB1000': 'No charging and no setup — up to 1000 puffs INSTANTLY!',
+    'tech.t1d.EB1000': 'No charging and no setup - up to 1000 puffs INSTANTLY!',
     'tech.t1.BM1000': 'Turbo mode',
-    'tech.t1d.BM1000': 'Two operating modes and an e-liquid level display — a stronger draw when you want one.',
+    'tech.t1d.BM1000': 'Two operating modes and an e-liquid level display - a stronger draw when you want one.',
     'tech.t1.EB6000': 'Higher-capacity battery',
     'tech.t1d.EB6000': 'Type-C charging for a long lifespan and up to 6000 puffs without losing intensity.',
     'specs.nic': 'Nicotine',
@@ -415,7 +415,7 @@ window.I18N = {
     'contact.question': 'Question',
     'contact.question_help': 'You can enter your question for us here',
     'contact.send': 'Send',
-    'contact.demo': 'The form is a preview for now — connecting it to email is the next step.',
+    'contact.demo': 'The form is a preview for now - connecting it to email is the next step.',
     'contact.optional': '(optional)',
 
     'footer.tagline': 'Official distributor of Elfbar and Lost Mary products in Serbia.',
@@ -434,7 +434,7 @@ window.I18N = {
     'age.yes': 'I am 18+',
     'age.no': 'I am under 18',
     'age.warn': 'Products contain nicotine, which is addictive.',
-    'age.blocked': 'Sorry — this site is available to adults only.',
+    'age.blocked': 'Sorry - this site is available to adults only.',
   },
 
   /* ==================== РУССКИЙ ==================== */
@@ -520,13 +520,13 @@ window.I18N = {
     'loc.geo_approx': 'Позиция приблизительная (±{km} км).',
     'loc.results_empty': 'Результаты поиска появятся здесь.',
     'loc.map_app_aria': 'Интерактивная карта точек продаж',
-    'loc.found': 'Точек в радиусе {km} км: {n} — ближайшая {d} км:',
+    'loc.found': 'Точек в радиусе {km} км: {n} - ближайшая {d} км:',
     'loc.none': 'В радиусе {km} км точек нет.',
     'loc.show_all': 'Показать все ({n})',
     'loc.km_from_you': '{d} км от вас',
     'loc.my_location': 'Моя локация',
     'loc.data_failed': 'База локаций не загрузилась. Обновите страницу.',
-    'loc.did_you_mean': 'Несколько совпадений — выберите нужное:',
+    'loc.did_you_mean': 'Несколько совпадений - выберите нужное:',
     'loc.recent': 'Недавние поиски',
     'loc.clear': 'Очистить',
     'loc.directions': 'Маршрут',
@@ -540,12 +540,12 @@ window.I18N = {
     'loctype.store': 'Точка продаж',
     'loc.featured_tag': 'Самый большой выбор',
     'faq.title': 'Частые вопросы',
-    'faq.q1': 'Elfbar и Lost Mary — всемирно известные бренды?',
+    'faq.q1': 'Elfbar и Lost Mary - всемирно известные бренды?',
     'faq.a1': 'Да, это одни из крупнейших мировых брендов на рынке вейпов, известные вкусами и инновациями. В Европе больше всего их потребляют Германия и Великобритания, где компания занимает доминирующую позицию.',
     'faq.q2': 'Какой вкус держится дольше всего?',
     'faq.a2': 'Длительность зависит от привычек использования, а не от вкуса.',
     'faq.q3': 'Где можно купить продукты Lost Mary и Elfbar?',
-    'faq.a3': 'Более чем в 1200 точках по всей Сербии — в ближайшем киоске, на АЗС или в небольшом магазине.',
+    'faq.a3': 'Более чем в 1200 точках по всей Сербии - в ближайшем киоске, на АЗС или в небольшом магазине.',
     'faq.q4': 'Вызывают ли вейп-продукты зависимость?',
     'faq.a4': 'Вейп-продукты содержат никотин, который вызывает зависимость.',
     'faq.q5': 'Могут ли они негативно влиять на здоровье?',
@@ -560,8 +560,8 @@ window.I18N = {
     'art.title': 'Как появился Elfbar: инновации и разнообразие вкусов как отличительная черта современных электронных сигарет',
     'art.date': '28 июля 2026 г.',
     'art.read': '4 мин чтения',
-    'art.p1': 'Рынок электронных сигарет в последние годы развивается быстро, и среди брендов, привлёкших значительное внимание, — Elfbar. Узнаваемый благодаря современному дизайну, широкой палитре ароматов и непрерывному развитию технологий, этот бренд закрепился на многих мировых рынках.',
-    'art.p2': 'Одна из особенностей Elfbar — разнообразие вкусов. В ассортименте есть фруктовые сочетания, освежающие ментоловые варианты, а также тропические вкусы, соединяющие сладость и кислинку. Такое разнообразие позволяет совершеннолетним пользователям найти вариант под свои предпочтения.',
+    'art.p1': 'Рынок электронных сигарет в последние годы развивается быстро, и среди брендов, привлёкших значительное внимание, - Elfbar. Узнаваемый благодаря современному дизайну, широкой палитре ароматов и непрерывному развитию технологий, этот бренд закрепился на многих мировых рынках.',
+    'art.p2': 'Одна из особенностей Elfbar - разнообразие вкусов. В ассортименте есть фруктовые сочетания, освежающие ментоловые варианты, а также тропические вкусы, соединяющие сладость и кислинку. Такое разнообразие позволяет совершеннолетним пользователям найти вариант под свои предпочтения.',
     'art.h2_1': 'Технология устройств',
     'art.p3': 'Помимо разработки ароматов, компания уделяет особое внимание технологии устройств. Современные модели оснащены улучшенными нагревательными элементами и системами для более равномерного испарения жидкости, чтобы вкус оставался ровным на протяжении использования. В новых поколениях появляются аккумуляторы большей ёмкости, системы зарядки и индикаторы состояния.',
     'art.p4': 'Прогресс заметен и в конструкции устройств. Эргономичный дизайн, компактные размеры и простота использования сделали бренд узнаваемым среди совершеннолетних пользователей, а развитие материалов направлено на большую надёжность и стабильное качество.',
@@ -571,7 +571,7 @@ window.I18N = {
     'art.share': 'Поделиться:',
     'art.more_title': 'Продолжить чтение',
     'art.more_p1': 'Дизайн как часть идентичности: как эстетика сформировала Lost Mary',
-    'art.more_p2': 'Знакомьтесь с EB6000 — до 6000 затяжек',
+    'art.more_p2': 'Знакомьтесь с EB6000 - до 6000 затяжек',
     'common.view': 'Смотреть',
     'pd.cta_buy': 'Где купить',
     'pd.cta_more': 'Подробная информация',
@@ -590,12 +590,12 @@ window.I18N = {
     'tech.t3d': 'Компактный корпус, матовая отделка и простое использование.',
 
     /* --- po uredjaju: EB1000 / BM1000 / EB6000 --- */
-    'pd.desc.EB1000': 'Одноразовый Elfbar до 1000 затяжек. Без зарядки и без настройки — открыл и пользуешься.',
+    'pd.desc.EB1000': 'Одноразовый Elfbar до 1000 затяжек. Без зарядки и без настройки - открыл и пользуешься.',
     'pd.desc.BM1000': 'Lost Mary BM1000 Turbo до 1000 затяжек. Режим Turbo и дисплей с уровнем жидкости.',
     'pd.desc.EB6000': 'Под-система до 6000 затяжек. Зарядка Type-C, сменный картридж и дисплей заряда.',
-    'specs.about.EB1000': 'EB1000 — одно из самых продаваемых в мире устройств линейки Elfbar. Компактное, готово к использованию сразу и доступно в восьми разных вкусах.',
-    'specs.about.BM1000': 'BM1000 — самое популярное устройство линейки Lost Mary. Узнайте, почему Lost Mary так быстро завоевал сердца всех, кто его попробовал.',
-    'specs.about.EB6000': 'EB6000 дарит до 6000 затяжек. Под сменный и доступен в 6 вкусах, а само устройство — в 4 узнаваемых цветах.',
+    'specs.about.EB1000': 'EB1000 - одно из самых продаваемых в мире устройств линейки Elfbar. Компактное, готово к использованию сразу и доступно в восьми разных вкусах.',
+    'specs.about.BM1000': 'BM1000 - самое популярное устройство линейки Lost Mary. Узнайте, почему Lost Mary так быстро завоевал сердца всех, кто его попробовал.',
+    'specs.about.EB6000': 'EB6000 дарит до 6000 затяжек. Под сменный и доступен в 6 вкусах, а само устройство - в 4 узнаваемых цветах.',
     'specs.size': 'Размер',
     'specs.about2.EB1000': 'Включите режим Turbo простым нажатием кнопки и получите насыщенный поток вкуса и густой пар.',
     'specs.about2.BM1000': 'На устройстве есть индикатор оставшейся жидкости в процентах, который помогает планировать следующие сессии.',
@@ -604,9 +604,9 @@ window.I18N = {
     'tech.t3.BM1000': 'Компактный дизайн',
     'tech.t3.EB6000': 'Эргономичный дизайн',
     'tech.t1.EB1000': 'Готово к использованию',
-    'tech.t1d.EB1000': 'Без зарядки и настройки — до 1000 затяжек СРАЗУ!',
+    'tech.t1d.EB1000': 'Без зарядки и настройки - до 1000 затяжек СРАЗУ!',
     'tech.t1.BM1000': 'Режим Turbo',
-    'tech.t1d.BM1000': 'Два режима работы и дисплей с уровнем жидкости — более крепкая затяжка, когда нужно.',
+    'tech.t1d.BM1000': 'Два режима работы и дисплей с уровнем жидкости - более крепкая затяжка, когда нужно.',
     'tech.t1.EB6000': 'Аккумулятор большей ёмкости',
     'tech.t1d.EB6000': 'Зарядка Type-C для долгого срока службы и до 6000 затяжек без потери интенсивности.',
     'specs.nic': 'Никотин',
@@ -621,7 +621,7 @@ window.I18N = {
     'contact.question': 'Вопрос',
     'contact.question_help': 'Здесь вы можете задать нам свой вопрос',
     'contact.send': 'Отправить',
-    'contact.demo': 'Пока форма демонстрационная — подключение к почте сделаем на следующем шаге.',
+    'contact.demo': 'Пока форма демонстрационная - подключение к почте сделаем на следующем шаге.',
     'contact.optional': '(необязательно)',
 
     'footer.tagline': 'Официальный дистрибьютор продукции Elfbar и Lost Mary в Сербии.',
@@ -640,6 +640,6 @@ window.I18N = {
     'age.yes': 'Мне 18+',
     'age.no': 'Мне нет 18',
     'age.warn': 'Продукты содержат никотин, вызывающий зависимость.',
-    'age.blocked': 'Извините — сайт доступен только совершеннолетним.',
+    'age.blocked': 'Извините - сайт доступен только совершеннолетним.',
   },
 };

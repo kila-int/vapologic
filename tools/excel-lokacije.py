@@ -7,7 +7,7 @@ Koraci:
   1. cita Excel (kolone: Source.Name, Client Name, PM, Adress, City, Sales Channel Structure, Distributor)
   2. izbacuje unose koji nisu prodajna mesta (magacini, reprezentacija, sifra kupca 0) i duplikate
   3. geokodira adrese preko MapTiler-a (isti kljuc kao na sajtu); rezultati se cuvaju u
-     tools/geo-cache.json, pa ponovno pokretanje ne trosi kvotu — samo nove adrese idu na API
+     tools/geo-cache.json, pa ponovno pokretanje ne trosi kvotu - samo nove adrese idu na API
   4. upisuje lokacije-podaci.json; unosi koje geokoder nije nasao do adrese dobijaju "approx": true
      (pin stoji na naselju/opstini) i spisak ide u tools/lokacije-priblizne.txt za rucnu proveru
   5. primenjuje RUCNE ISPRAVKE iz tools/lokacije-ispravke.json (pravi ih stranica /lokacije-korekcija);

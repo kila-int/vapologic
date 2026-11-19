@@ -1,9 +1,9 @@
-/* ===== Vapologic — zajednički JS (index / proizvod / blog / lokacije) ===== */
+/* ===== Vapologic - zajednički JS (index / proizvod / blog / lokacije) ===== */
 
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 /* ============================================================
-   i18n — tekstovi se menjaju u i18n.js, ne ovde.
+   i18n - tekstovi se menjaju u i18n.js, ne ovde.
    t('kljuc', {n: 5})  ·  setLang('en')  ·  event 'langchange'
    ============================================================ */
 const LANGS = ['sr', 'en', 'ru'];
@@ -62,7 +62,7 @@ window.toggleNav = () => {
   if (!open) closeAllDrops();          // sledece otvaranje pocinje sklopljeno
 };
 
-/* Na mobilnom su dropdownovi akordeon — ranije su bili zakucani na otvoreno,
+/* Na mobilnom su dropdownovi akordeon - ranije su bili zakucani na otvoreno,
    pa je meni bio duzi od ekrana. Na desktopu i dalje radi hover, ovo se ne mesa. */
 document.addEventListener('click', (e) => {
   const label = e.target.closest('.nav-menu .drop-label, .nav-menu .lang-btn');
@@ -160,7 +160,7 @@ document.addEventListener('keydown', (e) => {
   }
   /* Novi sloj se PODIZE iznad ostalih i pretapa od 0 do 1; stari ostaje pun
      ispod njega. Da smo stari istovremeno gasili, na pola prelaza bi se kroz
-     dva poluprovidna sloja videla pozadina stranice — kao kratak blesak. */
+     dva poluprovidna sloja videla pozadina stranice - kao kratak blesak. */
   let bgTop = 1;
   function setBg(i) {
     const cur = bgs[i];
@@ -191,7 +191,7 @@ document.addEventListener('keydown', (e) => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function restartAuto() { if (reduce) return; clearInterval(timer); timer = setInterval(() => set(idx + 1), 5000); }
 
-  /* Prevlacenje prstom — na mobilnom nema strelica, pa je swipe glavna kontrola.
+  /* Prevlacenje prstom - na mobilnom nema strelica, pa je swipe glavna kontrola.
      Vertikalni potez se ignorise da ne otimamo skrol stranice. */
   const sliderEl = sliderBox;
   if (sliderEl) {
@@ -216,7 +216,7 @@ document.addEventListener('keydown', (e) => {
    Koriste ga: kviz na početnoj, grid proizvoda i stranica proizvoda.
    `slug` ukusa je ujedno ime fajla slike: Slike/web/<dev>/<slug>.avif
    (optimizovani derivati; originali stoje u Slike/<folder klijenta>).
-   VAŽNO: ovde stoje SAMO ukusi za koje postoji slika — ako klijent pošalje
+   VAŽNO: ovde stoje SAMO ukusi za koje postoji slika - ako klijent pošalje
    nove, dodaj red ovde i ubaci fajl pod tim imenom, ostalo radi samo. */
 const IMG = 'Slike/web';
 const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.avif`;
@@ -272,7 +272,7 @@ const PRODUCTS = {
   },
 };
 const DEVS = ['EB1000', 'BM1000', 'EB6000'];
-// ravna lista za kviz — izvedena iz kataloga, bez duplog održavanja
+// ravna lista za kviz - izvedena iz kataloga, bez duplog održavanja
 const FLAVORS = DEVS.flatMap(d =>
   PRODUCTS[d].flavors.map(f => ({ ...f, dev: d, puffs: PRODUCTS[d].puffs })));
 // link sa rezultata kviza / grida: uređaj + ukus, sa sidrom na slajder ukusa
@@ -316,7 +316,7 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
       ? `${t('taste.' + answers.taste)} · ${answers.puffs} ${t('quiz.puffs_label')}`
       : `${t('taste.' + answers.taste)} · ${t('intensity.' + answers.intensity)} · ${answers.puffs} ${t('quiz.puffs_label')}`;
     const nadjeno = m.length === 1 ? t('quiz.found_one') : t('quiz.found_many', { n: m.length });
-    document.getElementById('resSummary').textContent = `${izbor} — ${nadjeno}`;
+    document.getElementById('resSummary').textContent = `${izbor} - ${nadjeno}`;
     const g = document.getElementById('rgrid'); g.innerHTML = '';
     m.forEach(f => {
       const a = document.createElement('a');
@@ -350,7 +350,7 @@ const flavorHref = (dev, s) => `/proizvod?dev=${dev}&ukus=${s}#ukusi`;
   showStep();
 })();
 
-/* ---------- Stranica proizvoda (proizvod.html) — sadrzaj po ?dev= ----------
+/* ---------- Stranica proizvoda (proizvod.html) - sadrzaj po ?dev= ----------
    Jedna stranica opsluzuje sva tri uredjaja: ?dev=EB1000|BM1000|EB6000.
    Bez parametra ostaje EB6000 (tako je stranica i ranije radila).          */
 const pdDevice = () => {
@@ -365,7 +365,7 @@ const pdDevice = () => {
   const $ = (id) => document.getElementById(id);
 
   function render() {
-    // naslov je SAMO ime uredjaja — ukus vise ne ulazi u njega, on je u slajderu ispod
+    // naslov je SAMO ime uredjaja - ukus vise ne ulazi u njega, on je u slajderu ispod
     titleEl.textContent = P.id;
     $('pdBrand').textContent = P.brand;
     $('pdCrumbBrand').textContent = P.brand;
@@ -377,13 +377,13 @@ const pdDevice = () => {
     $('pdTechP').textContent = t('tech.t1d.' + P.id);
     $('pdTech3H').textContent = t('tech.t3.' + P.id);
     $('flavTitle').textContent = t('flav.title', { dev: P.id });
-    document.title = P.brand + ' ' + P.id + ' — ' + t('pd.meta_puffs', { n: P.puffs }) + ' | Vapologic';
+    document.title = P.brand + ' ' + P.id + ' - ' + t('pd.meta_puffs', { n: P.puffs }) + ' | Vapologic';
 
     $('pdHeroWeb').src = deviceImg(P.id, 'web');
     $('pdHeroWeb').alt = P.brand + ' ' + P.id;
     $('pdHeroMob').srcset = deviceImg(P.id, 'mob');
     $('pdPack').src = packImg(P.id);
-    $('pdPack').alt = P.brand + ' ' + P.id + ' — ' + t('pd.pack');
+    $('pdPack').alt = P.brand + ' ' + P.id + ' - ' + t('pd.pack');
 
     $('pdSpecs').innerHTML = P.specs.map(function (kv) {
       const v = kv[1].indexOf('specs.') === 0 ? t(kv[1]) : kv[1];
@@ -391,7 +391,7 @@ const pdDevice = () => {
       return '<div class="spec-cell"><div class="k">' + t(kv[0]) + '</div><div class="v' + (v.length > 10 ? ' v-long' : '') + '">' + v + '</div></div>';
     }).join('');
 
-    // boje uredjaja (za sad samo EB6000 — pod sistem)
+    // boje uredjaja (za sad samo EB6000 - pod sistem)
     const box = $('pdColors');
     if (P.colors) {
       box.hidden = false;
@@ -406,9 +406,9 @@ const pdDevice = () => {
   document.addEventListener('langchange', render);
 })();
 
-/* ---------- Slajder ukusa (proizvod.html) — besavni infinite loop ----------
+/* ---------- Slajder ukusa (proizvod.html) - besavni infinite loop ----------
    Kartice se pomeraju JEDNA PO JEDNA; kad se dodje do poslednje, traka nastavlja
-   udesno preko klonova pa se tiho (bez tranzicije) resetuje — nema naglog
+   udesno preko klonova pa se tiho (bez tranzicije) resetuje - nema naglog
    vracanja na pocetak. Broj vidljivih kartica (--per) i dalje dolazi iz CSS-a. */
 (function () {
   const track = document.getElementById('fcar');
@@ -492,7 +492,7 @@ const pdDevice = () => {
     animating = false;
     /* Posle koraka `pos` moze da odluta u klon-zonu. Vracamo ga na kanonsku
        poziciju ISTOG centralnog ukusa (razlika je uvek umnozak od N, pa je
-       kadar identican) — tiho, bez tranzicije, tako da nema vidljivog skoka. */
+       kadar identican) - tiho, bez tranzicije, tako da nema vidljivog skoka. */
     const canon = centerPos(realIndex());
     if (canon !== pos) { pos = canon; place(false); }
   }
@@ -568,11 +568,11 @@ const pdDevice = () => {
   const deepLink = location.hash === '#ukusi' && target >= 0;
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Glatko do sekcije, pa tek onda pomeranje trake — da se dva pokreta ne
+  /* Glatko do sekcije, pa tek onda pomeranje trake - da se dva pokreta ne
      preklapaju. Skrol se smirio = 140ms bez scroll dogadjaja (sa gornjom
      granicom od 1.6s ako pregledac ne posalje zavrsni dogadjaj). */
   /* Apsolutna Y pozicija na kojoj sekcija seda ispod lepljivog zaglavlja.
-     Odmak nije zakucan u JS-u — cita se iz scroll-margin-top same sekcije. */
+     Odmak nije zakucan u JS-u - cita se iz scroll-margin-top same sekcije. */
   function landingY(sec) {
     const gap = parseFloat(getComputedStyle(sec).scrollMarginTop) || 0;
     return Math.max(0, sec.getBoundingClientRect().top + window.scrollY - gap);
@@ -602,7 +602,7 @@ const pdDevice = () => {
 
   if (deepLink) {
     /* Bez ovoga pregledac po povratku na istu adresu VRACA staru poziciju skrola
-       i to se desi POSLE naseg skrola — stranica zavrsi na pogresnom mestu. */
+       i to se desi POSLE naseg skrola - stranica zavrsi na pogresnom mestu. */
     try { history.scrollRestoration = 'manual'; } catch (e) {}
     window.scrollTo(0, 0);
   }
@@ -668,7 +668,7 @@ const pdDevice = () => {
   const CHIP_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
   // Čipovi se usklađuju (ne brišu se svi odjednom): postojeći ostaju, novi ulaze
-  // fade+scale, uklonjeni izlaze fade+scale — da prelaz ne bude ispresecan.
+  // fade+scale, uklonjeni izlaze fade+scale - da prelaz ne bude ispresecan.
   function renderChips() {
     const want = ['brand', 'type'].filter(g => state[g] !== 'all');
     let lbl = chipsWrap.querySelector('.pf-chips-lbl');
@@ -732,7 +732,7 @@ const pdDevice = () => {
       return;
     }
 
-    // FIRST — pozicije trenutno vidljivih
+    // FIRST - pozicije trenutno vidljivih
     const first = new Map();
     cards.forEach(c => { if (!c.hidden) first.set(c, c.getBoundingClientRect()); });
     const gridRect = grid.getBoundingClientRect();
@@ -755,11 +755,11 @@ const pdDevice = () => {
     const entering = [];
     cards.forEach(c => { if (c.hidden && cardOk(c)) { c.hidden = false; c.classList.add('pf-in-pre'); entering.push(c); } });
 
-    // LAST — nove pozicije vidljivih (izlazeće su apsolutne, van računa)
+    // LAST - nove pozicije vidljivih (izlazeće su apsolutne, van računa)
     const stay = cards.filter(c => cardOk(c) && !c.classList.contains('pf-abs'));
     const last = new Map(stay.map(c => [c, c.getBoundingClientRect()]));
 
-    // INVERT — kartice koje ostaju pomeramo na staru poziciju (bez tranzicije)
+    // INVERT - kartice koje ostaju pomeramo na staru poziciju (bez tranzicije)
     const moving = [];
     stay.forEach(c => {
       if (first.has(c)) {
@@ -773,10 +773,10 @@ const pdDevice = () => {
       }
     });
 
-    // FLUSH — sinhrono „komituj" početno stanje (ne zavisi od rAF/vidljivosti taba)
+    // FLUSH - sinhrono „komituj" početno stanje (ne zavisi od rAF/vidljivosti taba)
     void grid.offsetWidth;
 
-    // PLAY — pokreni sve tranzicije istovremeno
+    // PLAY - pokreni sve tranzicije istovremeno
     leaving.forEach(c => {
       c.classList.add('pf-out');                  // fade+scale out
       const tm = setTimeout(() => finish(), 460);
@@ -875,7 +875,7 @@ const pdDevice = () => {
   document.addEventListener('langchange', apply);
 
   /* Dolazak sa druge stranice (?brand= / ?type=): skok tek kad se strana ucita
-     (slike i fontovi pomeraju visinu), a ako je otvorena provera godina — posle potvrde. */
+     (slike i fontovi pomeraju visinu), a ako je otvorena provera godina - posle potvrde. */
   if ((qb && qb !== 'all') || (qt && qt !== 'all')) {
     const go = () => setTimeout(scrollToProds, 60);
     const whenLoaded = () => (document.readyState === 'complete' ? go() : window.addEventListener('load', go, { once: true }));
@@ -885,5 +885,5 @@ const pdDevice = () => {
 })();
 
 /* ---------- Lokacije (lokacije.html) ----------
-   Preseljeno u lokacije.js — MapTiler SDK je ESM, pa taj deo mora
+   Preseljeno u lokacije.js - MapTiler SDK je ESM, pa taj deo mora
    da se ucitava kao <script type="module">. ---------- */

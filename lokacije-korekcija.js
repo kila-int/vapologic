@@ -15,7 +15,7 @@ let locs = [], base = {}, edits = {}, filter = 'approx', query = '', cur = null,
 
 const store = {
   load() { try { return JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) { return {}; } },
-  save() { try { localStorage.setItem(LS, JSON.stringify(edits)); } catch (e) { toast('Pregledač ne dozvoljava čuvanje — preuzmi fajl pre zatvaranja!'); } },
+  save() { try { localStorage.setItem(LS, JSON.stringify(edits)); } catch (e) { toast('Pregledač ne dozvoljava čuvanje - preuzmi fajl pre zatvaranja!'); } },
   sentTs() { try { return +localStorage.getItem(LS_SENT) || 0; } catch (e) { return 0; } },
   markSent() { try { localStorage.setItem(LS_SENT, String(Date.now())); } catch (e) {} },
 };
@@ -27,7 +27,7 @@ const label = (l) => l.name || TYPE[l.typeKey] || 'Prodajno mesto';
 const fix = (l) => edits[l.id] || base[l.id] || null;
 const pos = (l) => fix(l) || l;
 const status = (l) => edits[l.id] ? 'local' : base[l.id] ? 'done' : l.approx ? 'approx' : '';
-const STATUS_TXT = { local: 'Ispravljeno (nije poslato)', done: 'Ispravljeno ranije', approx: 'Približno — proveri', '': 'Po adresi' };
+const STATUS_TXT = { local: 'Ispravljeno (nije poslato)', done: 'Ispravljeno ranije', approx: 'Približno - proveri', '': 'Po adresi' };
 
 let toastT;
 function toast(msg) {
@@ -50,7 +50,7 @@ map.on('load', () => {
       const tf = map.getLayoutProperty(l.id, 'text-field');
       if (tf && JSON.stringify(tf).includes('name')) map.setLayoutProperty(l.id, 'text-field', SR);
     });
-  } catch (e) { /* stil je MapTiler-ov, struktura moze da se promeni — alat radi i bez ovoga */ }
+  } catch (e) { /* stil je MapTiler-ov, struktura moze da se promeni - alat radi i bez ovoga */ }
 });
 
 const pin = new maptilersdk.Marker({ color: '#ff4d9d', draggable: true });
@@ -114,7 +114,7 @@ function renderCard() {
   card.hidden = false;
   const s = pending ? 'local' : status(cur);
   $('kxStatus').className = 'kx-chip ' + s;
-  $('kxStatus').textContent = pending ? 'Pomereno — klikni Sačuvaj' : STATUS_TXT[s];
+  $('kxStatus').textContent = pending ? 'Pomereno - klikni Sačuvaj' : STATUS_TXT[s];
   $('kxName').textContent = `${label(cur)} · ${TYPE[cur.typeKey] && cur.name ? TYPE[cur.typeKey] : cur.city}`;
   $('kxAddr').textContent = cur.addr;
   const p = pending || pos(cur);
@@ -170,7 +170,7 @@ $('kxSave').onclick = () => {
   commit({ lat: +p.lat.toFixed(6), lng: +p.lng.toFixed(6) });
   toast('Sačuvano');
 };
-$('kxOk').onclick = () => {   // pin je vec dobar — samo potvrdi (skida oznaku „priblizno")
+$('kxOk').onclick = () => {   // pin je vec dobar - samo potvrdi (skida oznaku „priblizno")
   const p = pos(cur);
   commit({ lat: p.lat, lng: p.lng, ok: true });
   toast('Potvrđeno kao tačno');
@@ -195,7 +195,7 @@ $('kxSearch').addEventListener('input', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  // Na fokusiranom dugmetu/linku Enter vec okida njihov klik — inace bi se sacuvalo DVA puta
+  // Na fokusiranom dugmetu/linku Enter vec okida njihov klik - inace bi se sacuvalo DVA puta
   // i jedna lokacija bi bila preskocena bez pregleda.
   const el = e.target instanceof Element ? e.target : null;
   if ((el && el.closest('input, textarea, select, button, a, label')) || !cur || e.ctrlKey || e.metaKey || e.altKey) return;
@@ -217,7 +217,7 @@ $('kxExport').onclick = () => {
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   store.markSent(); renderCounts();
-  toast(`Preuzeto: ${Object.keys(all).length} ispravki — pošalji fajl`);
+  toast(`Preuzeto: ${Object.keys(all).length} ispravki - pošalji fajl`);
 };
 $('kxImport').onchange = async (e) => {
   const f = e.target.files[0]; e.target.value = '';

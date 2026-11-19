@@ -40,7 +40,7 @@ for slug, (web, mob, folder, up) in DEV.items():
     keep(S(web), f'{folder}/{up}-web.jpg')
     keep(S(mob), f'{folder}/{up}-mob.jpg')
 
-# 2. ukusi sa vocem (EB1000, BM1000) — slug = ime fajla malim slovima
+# 2. ukusi sa vocem (EB1000, BM1000) - slug = ime fajla malim slovima
 for dev, sub, folder in (('eb1000', 'EB1000 Sa vocem i pozadinom', 'Slike/Elfbar 1000 Ukusi'),
                          ('bm1000', 'BM1000 Sa vocem i pozadinom', 'Slike/BM1000 Ukusi')):
     d = S(sub, sub)

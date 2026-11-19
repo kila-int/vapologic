@@ -1,7 +1,7 @@
-/* ===== Vapologic — stranica lokacija (mapa, pretraga, geolokacija) =====
+/* ===== Vapologic - stranica lokacija (mapa, pretraga, geolokacija) =====
    ESM modul: @maptiler/sdk se isporučuje samo kao ESM, pa ovaj deo ne može
    da živi u app.js (klasična skripta). Globali t() i događaj 'langchange'
-   dolaze iz i18n.js / app.js — moduli se izvršavaju posle klasičnih skripti,
+   dolaze iz i18n.js / app.js - moduli se izvršavaju posle klasičnih skripti,
    pa su u trenutku pokretanja već tu.
 
    Zašto SDK a ne goli MapLibre: MapTiler naplaćuje po sesiji SAMO kroz svoj
@@ -12,7 +12,7 @@ import * as maptilersdk from 'https://cdn.jsdelivr.net/npm/@maptiler/sdk@4.1.0/+
 
 const mapEl = document.getElementById('locmap');
 if (mapEl) {
-  const MAPTILER_KEY = 'xCboGTDaRsqFuVgneleh'; // javni client ključ — ograničiti na domen u MapTiler dashboardu
+  const MAPTILER_KEY = 'xCboGTDaRsqFuVgneleh'; // javni client ključ - ograničiti na domen u MapTiler dashboardu
   maptilersdk.config.apiKey = MAPTILER_KEY;
 
   /* Sve sto ide u innerHTML / Popup.setHTML a ne pisemo mi (upit iz polja ili iz
@@ -47,7 +47,7 @@ if (mapEl) {
 
   /* Stil ide kroz SDK referencu (MapStyle.STREETS_V2.DARK === 'streets-v2-dark'),
      NE kroz sirov style.json URL. Sa sirovim URL-om SDK svejedno ubaci svoj interni
-     izvor `maptiler_attribution`, ali mu ne dostavi podatke — taj izvor ostane
+     izvor `maptiler_attribution`, ali mu ne dostavi podatke - taj izvor ostane
      neučitan, style.loaded() nikad ne postane tačno, 'load' se ne okine i mapa
      ostane prazna bez ijedne greške u konzoli. */
   const map = new maptilersdk.Map({
@@ -60,8 +60,8 @@ if (mapEl) {
   // MapLibre gura greske stila/tileova kroz 'error' i inace ih tiho proguta
   map.on('error', (e) => console.warn('[lokacije] map error:', (e && e.error && e.error.message) || e, e && e.error));
 
-  // izdvojene (flagship) lokacije nose svoje ime; ostale se prikazuju kao „tip — grad"
-  const locName = (l) => l.name ? l.name : `${t(l.typeKey)} — ${l.city}`;
+  // izdvojene (flagship) lokacije nose svoje ime; ostale se prikazuju kao „tip - grad"
+  const locName = (l) => l.name ? l.name : `${t(l.typeKey)} - ${l.city}`;
 
   const R = 6371, rad = (d) => d * Math.PI / 180;
   const haversine = (a, b, c, d) => {
@@ -101,7 +101,7 @@ if (mapEl) {
       replayPending();
     })
     .catch(e => {
-      console.warn('[lokacije] lokacije-podaci.json nije učitan —', e);
+      console.warn('[lokacije] lokacije-podaci.json nije učitan -', e);
       resultsEl.innerHTML = `<div class="locempty">${t('loc.data_failed')}</div>`;
     });
 
@@ -119,7 +119,7 @@ if (mapEl) {
           map.setFilter(l.id, cur ? ['all', cur, excl] : excl);
         }
       });
-    } catch (e) { console.warn('[lokacije] stil: kosovski filter nije primenjen —', e); }
+    } catch (e) { console.warn('[lokacije] stil: kosovski filter nije primenjen -', e); }
 
     try {
       // Nazivi SAMO latinica: srpska latinica -> latinizovano -> lokalno (bez ćirilice).
@@ -128,17 +128,17 @@ if (mapEl) {
       map.getStyle().layers.forEach(l => {
         if (l.type !== 'symbol') return;
         const tf = map.getLayoutProperty(l.id, 'text-field');
-        // preskoci oznake puteva/kucnih brojeva (ref, housenumber) — menjamo samo natpise sa imenom
+        // preskoci oznake puteva/kucnih brojeva (ref, housenumber) - menjamo samo natpise sa imenom
         if (!tf || !JSON.stringify(tf).includes('name')) return;
         map.setLayoutProperty(l.id, 'text-field', SR);
       });
-    } catch (e) { console.warn('[lokacije] stil: latinizacija natpisa nije primenjena —', e); }
+    } catch (e) { console.warn('[lokacije] stil: latinizacija natpisa nije primenjena -', e); }
 
     map.addSource('radius', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'radius-fill', type: 'fill', source: 'radius', paint: { 'fill-color': '#b14bff', 'fill-opacity': 0.1 } });
     map.addLayer({ id: 'radius-line', type: 'line', source: 'radius', paint: { 'line-color': '#b14bff', 'line-width': 1 } });
 
-    // krug tačnosti geolokacije — odvojen izvor i druga boja od radijusa pretrage,
+    // krug tačnosti geolokacije - odvojen izvor i druga boja od radijusa pretrage,
     // da korisnik vidi ZAŠTO je pin promašen umesto da nagađa
     map.addSource('accuracy', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'accuracy-fill', type: 'fill', source: 'accuracy', paint: { 'fill-color': '#38d6ff', 'fill-opacity': 0.12 } });
@@ -162,7 +162,7 @@ if (mapEl) {
       id: 'points', type: 'circle', source: 'locs', filter: ['!', ['has', 'point_count']],
       paint: { 'circle-color': '#ff4d9d', 'circle-radius': 7, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#fff' },
     });
-    // izabrana lokacija (klik u listi) — deblji beli prsten preko običnog pina
+    // izabrana lokacija (klik u listi) - deblji beli prsten preko običnog pina
     map.addLayer({
       id: 'points-selected', type: 'circle', source: 'locs',
       filter: ['==', ['get', 'id'], -1],
@@ -209,7 +209,7 @@ if (mapEl) {
     }
   };
 
-  // poslednja pretraga — da je ponovimo na promenu jezika i da znamo odakle merimo
+  // poslednja pretraga - da je ponovimo na promenu jezika i da znamo odakle merimo
   let lastSearch = null;
 
   /* Lista rezultata je običan DOM i NE sme da zavisi od mape: ako WebGL zakaže,
@@ -217,7 +217,7 @@ if (mapEl) {
      stigne), korisnik i dalje mora da dobije najbliža prodajna mesta. Mapa se
      osvežava zasebno i, ako još nije spremna, ponavlja se na 'load'. */
   // pretraga u URL-u: rezultat je deljiv linkom i „nazad" radi kako korisnik očekuje.
-  // Geolokaciju NE upisujemo — tuđe koordinate u deljenom linku nisu u redu.
+  // Geolokaciju NE upisujemo - tuđe koordinate u deljenom linku nisu u redu.
   function syncUrl(lat, lng, label, fromGeo) {
     try {
       const u = new URL(location.href);
@@ -330,7 +330,7 @@ if (mapEl) {
 
     if (!near.length) { map.easeTo({ center: [refLng, refLat], zoom: 8 }); return; }
 
-    // fitBounds preko SVIH rezultata odzumira na pola zemlje kad je radijus 200 km —
+    // fitBounds preko SVIH rezultata odzumira na pola zemlje kad je radijus 200 km -
     // dovoljno je da se vidi referentna tačka i najbližih 10
     const b = new maptilersdk.LngLatBounds([refLng, refLat], [refLng, refLat]);
     near.slice(0, 10).forEach(l => b.extend([l.lng, l.lat]));
@@ -338,7 +338,7 @@ if (mapEl) {
   }
 
   /* ---- Geokoder (MapTiler SDK) ----
-     Pretraga radi po ULICI, gradu i adresi — ne zavisi od naše test baze.
+     Pretraga radi po ULICI, gradu i adresi - ne zavisi od naše test baze.
      Imena iz OSM-a dolaze ćirilicom, pa ih prevodimo u latinicu. */
   const CYR = {
     'А':'A','Б':'B','В':'V','Г':'G','Д':'D','Ђ':'Đ','Е':'E','Ж':'Ž','З':'Z','И':'I','Ј':'J','К':'K',
@@ -374,7 +374,7 @@ if (mapEl) {
       const res = await maptilersdk.geocoding.reverse([ln, la], { language: ['sr'] });
       const feats = (res.features || []).slice();
       if (!feats.length) return null;
-      // najspecifičniji rezultat, ne slepo features[0] — inače dobijemo „Srbija" umesto ulice
+      // najspecifičniji rezultat, ne slepo features[0] - inače dobijemo „Srbija" umesto ulice
       feats.sort((a, b) => {
         const ra = REV_RANK[(a.place_type || [])[0]] ?? 9;
         const rb = REV_RANK[(b.place_type || [])[0]] ?? 9;
@@ -486,7 +486,7 @@ if (mapEl) {
     abort = new AbortController();
     try {
       const hits = await geocode(q);
-      if (my !== seq) return;                 // stigao odgovor starije pretrage — odbaci ga
+      if (my !== seq) return;                 // stigao odgovor starije pretrage - odbaci ga
       cache.set(key, hits);
       renderSug(hits);
     } catch (e) {
@@ -605,10 +605,10 @@ if (mapEl) {
       input.focus(); return;
     }
     // zakazani autocomplete bi inace stigao posle submita, podigao `seq`
-    // i odbacio rezultat ove pretrage — pa lista nikad ne bi bila iscrtana
+    // i odbacio rezultat ove pretrage - pa lista nikad ne bi bila iscrtana
     clearTimeout(debounce);
     closeSug();
-    // tačno ime grada rešavamo lokalno — bez mrežnog poziva i bez lažne dvosmislenosti
+    // tačno ime grada rešavamo lokalno - bez mrežnog poziva i bez lažne dvosmislenosti
     const city = exactCity(q);
     if (city) { pickHit(city); return; }
 
@@ -656,13 +656,13 @@ if (mapEl) {
 
   function onFix(pos) {
     const { latitude, longitude, accuracy } = pos.coords;
-    // prihvati samo ako je bolji od prethodnog — inače lista poskakuje bez razloga
+    // prihvati samo ako je bolji od prethodnog - inače lista poskakuje bez razloga
     if (accuracy >= bestAcc) return;
     bestAcc = accuracy;
 
     setChip(t('loc.your_location_chip', { m: Math.round(accuracy) }));
     reverseGeocode(latitude, longitude).then(addr => {
-      // nikad ne ostavljaj polje prazno — koordinate su bolje nego ništa
+      // nikad ne ostavljaj polje prazno - koordinate su bolje nego ništa
       input.value = addr || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
       if (clearBtn) clearBtn.hidden = false;
       search(latitude, longitude, addr || t('loc.my_location'), accuracy);
@@ -686,14 +686,14 @@ if (mapEl) {
         stopWatch();
         // istekло vreme sa visokom preciznošću -> jedan pokušaj sa mrežnom lokacijom
         if (err.code === 3 && highAccuracy) { locateMe(false); return; }
-        // NIKAD ne podmetati neku drugu lokaciju kao korisnikovu — reci šta je pošlo naopako
+        // NIKAD ne podmetati neku drugu lokaciju kao korisnikovu - reci šta je pošlo naopako
         geoFail(err.code === 1 ? 'loc.geo_denied' : 'loc.geo_failed');
       },
       highAccuracy
         ? { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
         : { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
     );
-    // ne slušaj unedogled — 8 s posle starta je GPS dao šta je imao
+    // ne slušaj unedogled - 8 s posle starta je GPS dao šta je imao
     stopTimer = setTimeout(stopWatch, 12000 + 8000);
   }
 
@@ -721,7 +721,7 @@ if (mapEl) {
   (function geoPreprompt() {
     const card = document.getElementById('geoPrompt');
     if (!card || !navigator.geolocation) return;
-    if (fromUrl) return;   // korisnik je došao na konkretnu pretragu — ne preusmeravaj ga
+    if (fromUrl) return;   // korisnik je došao na konkretnu pretragu - ne preusmeravaj ga
     const hide = () => { card.hidden = true; };
     document.getElementById('geoAllow').onclick = () => { hide(); locateMe(); };
     document.getElementById('geoLater').onclick = () => { hide(); try { sessionStorage.setItem('vpl_geo_later', '1'); } catch (e) {} };
@@ -743,7 +743,7 @@ if (mapEl) {
     locateMe();
   });
 
-  // lista je izgrađena kroz t() — na promenu jezika je treba ponovo složiti
+  // lista je izgrađena kroz t() - na promenu jezika je treba ponovo složiti
   document.addEventListener('langchange', () => {
     if (lastSearch) search(lastSearch[0], lastSearch[1], lastSearch[2], lastSearch[3]);
   });

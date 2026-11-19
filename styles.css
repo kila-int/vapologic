@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* ============================================================
-   VAPOLOGIC — zajednički stilovi (index / proizvod / blog / lokacije)
+   VAPOLOGIC - zajednički stilovi (index / proizvod / blog / lokacije)
    Paleta: ElfBar = cyan, Lost Mary = magenta, violet spona.
    Font: Satoshi (sve), JetBrains Mono (brojevi/oznake).
    ============================================================ */
@@ -70,13 +70,13 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rg
 .nav .center a:hover::before{opacity:1}
 .drop{position:relative}
 .drop>a{display:inline-flex;align-items:center}
-/* roditelj dropdowna nije link — samo stavke unutar njega */
+/* roditelj dropdowna nije link - samo stavke unutar njega */
 .nav .center .drop-label{display:inline-flex;align-items:center;padding:10px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px;font-family:inherit;background:transparent;border:0;cursor:default;transition:color .2s}
 .drop:hover .drop-label,.drop:focus-within .drop-label{color:var(--ink)}
 .drop .menu{position:absolute;top:100%;left:0;min-width:150px;background:var(--bg-3);border:1px solid var(--hair);border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:.18s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.5)}
 .drop:hover .menu,.drop:focus-within .menu{opacity:1;visibility:visible;transform:none}
 .drop .menu a{display:block;position:relative;isolation:isolate;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--muted);transition:color .2s var(--ease)}
-/* bez promene font-weighta na hover — tekst bi „poskočio"; candy pozadina se fade-uje */
+/* bez promene font-weighta na hover - tekst bi „poskočio"; candy pozadina se fade-uje */
 .drop .menu a::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--candy);opacity:0;transition:opacity .22s var(--ease);z-index:-1}
 .drop .menu a:hover{color:#160a1c}
 .drop .menu a:hover::before{opacity:1}
@@ -126,7 +126,7 @@ body.nav-open .nav-toggle .bars::after{top:0;transform:rotate(-45deg)}
   .nav-menu .drop{width:100%}
   .nav-menu .drop .drop-label{display:flex;width:100%;justify-content:space-between;align-items:center;cursor:pointer}
   .nav-menu .drop .caret{width:9px;height:9px;transition:transform .25s var(--ease)}
-  /* .caret je vec rotiran 45deg (strelica nadole) — 225deg je okrece nagore */
+  /* .caret je vec rotiran 45deg (strelica nadole) - 225deg je okrece nagore */
   .nav-menu .drop.open .caret{transform:rotate(225deg)}
   /* accordion: zatvoren po defaultu, otvara se na klik */
   .nav-menu .drop .menu{position:static;opacity:1;visibility:visible;transform:none;background:transparent;
@@ -168,25 +168,25 @@ section{padding:72px 0}
 /* Pozadina NE putuje sa slajdom: stoji u zasebnom steku iza trake i samo se
    pretapa, dok tekst i slika i dalje ulaze sa strane. Probano je i da se ceo
    slajd pretapa, ali slike imaju svoju pozadinu pa im se platno vidi tokom
-   prelaza — zato sadrzaj klizi, a pretapa se samo boja.
+   prelaza - zato sadrzaj klizi, a pretapa se samo boja.
    Slojeve pravi app.js iz klasa .s1../.s4 ispod. */
 .slide-bgs{position:absolute;inset:0;z-index:0}
 .slide-bg{position:absolute;inset:0;transition:opacity var(--hero-bg-fade) var(--ease)}
 /* Boja svakog slajda = boja pozadine SA SLIKE tog slajda, pa slika nema vidljivu
-   ivicu — stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
+   ivicu - stapa se sa slajdom. Vrednosti su ocitane iz samih fajlova: ta boja
    pokriva 99-100% oboda i ista je u -web i -mob varijanti.
    Ako se slika zameni, ocitaj novu boju ivice i promeni je ovde.
    Namerno bez gradijenta: svaki sjaj oko slike bi vratio vidljiv sav. */
-.slide-bg.s1{background:#102230}   /* EB1000 — tamno tirkizno plava */
-.slide-bg.s2{background:#34202c}   /* BM1000 — tamno sljivasta */
-.slide-bg.s3{background:#1b1e36}   /* EB6000 — tamno indigo */
+.slide-bg.s1{background:#102230}   /* EB1000 - tamno tirkizno plava */
+.slide-bg.s2{background:#34202c}   /* BM1000 - tamno sljivasta */
+.slide-bg.s3{background:#1b1e36}   /* EB6000 - tamno indigo */
 .slide-bg.s4{background:radial-gradient(760px 520px at 24% 42%,rgba(177,75,255,.34),transparent 60%),linear-gradient(120deg,#1a1230,#0c0b14)}
 .slide-txt{flex:1 1 auto;min-width:0;max-width:60ch;z-index:2;display:flex;flex-direction:column;align-items:flex-start}
 .slide .pill{margin-bottom:8px}
 .slide h2{font-size:clamp(30px,5.6vw,58px);letter-spacing:-.015em}
 .slide .sub{margin-top:14px;color:#e6e2f2;font-weight:500;font-size:clamp(15px,2.1vw,21px)}
 .slide .btn{margin-top:34px}
-/* PRAVILO: slika UVEK zauzima pola slajda po sirini — aspect-ratio se menja, 50% ne.
+/* PRAVILO: slika UVEK zauzima pola slajda po sirini - aspect-ratio se menja, 50% ne.
    Visina se racuna iz sirine (4:3). */
 .ghost-prod{flex:0 0 calc(50% - var(--slide-gap) / 2);align-self:center;aspect-ratio:4/3;height:auto;min-height:200px;border-radius:24px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,rgba(255,255,255,.05) 12px 24px);border:1px dashed var(--hair-2);display:grid;place-items:center;color:var(--muted-2);font-family:var(--sans);font-size:11px;text-align:center;letter-spacing:.06em;padding:12px}
 /* Sa pravom fotografijom: nestaje isprekidani placeholder ram i sraf-pozadina,
@@ -198,7 +198,7 @@ section{padding:72px 0}
    sledeca sekcija tek malo izviruje (--peek). Mere (izmereno u browseru):
    header 73px (72 + hairline), .hero padding 28+8, .mq = 34 margine + 70 visine.
    Traka .mq je izbačena, ali --mq-block namerno ostaje: visina slajdera se ne menja.
-   Samo od tableta navise — ispod 720px je slajd stakovan pa bi 100dvh sabio sadrzaj. */
+   Samo od tableta navise - ispod 720px je slajd stakovan pa bi 100dvh sabio sadrzaj. */
 @media(min-width:721px){
   /* --arrow-lane: bocna traka u kojoj sede strelice, van slajda. Hero je za
      toliko uzi od ostalih sekcija, pa strelice nikad ne ulaze u sam slajd. */
@@ -213,7 +213,7 @@ section{padding:72px 0}
   .slide .pill{order:1;margin-bottom:10px}
   .slide h2{order:2}
   .slide .sub{order:3;margin-top:10px}
-  /* na mobilnom slika ide u sredinu kolone, sa svojim odnosom — bez strelica
+  /* na mobilnom slika ide u sredinu kolone, sa svojim odnosom - bez strelica
      ima punu sirinu slajda na raspolaganju */
   /* max-width:none ponistava desktop kapu (46%) koja bi sliku sabila */
   .ghost-prod{order:4;display:grid;flex:0 0 auto;align-self:center;width:min(96%,340px);max-width:none;aspect-ratio:3/4;min-height:0;margin:22px 0 0}
@@ -232,7 +232,7 @@ section{padding:72px 0}
 .arrow{position:absolute;top:calc(50% + 10px);transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:999px;background:var(--surface);border:1px solid var(--hair-2);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s var(--ease),border-color .2s var(--ease)}
 .arrow:hover{background:var(--surface-2);border-color:var(--c2)}
 .arrow.prev{left:var(--gutter)}.arrow.next{right:var(--gutter)}.arrow svg{width:18px;height:18px}
-/* Na mobilnom nema strelica — slika dobija punu sirinu slajda, a slajdovi se
+/* Na mobilnom nema strelica - slika dobija punu sirinu slajda, a slajdovi se
    menjaju prevlacenjem prsta i tackicama. Mora IZA baznog .arrow pravila. */
 @media(max-width:720px){.arrow{display:none}}
 
@@ -354,14 +354,14 @@ section{padding:72px 0}
 .card .go{margin-top:auto}
 
 /* ---------- QUIZ ---------- */
-/* kviz je forma — ostaje kompaktan i kad je grid pun */
+/* kviz je forma - ostaje kompaktan i kad je grid pun */
 .quiz{max-width:1200px;margin-inline:auto;background:linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--hair);border-radius:26px;padding:clamp(24px,4vw,46px);position:relative;overflow:hidden}
 .qbar{display:flex;gap:8px;margin-bottom:28px;position:relative}
 .qbar .seg{height:5px;flex:1;border-radius:999px;background:var(--hair)}
 .qbar .seg.on{background:var(--candy)}
 .qstep{display:none}.qstep.on{display:block;animation:fade .35s var(--ease)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-/* naslov i podnaslov centrirani unutar forme — i na koracima i na rezultatu */
+/* naslov i podnaslov centrirani unutar forme - i na koracima i na rezultatu */
 .qstep h3,.result h3{font-size:clamp(22px,3vw,32px);margin-bottom:6px;text-align:center}
 .qstep .qsub,.result>.lead{color:var(--muted);margin-bottom:24px;text-align:center}
 .result>.lead{margin-inline:auto;max-width:62ch}
@@ -370,7 +370,7 @@ section{padding:72px 0}
 .opts.c5{display:flex;flex-wrap:wrap;justify-content:center}
 .opts.c5 .opt{flex:0 1 168px}
 .opts.c2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px;margin-inline:auto}
-/* na mobilnom uvek 2 kolone — manje skrola do kraja koraka */
+/* na mobilnom uvek 2 kolone - manje skrola do kraja koraka */
 @media(max-width:560px){.opts.c5 .opt{flex:0 1 calc(50% - 6px)}.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.opt{padding:18px 10px;font-size:14px}}
 .opt{cursor:pointer;border:1px solid var(--hair);background:var(--surface);border-radius:16px;padding:22px 12px;text-align:center;transition:.18s var(--ease);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:inherit;font-family:inherit;font-size:15px;min-width:0;overflow-wrap:anywhere;line-height:1.25}
 .opt:hover{border-color:var(--c2);transform:translateY(-3px);background:var(--surface-2)}
@@ -400,7 +400,7 @@ section{padding:72px 0}
 /* ---------- LOCATIONS (home teaser) ---------- */
 .loc{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
 @media(max-width:860px){.loc{grid-template-columns:1fr}}
-/* Mapa je slika klijenta (ne vise SVG silueta): odnos kutije prati odnos fajla —
+/* Mapa je slika klijenta (ne vise SVG silueta): odnos kutije prati odnos fajla -
    4:3 pejzazno na desktopu, 3:4 uspravno ispod 720px, tamo gde <picture>
    menja izvor. Zato `cover` nista ne isece. */
 .mapbox{position:relative;display:block;background:var(--bg-2);border:1px solid var(--hair);
@@ -578,11 +578,11 @@ main:has(.pack)+footer{margin-top:0}
 .opt.has-vis[data-vis-lang="*"] .olbl,
 html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
   position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-/* kad je labela sakrivena, sama slika je sadrzaj — bez praznog repa ispod */
+/* kad je labela sakrivena, sama slika je sadrzaj - bez praznog repa ispod */
 .opt.has-vis{position:relative}
 
 /* ---------- STRANICA PROIZVODA: kljucni vizual ----------
-   Pejzazni (-web, 4:3) na desktopu, uspravni (-mob, 3:4) na telefonu — zato se
+   Pejzazni (-web, 4:3) na desktopu, uspravni (-mob, 3:4) na telefonu - zato se
    i odnos kutije menja na istom pragu na kom <picture> menja izvor. */
 /* bez okvira i zaobljenja: slika je cela sirina kolone, a visinu daje njen odnos strana */
 .pd-hero{display:block}
@@ -597,7 +597,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .color{margin:0;background:var(--surface);border:1px solid var(--hair);border-radius:18px;overflow:hidden;
   transition:border-color .3s var(--ease),transform .3s var(--ease)}
 .color:hover{border-color:var(--c3);transform:translateY(-4px)}
-/* height:auto je obavezan — bez njega HTML atribut height="700" pobedjuje
+/* height:auto je obavezan - bez njega HTML atribut height="700" pobedjuje
    aspect-ratio i kartica boje ispadne 700px visoka. */
 .color img{width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;display:block;padding:10px;box-sizing:border-box;
   background:radial-gradient(circle at 50% 34%,rgba(56,214,255,.16),transparent 64%)}
@@ -617,7 +617,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .art-share{max-width:var(--prose);margin:12px auto 0;padding:20px 22px;border-top:1px solid var(--hair);display:flex;gap:12px;align-items:center;color:var(--muted);font-size:14px;flex-wrap:wrap}
 .art-more{border-top:1px solid var(--hair);margin-top:34px}
 
-/* ============ LEGAL PAGE (politika privatnosti) — nadogradnja na .art-* ============ */
+/* ============ LEGAL PAGE (politika privatnosti) - nadogradnja na .art-* ============ */
 .legal .art-body{padding-bottom:40px}
 .legal .art-body p,.legal .art-body li,.legal .art-body dd{font-size:16.5px;line-height:1.72}
 .legal .art-body p{margin-bottom:16px}
@@ -671,7 +671,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .loc-clear:hover{color:var(--ink)}
 .loc-clear svg{width:15px;height:15px}
 .loc-clear[hidden]{display:none}
-/* predlozi geokodera — iznad mape, pa treba z-index */
+/* predlozi geokodera - iznad mape, pa treba z-index */
 .loc-suggest{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;margin:0;padding:6px;list-style:none;
   max-height:260px;overflow:auto;background:var(--bg-3);border:1px solid var(--hair);border-radius:14px;
   box-shadow:0 18px 40px rgba(0,0,0,.55);scrollbar-width:thin;scrollbar-color:var(--hair-2) transparent}
@@ -715,7 +715,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .locresults::-webkit-scrollbar-thumb:hover{background:var(--c2)}
 .locitem{border:1px solid var(--hair);background:var(--surface);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.2s var(--ease)}
 .locitem:hover{border-color:var(--c3);background:var(--surface-2)}
-/* izabrana stavka ostaje obeležena — inače se ne vidi koji pin je otvoren na mapi */
+/* izabrana stavka ostaje obeležena - inače se ne vidi koji pin je otvoren na mapi */
 .locitem.is-sel{border-color:var(--c1);background:var(--surface-2);box-shadow:0 0 0 1px var(--c1) inset}
 /* izdvojena (flagship) prodavnica: tintovana kartica + tag */
 .locitem.is-featured{background:var(--candy-soft);border-color:var(--hair-2)}
@@ -729,7 +729,7 @@ html[lang="sr"] .opt.has-vis[data-vis-lang="sr"] .olbl{
 .locitem .dirlink{display:inline-block;margin-top:8px;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--hair-2);padding-bottom:1px;transition:.2s var(--ease)}
 .locitem .dirlink:hover{color:var(--c3);border-color:var(--c3)}
-/* dugme koje izgleda kao link — u upozorenju o nepreciznoj lokaciji */
+/* dugme koje izgleda kao link - u upozorenju o nepreciznoj lokaciji */
 .linklike{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline}
 .locempty{color:var(--muted-2);font-size:14px;padding:16px 0}
 .locmore{margin-top:2px;width:100%}
