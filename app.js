@@ -221,7 +221,7 @@ document.addEventListener('keydown', (e) => {
 const IMG = 'Slike/web';
 const flavorImg = (dev, s) => `${IMG}/${dev.toLowerCase()}/${s}.avif`;
 /* vizuali uredjaja su WebP: AVIF enkoder pomera tamnu pozadinu (ne stapa se sa sajtom) */
-const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp?v=3`;   // ?v= podici kad se slike zamene
+const deviceImg = (dev, v) => `${IMG}/uredjaj/${dev.toLowerCase()}-${v}.webp?v=4`;   // ?v= podici kad se slike zamene
 const packImg   = (dev)    => `${IMG}/pakovanje/${dev.toLowerCase()}.avif`;
 
 const PRODUCTS = {
